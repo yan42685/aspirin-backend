@@ -7,7 +7,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.http.converter.json.Jackson2ObjectMapperBuilder;
 
 /**
- * 解决 JS 中 Long 的精度丢失问题
+ * 解决 JS 接收 Long 数据时的精度丢失问题
  *
  * @author alex
  */

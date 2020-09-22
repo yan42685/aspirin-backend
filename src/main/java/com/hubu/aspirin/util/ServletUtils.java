@@ -7,11 +7,10 @@ import javax.servlet.http.HttpServletRequest;
 
 /**
  * @author alex
- **/
+ */
 public class ServletUtils {
 
     public static ServletRequestAttributes getRequestAttributes() {
-
         return (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
     }
 

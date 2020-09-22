@@ -17,7 +17,7 @@ import javax.validation.constraints.NotBlank;
  * @author alex
  */
 @Api(tags = "测试API")
-@RequestMapping("api")
+@RequestMapping("api/test")
 @RestController
 @Validated
 public class TestController {

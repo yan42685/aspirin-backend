@@ -16,7 +16,11 @@ import org.apache.shiro.subject.Subject;
 
 import javax.servlet.http.HttpServletRequest;
 
-public class AccountUtils {
+/**
+ * 获取当前用户相关信息
+ * @author alex
+ */
+public class UserUtils {
     private static AdministratorService administratorService = SpringContextUtils.getBean("administratorServiceImpl",AdministratorService.class);
     private static StudentService studentService  = SpringContextUtils.getBean("studentServiceImpl",StudentService.class);
     private static TeacherService teacherService = SpringContextUtils.getBean("teacherServiceImpl",TeacherService.class);
@@ -26,17 +30,15 @@ public class AccountUtils {
         // 用户已登录或者记住密码，才可获取用户名
         if (subject.isAuthenticated() || subject.isRemembered()){
             String username = (String) subject.getPrincipal();
-            // 获取用户角色
-            HttpServletRequest request = ServletUtils.getRequest();
-            RoleEnum role = RoleEnum.valueOf(request.getHeader("role").toUpperCase());
-            return getUserByUsernameAndRole(username, role);
+            return getByUsername(username);
         } else {
             // 未登录或者未记住密码，抛出未登录异常
             throw new KnownException(ExceptionEnum.NOT_LOGIN);
         }
     }
 
-    public static User getUserByUsernameAndRole(String username, RoleEnum role) {
+    public static User getByUsername(String username) {
+        RoleEnum role = getCurrentRole();
         User user = null;
         switch (role) {
             case ADMINISTRATOR:
@@ -51,5 +53,11 @@ public class AccountUtils {
             default: break;
         }
         return user;
+    }
+    
+    public static RoleEnum getCurrentRole() {
+        // 获取用户角色
+        HttpServletRequest request = ServletUtils.getRequest();
+        return RoleEnum.valueOf(request.getHeader("role").toUpperCase());
     }
 }

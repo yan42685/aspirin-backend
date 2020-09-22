@@ -37,7 +37,7 @@ public class AccountController {
 
     @ApiOperation("获取个人信息")
     @ApiImplicitParam(name = "str", value = "", paramType = "query", dataType = "string")
-    @GetMapping("")
+    @GetMapping("information")
     public JsonWrapper<String> getAccountInfo( String str) {
         return null;
     }
