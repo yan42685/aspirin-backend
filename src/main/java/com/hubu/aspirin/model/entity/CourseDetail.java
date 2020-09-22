@@ -34,6 +34,9 @@ public class CourseDetail implements Serializable {
     @ApiModelProperty(value = "第几节课")
     private Integer schedulingTime;
 
+    @ApiModelProperty(value = "星期几")
+    private Integer dayOfTheWeek;
+
     @ApiModelProperty(value = "教室编号")
     private String classroomNumber;
 
