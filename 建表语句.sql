@@ -186,7 +186,7 @@ CREATE TABLE course_detail
     `teacher_number`   varchar(255) not null comment '教师编号',
     `course_number`    varchar(255) not null comment '课程编号',
     scheduling_time    tinyint      not null comment '第几节课',
-    `classroom_number` varchar(255) not null comment '教室id',
+    `classroom_number` varchar(255) not null comment '教室编号',
     PRIMARY KEY (`id`),
     foreign key (teacher_number) references teacher (number) on update cascade on delete cascade,
     foreign key (course_number) references course (number) on update cascade on delete cascade,
