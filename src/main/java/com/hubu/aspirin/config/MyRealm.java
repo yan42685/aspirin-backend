@@ -3,7 +3,6 @@ package com.hubu.aspirin.config;
 import com.hubu.aspirin.enums.RoleEnum;
 import com.hubu.aspirin.model.entity.User;
 import com.hubu.aspirin.util.UserUtils;
-import com.hubu.aspirin.util.ServletUtils;
 import org.apache.shiro.authc.*;
 import org.apache.shiro.realm.AuthenticatingRealm;
 import org.apache.shiro.util.ByteSource;
