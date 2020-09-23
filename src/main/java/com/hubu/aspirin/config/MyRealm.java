@@ -25,7 +25,8 @@ public class MyRealm extends AuthenticatingRealm {
     protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken token) throws AuthenticationException {
         UsernamePasswordToken userToken = (UsernamePasswordToken) token;
         String username = userToken.getUsername();
-        User user = UserUtils.getByUsername(username);
+        RoleEnum role = UserUtils.getCurrentRole();
+        User user = UserUtils.getByUsernameAndRole(username, role);
 
         if (user == null) {
             return null;

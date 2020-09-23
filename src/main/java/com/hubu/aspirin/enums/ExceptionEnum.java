@@ -23,7 +23,8 @@ public enum ExceptionEnum {
     NO_PERMISSION(-3, "用户没有足够权限"),
     INVALID_PARAM(-4, "参数校验失败"),
     IMAGE_UPLOAD_FAIL(-5, "图片为空或者不是jpg，png，gif格式"),
-    DOWNLOADING_FILE_NOT_EXITS(-6, "要下载的文件不存在");
+    DOWNLOADING_FILE_NOT_EXITS(-6, "要下载的文件不存在"),
+    USERNAME_EXISTS(-7, "用户名已存在");
 
     private int errorCode;
     private String errorMsg;

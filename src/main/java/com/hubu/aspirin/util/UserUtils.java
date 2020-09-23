@@ -30,15 +30,15 @@ public class UserUtils {
         // 用户已登录或者记住密码，才可获取用户名
         if (subject.isAuthenticated() || subject.isRemembered()){
             String username = (String) subject.getPrincipal();
-            return getByUsername(username);
+            RoleEnum role = getCurrentRole();
+            return getByUsernameAndRole(username, role);
         } else {
             // 未登录或者未记住密码，抛出未登录异常
             throw new KnownException(ExceptionEnum.NOT_LOGIN);
         }
     }
 
-    public static User getByUsername(String username) {
-        RoleEnum role = getCurrentRole();
+    public static User getByUsernameAndRole(String username, RoleEnum role) {
         User user = null;
         switch (role) {
             case ADMINISTRATOR:
@@ -60,4 +60,5 @@ public class UserUtils {
         HttpServletRequest request = ServletUtils.getRequest();
         return RoleEnum.valueOf(request.getHeader("role").toUpperCase());
     }
+
 }

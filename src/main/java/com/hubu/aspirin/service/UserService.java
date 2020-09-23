@@ -11,4 +11,9 @@ public interface UserService {
      * 登出
      */
     boolean logout();
+
+    /**
+     * 只注册用户名和密码
+     */
+    boolean simpleRegister(String username, String password, String role);
 }

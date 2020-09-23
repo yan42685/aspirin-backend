@@ -1,5 +1,6 @@
 package com.hubu.aspirin;
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.hubu.aspirin.enums.RoleEnum;
 import com.hubu.aspirin.model.entity.Student;
 

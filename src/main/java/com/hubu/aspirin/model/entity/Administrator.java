@@ -18,6 +18,6 @@ public class Administrator extends User implements Serializable {
 
     @ApiModelProperty(value = "工号")
     private String number;
-
-
 }
+
+
