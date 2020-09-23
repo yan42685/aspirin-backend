@@ -8,7 +8,6 @@ import org.apache.shiro.authc.*;
 import org.apache.shiro.realm.AuthenticatingRealm;
 import org.apache.shiro.util.ByteSource;
 
-import javax.servlet.http.HttpServletRequest;
 
 /**
  * @author alex
