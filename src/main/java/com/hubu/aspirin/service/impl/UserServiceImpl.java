@@ -46,17 +46,18 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public boolean simpleRegister(String username, String password, String role) {
-        RoleEnum roleEnum = RoleEnum.valueOf(role.toUpperCase());
+    public boolean simpleRegister(String username, String password) {
+        RoleEnum role = UserUtils.getCurrentRole();
+
         // 如果用户名已存在
-        if (UserUtils.getByUsernameAndRole(username, roleEnum) != null) {
+        if (UserUtils.getByUsernameAndRole(username, role) != null) {
             throw new KnownException(ExceptionEnum.USERNAME_EXISTS);
         }
         // 进行Sha256加密,用户名作为盐，并转为16进制
         Sha256Hash sha256Hash = new Sha256Hash(password, username, 1024);
         password = sha256Hash.toHex();
 
-        switch (roleEnum) {
+        switch (role) {
             case ADMINISTRATOR:
                 Administrator administrator = new Administrator();
                 administrator.setUsername(username).setPassword(password);

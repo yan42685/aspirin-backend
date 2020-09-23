@@ -24,23 +24,17 @@ public class AccountController {
     AdministratorService administratorService;
 
     @ApiOperation(value = "只注册用户名密码")
+    @ApiImplicitParam(name = "role", paramType = "header", value = "角色", dataType = "string")
     @GetMapping("simpleRegister")
-    public JsonWrapper<Boolean> simpleRegister(String username, String password, String role) {
-        return new JsonWrapper<>(userService.simpleRegister(username, password, role));
-
+    public JsonWrapper<Boolean> simpleRegister(String username, String password) {
+        return new JsonWrapper<>(userService.simpleRegister(username, password));
     }
-    @ApiOperation(value = "测试mybatis")
-    @GetMapping("test")
-    public JsonWrapper<Administrator> getAdmin() {
-        return new JsonWrapper<>(administratorService.getById(1));
-    }
-
 
     @ApiOperation(value = "用户登录", notes = "role参数需要在header里")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "username", value = "用户名", dataType = "string"),
             @ApiImplicitParam(name = "password", value = "密码", dataType = "string"),
-            @ApiImplicitParam(name = "role", value = "角色", dataType = "string")
+            @ApiImplicitParam(name = "role", paramType = "header", value = "角色", dataType = "string")
     })
     @GetMapping("login")
     public JsonWrapper<Boolean> login(String username, String password) {

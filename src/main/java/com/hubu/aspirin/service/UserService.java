@@ -15,5 +15,5 @@ public interface UserService {
     /**
      * 只注册用户名和密码
      */
-    boolean simpleRegister(String username, String password, String role);
+    boolean simpleRegister(String username, String password);
 }

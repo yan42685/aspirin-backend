@@ -46,7 +46,7 @@ public class UnifiedExceptionHandler {
     public JsonWrapper<String> handleKnownException(KnownException e, HttpServletRequest request) {
         String stackTrack = Arrays.toString(e.getStackTrace());
         log.error("url: {}    msg: {}", request.getRequestURL(), e.getMessage() + stackTrack);
-        return new JsonWrapper<>(e.getErrorCode(), "已知异常: " + e.getMessage());
+        return new JsonWrapper<>(e.getErrorCode(), e.getMessage());
     }
 
     /**
