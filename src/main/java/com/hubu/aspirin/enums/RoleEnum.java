@@ -10,9 +10,11 @@ import lombok.Getter;
 @AllArgsConstructor
 public enum RoleEnum {
      // 管理员
-    ADMINISTRATOR,
+    ADMINISTRATOR("管理员"),
     // 老师
-    TEACHER,
+    TEACHER("老师"),
     // 学生
-    STUDENT
+    STUDENT("老师");
+
+    private String name;
 }

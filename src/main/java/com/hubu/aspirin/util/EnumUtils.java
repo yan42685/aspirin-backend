@@ -1,0 +1,12 @@
+package com.hubu.aspirin.util;
+
+import cn.hutool.core.util.EnumUtil;
+
+public class EnumUtils {
+    /**
+     * 根据ordinal获取枚举值的字段
+     */
+    public static String getFieldByOrdinal(Class<? extends Enum<?>> enumClass, int ordinal, String fieldName) {
+        return (String) EnumUtil.getFieldValues(enumClass, fieldName).get(ordinal);
+    }
+}

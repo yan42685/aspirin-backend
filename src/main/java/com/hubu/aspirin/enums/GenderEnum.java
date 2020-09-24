@@ -8,9 +8,11 @@ import org.omg.CORBA.UNKNOWN;
 @AllArgsConstructor
 public enum GenderEnum {
     // 未知
-    UNKNOWN,
+    UNKNOWN("未知"),
     // 男
-    MALE,
+    MALE("男"),
     // 女
-    FEMALE,
+    FEMALE("女");
+
+    private String name;
 }

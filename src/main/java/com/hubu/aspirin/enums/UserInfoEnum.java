@@ -11,8 +11,9 @@ import lombok.Getter;
 @AllArgsConstructor
 public enum UserInfoEnum {
     // 昵称
-    NICKNAME,
+    NICKNAME("昵称"),
     // 邮箱
-    EMAIL;
+    EMAIL("邮箱");
 
+    private String name;
 }
