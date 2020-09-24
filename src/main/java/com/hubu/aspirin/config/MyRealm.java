@@ -1,17 +1,23 @@
 package com.hubu.aspirin.config;
 
+import com.hubu.aspirin.common.KnownException;
+import com.hubu.aspirin.enums.ExceptionEnum;
 import com.hubu.aspirin.enums.RoleEnum;
 import com.hubu.aspirin.model.entity.User;
+import com.hubu.aspirin.util.EnumUtils;
 import com.hubu.aspirin.util.UserUtils;
 import org.apache.shiro.authc.*;
-import org.apache.shiro.realm.AuthenticatingRealm;
+import org.apache.shiro.authz.AuthorizationInfo;
+import org.apache.shiro.authz.SimpleAuthorizationInfo;
+import org.apache.shiro.realm.AuthorizingRealm;
+import org.apache.shiro.subject.PrincipalCollection;
 import org.apache.shiro.util.ByteSource;
 
 
 /**
  * @author alex
  */
-public class MyRealm extends AuthenticatingRealm {
+public class MyRealm extends AuthorizingRealm {
     /**
      * 执行认证逻辑
      *
@@ -27,7 +33,7 @@ public class MyRealm extends AuthenticatingRealm {
         User user = UserUtils.getByUsernameAndRole(username, role);
 
         if (user == null) {
-            return null;
+            throw new KnownException(ExceptionEnum.WRONG_CREDENTIALS);
         }
         return new SimpleAuthenticationInfo(
                 user.getUsername(),
@@ -35,5 +41,18 @@ public class MyRealm extends AuthenticatingRealm {
                 // 用用户名当盐
                 ByteSource.Util.bytes(user.getUsername()),
                 this.getName());
+    }
+
+
+    /**
+     * 权限核心配置 根据数据库中的该用户 角色 和 权限
+     */
+    @Override
+    protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals) {
+        SimpleAuthorizationInfo authorizationInfo = new SimpleAuthorizationInfo();
+        User user = (User) principals.getPrimaryPrincipal();
+        String role = EnumUtils.getFieldByOrdinal(RoleEnum.class, "name", user.getRole()).toLowerCase();
+        authorizationInfo.addRole(role);
+        return authorizationInfo;
     }
 }

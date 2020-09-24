@@ -14,7 +14,7 @@ public enum RoleEnum {
     // 老师
     TEACHER("老师"),
     // 学生
-    STUDENT("老师");
+    STUDENT("学生");
 
     private String name;
 }

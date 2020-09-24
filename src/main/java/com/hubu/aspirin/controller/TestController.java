@@ -14,6 +14,7 @@ import javax.validation.constraints.NotBlank;
 
 /**
  * 文档示例
+ *
  * @author alex
  */
 @Api(tags = "测试API")

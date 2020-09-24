@@ -5,6 +5,7 @@ import lombok.Getter;
 
 /**
  * 已知异常枚举
+ *
  * @author alex
  */
 @Getter
@@ -20,11 +21,13 @@ public enum ExceptionEnum {
     UNKNOWN_EXCEPTION(99, "服务器未知异常"),
     NOT_REGISTER(-1, "用户未注册"),
     NOT_LOGIN(-2, "用户未登录"),
-    NO_PERMISSION(-3, "用户没有足够权限"),
+    NO_PERMISSION(-3, "没有足够的权限"),
     INVALID_PARAM(-4, "参数校验失败"),
     IMAGE_UPLOAD_FAIL(-5, "图片为空或者不是jpg，png，gif格式"),
     DOWNLOADING_FILE_NOT_EXITS(-6, "要下载的文件不存在"),
-    USERNAME_EXISTS(-7, "用户名已存在");
+    USERNAME_EXISTS(-7, "用户名已存在"),
+    WRONG_CREDENTIALS(-8, "用户名或密码错误");
+
 
     private int errorCode;
     private String errorMsg;
