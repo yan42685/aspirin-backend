@@ -6,7 +6,7 @@ public class EnumUtils {
     /**
      * 根据ordinal获取枚举值的字段
      */
-    public static String getFieldByOrdinal(Class<? extends Enum<?>> enumClass, int ordinal, String fieldName) {
+    public static String getFieldByOrdinal(Class<? extends Enum<?>> enumClass, String fieldName, int ordinal) {
         return (String) EnumUtil.getFieldValues(enumClass, fieldName).get(ordinal);
     }
 }

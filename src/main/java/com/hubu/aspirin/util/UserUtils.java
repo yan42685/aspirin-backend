@@ -38,6 +38,10 @@ public class UserUtils {
         }
     }
 
+    public static String getCurrentUsername() {
+        return SecurityUtils.getSubject().getPrincipal().toString();
+    }
+
     public static User getByUsernameAndRole(String username, RoleEnum role) {
         User user = null;
         switch (role) {
