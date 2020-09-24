@@ -7,7 +7,6 @@ import org.springframework.stereotype.Component;
 
 
 /**
- * 用于静态注入Bean
  * @author alex
  */
 @Component
@@ -24,6 +23,9 @@ public class SpringContextUtils implements ApplicationContextAware {
         return applicationContext.getBean(name);
     }
 
+    /**
+     * 用于静态注入Bean
+     */
     public static <T> T getBean(String name, Class<T> requiredType) {
         return applicationContext.getBean(name, requiredType);
     }

@@ -1,7 +1,6 @@
 package com.hubu.aspirin.controller;
 
 import com.hubu.aspirin.common.JsonWrapper;
-import com.hubu.aspirin.model.entity.Administrator;
 import com.hubu.aspirin.service.AdministratorService;
 import com.hubu.aspirin.service.UserService;
 import io.swagger.annotations.Api;
@@ -10,7 +9,6 @@ import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -34,11 +32,12 @@ public class AccountController {
     @ApiImplicitParams({
             @ApiImplicitParam(name = "username", value = "用户名", dataType = "string"),
             @ApiImplicitParam(name = "password", value = "密码", dataType = "string"),
+            @ApiImplicitParam(name = "rememberMe", value = "记住我", dataType = "boolean"),
             @ApiImplicitParam(name = "role", paramType = "header", value = "角色", dataType = "string")
     })
     @GetMapping("login")
-    public JsonWrapper<Boolean> login(String username, String password) {
-        return new JsonWrapper<>(userService.login(username, password));
+    public JsonWrapper<Boolean> login(String username, String password, Boolean rememberMe) {
+        return new JsonWrapper<>(userService.login(username, password, rememberMe));
     }
 
     @ApiOperation(value = "用户登出")

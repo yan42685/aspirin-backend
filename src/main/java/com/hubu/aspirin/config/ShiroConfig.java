@@ -2,7 +2,9 @@ package com.hubu.aspirin.config;
 
 import org.apache.shiro.authc.credential.HashedCredentialsMatcher;
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
+import org.apache.shiro.web.mgt.CookieRememberMeManager;
 import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
+import org.apache.shiro.web.servlet.SimpleCookie;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -54,6 +56,7 @@ public class ShiroConfig {
         DefaultWebSecurityManager securityManager = new DefaultWebSecurityManager();
         // 管理自定义realm
         securityManager.setRealm(getRealm());
+        securityManager.setRememberMeManager(cookieRememberMeManager());
         return securityManager;
     }
 
@@ -80,5 +83,34 @@ public class ShiroConfig {
         // 迭代次数
         matcher.setHashIterations(1024);
         return matcher;
+    }
+
+
+    /**
+     * 实现RememberMe功能
+     * 1. 配置Cookie对象
+     * 记住我的cookie：rememberMe
+     *
+     * @return SimpleCookie rememberMeCookie
+     */
+    @Bean
+    public SimpleCookie rememberMeCookie() {
+        SimpleCookie simpleCookie = new SimpleCookie("rememberMe");
+        //simpleCookie.setHttpOnly(true);
+        //单位(秒)1天
+        simpleCookie.setMaxAge(60 * 60 * 24 * 10);
+        return simpleCookie;
+    }
+
+    /**
+     * 2.配置cookie管理对象
+     *
+     * @return CookieRememberMeManager
+     */
+    @Bean
+    public CookieRememberMeManager cookieRememberMeManager() {
+        CookieRememberMeManager cookieRememberMeManager = new CookieRememberMeManager();
+        cookieRememberMeManager.setCookie(rememberMeCookie());
+        return cookieRememberMeManager;
     }
 }

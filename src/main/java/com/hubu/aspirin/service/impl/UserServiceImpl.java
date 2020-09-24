@@ -31,9 +31,9 @@ public class UserServiceImpl implements UserService {
     private TeacherService teacherService;
 
     @Override
-    public boolean login(String username, String password) {
+    public boolean login(String username, String password, Boolean rememberMe) {
         Subject subject = SecurityUtils.getSubject();
-        UsernamePasswordToken token = new UsernamePasswordToken(username, password);
+        UsernamePasswordToken token = new UsernamePasswordToken(username, password, rememberMe);
         subject.login(token);
         return true;
     }

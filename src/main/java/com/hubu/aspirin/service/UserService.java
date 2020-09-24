@@ -5,7 +5,7 @@ public interface UserService {
     /**
      * 登录
      */
-    boolean login(String username, String password);
+    boolean login(String username, String password, Boolean rememberMe);
 
     /**
      * 登出
