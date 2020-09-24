@@ -26,6 +26,7 @@ class UserServiceImplTest {
 
     @Test
     void simpleRegister() {
+        Assertions.assertEquals(3, 3);
     }
 }
     
