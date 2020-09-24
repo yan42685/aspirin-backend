@@ -1,10 +1,10 @@
 package com.hubu.aspirin.config;
 
+import cn.hutool.core.util.EnumUtil;
 import com.hubu.aspirin.common.KnownException;
 import com.hubu.aspirin.enums.ExceptionEnum;
 import com.hubu.aspirin.enums.RoleEnum;
 import com.hubu.aspirin.model.entity.User;
-import com.hubu.aspirin.util.EnumUtils;
 import com.hubu.aspirin.util.UserUtils;
 import org.apache.shiro.authc.*;
 import org.apache.shiro.authz.AuthorizationInfo;
@@ -43,7 +43,6 @@ public class MyRealm extends AuthorizingRealm {
                 this.getName());
     }
 
-
     /**
      * 权限核心配置 根据数据库中的该用户 角色 和 权限
      */
@@ -51,7 +50,8 @@ public class MyRealm extends AuthorizingRealm {
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals) {
         SimpleAuthorizationInfo authorizationInfo = new SimpleAuthorizationInfo();
         User user = (User) principals.getPrimaryPrincipal();
-        String role = EnumUtils.getFieldByOrdinal(RoleEnum.class, "name", user.getRole()).toLowerCase();
+        Integer ordinal = user.getRole();
+        String role = EnumUtil.getNames(RoleEnum.class).get(ordinal).toLowerCase();
         authorizationInfo.addRole(role);
         return authorizationInfo;
     }
