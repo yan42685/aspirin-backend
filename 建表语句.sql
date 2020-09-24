@@ -195,4 +195,5 @@ CREATE TABLE course_detail
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4;
 
-
+INSERT INTO `administrator` VALUES (1, '2020-09-22 11:11:49', '2020-09-22 11:11:49', 'admin1', '65465993155d91f4f016843ae6480dd0cc543d9264e3fe3c3afe1ac1a2e72400', '张三', 0, '13111112222', 'QQ: 356356', '清水', 'www.agc.com', 0, 0, 'A00001');
+INSERT INTO `administrator` VALUES (2, '2020-09-22 11:13:44', '2020-09-22 11:13:44', 'admin2', '4f7edfdbb8b3bd1af2193475b167dc24f400a1898a627eb1b975a8abb4bbe146', '李四', 0, '13245454545', 'QQ: 1111', '枫叶', 'www.abc.com', 0, 0, 'A00002');

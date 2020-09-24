@@ -10,8 +10,8 @@ import org.mapstruct.MappingTarget;
 import org.mapstruct.NullValuePropertyMappingStrategy;
 import org.mapstruct.factory.Mappers;
 
-// 更新时忽略source的 null字段
-@Mapper(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
+
+@Mapper(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE) // 更新时忽略source的 null字段
 public interface AdministratorConverter extends EnumConverter {
     AdministratorConverter INSTANCE = Mappers.getMapper(AdministratorConverter.class);
 
