@@ -10,7 +10,7 @@ public interface EnumConverter {
      */
     @Named("genderIntegerToString")
     default String genderIntegerToString(Integer gender) {
-        return EnumUtils.getFieldByOrdinal(GenderEnum.class, "name", gender);
+        return EnumUtils.getFieldByOrdinal(GenderEnum.class, "value", gender);
     }
 
     @Named("genderEnumToInteger")

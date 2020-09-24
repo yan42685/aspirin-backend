@@ -16,5 +16,5 @@ public enum RoleEnum {
     // 学生
     STUDENT("学生");
 
-    private String name;
+    private String value;
 }

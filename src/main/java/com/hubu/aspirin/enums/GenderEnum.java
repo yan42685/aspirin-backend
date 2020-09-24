@@ -2,7 +2,6 @@ package com.hubu.aspirin.enums;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import org.omg.CORBA.UNKNOWN;
 
 @Getter
 @AllArgsConstructor
@@ -14,5 +13,5 @@ public enum GenderEnum {
     // 女
     FEMALE("女");
 
-    private String name;
+    private String value;
 }
