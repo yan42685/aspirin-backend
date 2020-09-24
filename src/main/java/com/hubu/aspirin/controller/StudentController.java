@@ -5,8 +5,8 @@ import org.apache.shiro.authz.annotation.RequiresRoles;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-@RequiresRoles("student")
 @Api(tags = "学生")
+@RequiresRoles("student")
 @RequestMapping("api/student")
 @RestController
 public class StudentController {
