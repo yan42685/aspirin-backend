@@ -3,7 +3,7 @@ CREATE TABLE administrator
     `id`                  bigint(20)          NOT NULL COMMENT '主键',
     `create_time`         datetime            NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
     `update_time`         datetime            NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
-    username              varchar(255)      unique  not null comment '用户名',
+    username              varchar(255) unique not null comment '用户名',
     password              varchar(255)        not null comment '密码',
     `real_name`           varchar(255)        NOT NULL DEFAULT '' COMMENT '姓名',
     `gender`              tinyint             not null default 0 comment '性别',
@@ -13,7 +13,7 @@ CREATE TABLE administrator
     `avatar_url`          varchar(255)        NOT NULL DEFAULT '' COMMENT '头像URL',
     `status`              tinyint             NOT NULL DEFAULT 0 COMMENT '用户账号状态',
     `role`                tinyint             not null comment '角色',
-    `number`              varchar(255) unique  comment '工号',
+    `number`              varchar(255) unique comment '工号',
     PRIMARY KEY (`id`)
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4;
@@ -24,7 +24,7 @@ CREATE TABLE teacher
     `id`                  bigint(20)          NOT NULL COMMENT '主键',
     `create_time`         datetime            NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
     `update_time`         datetime            NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
-    username              varchar(255) unique        not null comment '用户名',
+    username              varchar(255) unique not null comment '用户名',
     password              varchar(255)        not null comment '密码',
     `real_name`           varchar(255)        NOT NULL DEFAULT '' COMMENT '姓名',
     `gender`              tinyint             not null default 0 comment '性别',
@@ -34,7 +34,7 @@ CREATE TABLE teacher
     `avatar_url`          varchar(255)        NOT NULL DEFAULT '' COMMENT '头像URL',
     `status`              tinyint             NOT NULL DEFAULT 0 COMMENT '用户账号状态',
     `role`                tinyint             not null comment '角色',
-    `number`              varchar(255) unique  comment '教师编号',
+    `number`              varchar(255) unique comment '教师编号',
     PRIMARY KEY (`id`)
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4;
@@ -70,7 +70,7 @@ CREATE TABLE student
     `id`                  bigint(20)          NOT NULL COMMENT '主键',
     `create_time`         datetime            NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
     `update_time`         datetime            NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
-    username              varchar(255)       unique not null comment '用户名',
+    username              varchar(255) unique not null comment '用户名',
     password              varchar(255)        not null comment '密码',
     `real_name`           varchar(255)        NOT NULL DEFAULT '' COMMENT '姓名',
     `gender`              tinyint             not null default 0 comment '性别',
@@ -116,7 +116,7 @@ CREATE TABLE course
     `type`        tinyint             not null comment '课程类型',
     description   varchar(255)        not null comment '课程简介',
     `period`      tinyint             not null comment '学时',
-    credit        decimal             not null comment '学分',
+    credit        float(10, 2)        not null comment '学分',
     PRIMARY KEY (`id`)
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4;
@@ -156,8 +156,8 @@ CREATE TABLE grade
     `update_time`    datetime     NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
     `student_number` varchar(255) not null default '' comment '学生编号',
     `course_number`  varchar(255) not null default '' comment '课程编号',
-    regular_scores   decimal      not null default 0 comment '平时分',
-    exam_scores      decimal      not null default 0 comment '考试分',
+    regular_scores   float(10, 2) not null default 0 comment '平时分',
+    exam_scores      float(10, 2) not null default 0 comment '考试分',
     submitted        boolean      not null default false comment '打分是否提交',
     PRIMARY KEY (`id`),
     foreign key (student_number) references student (number) on update cascade on delete cascade,

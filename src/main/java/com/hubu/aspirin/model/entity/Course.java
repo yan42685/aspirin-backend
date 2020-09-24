@@ -45,7 +45,7 @@ public class Course implements Serializable {
     private Integer period;
 
     @ApiModelProperty(value = "学分")
-    private BigDecimal credit;
+    private Float credit;
 
 
 }

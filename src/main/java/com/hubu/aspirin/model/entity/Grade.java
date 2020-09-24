@@ -33,10 +33,10 @@ public class Grade implements Serializable {
     private String courseNumber;
 
     @ApiModelProperty(value = "平时分")
-    private BigDecimal regularScores;
+    private Float regularScores;
 
     @ApiModelProperty(value = "考试分")
-    private BigDecimal examScores;
+    private Float examScores;
 
     @ApiModelProperty(value = "打分是否提交")
     private Boolean submitted;
