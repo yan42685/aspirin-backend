@@ -7,8 +7,8 @@ import org.omg.CORBA.UNKNOWN;
 @Getter
 @AllArgsConstructor
 public enum GenderEnum {
-    // 未知
-    UNKNOWN("未知"),
+    // 保密
+    UNKNOWN("保密"),
     // 男
     MALE("男"),
     // 女

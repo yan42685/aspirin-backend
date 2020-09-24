@@ -5,13 +5,14 @@ import com.hubu.aspirin.model.dto.TeacherDTO;
 import com.hubu.aspirin.model.entity.Teacher;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
+import org.mapstruct.NullValuePropertyMappingStrategy;
 import org.mapstruct.factory.Mappers;
 
-@Mapper
+@Mapper(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
 public interface TeacherConverter extends EnumConverter {
     TeacherConverter INSTANCE = Mappers.getMapper(TeacherConverter.class);
 
-    @Mapping(target = "gender", qualifiedByName = "convertGender", source = "gender")
+    @Mapping(target = "gender", qualifiedByName = "genderIntegerToString", source = "gender")
     TeacherDTO entityToDto(Teacher teacher);
 
 }

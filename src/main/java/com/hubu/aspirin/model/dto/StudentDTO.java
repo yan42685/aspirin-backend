@@ -1,9 +1,11 @@
 package com.hubu.aspirin.model.dto;
 
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 @Data
+@ApiModel(value = "学生个人信息")
 public class StudentDTO {
     @ApiModelProperty(value = "用户名")
     private String username;

@@ -8,8 +8,13 @@ public interface EnumConverter {
     /**
      * 转换性别
      */
-    @Named("convertGender")
-    default String convertGender(Integer gender) {
+    @Named("genderIntegerToString")
+    default String genderIntegerToString(Integer gender) {
         return EnumUtils.getFieldByOrdinal(GenderEnum.class, "name", gender);
+    }
+
+    @Named("genderEnumToInteger")
+    default Integer genderEnumToInteger(GenderEnum genderEnum)  {
+        return genderEnum.ordinal();
     }
 }

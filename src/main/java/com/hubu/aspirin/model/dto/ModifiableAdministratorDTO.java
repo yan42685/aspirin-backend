@@ -1,20 +1,18 @@
 package com.hubu.aspirin.model.dto;
 
+import com.hubu.aspirin.enums.GenderEnum;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 @Data
-@ApiModel(value = "教师个人信息")
-public class TeacherDTO {
-    @ApiModelProperty(value = "用户名")
-    private String username;
-
+@ApiModel(value = "可修改的管理员个人信息")
+public class ModifiableAdministratorDTO {
     @ApiModelProperty(value = "姓名")
     private String realName;
 
     @ApiModelProperty(value = "性别")
-    private String gender;
+    private GenderEnum gender;
 
     @ApiModelProperty(value = "手机号")
     private String phoneNumber;
@@ -28,6 +26,7 @@ public class TeacherDTO {
     @ApiModelProperty(value = "头像URL")
     private String avatarUrl;
 
-    @ApiModelProperty(value = "教师编号")
+    @ApiModelProperty(value = "工号")
     private String number;
+
 }

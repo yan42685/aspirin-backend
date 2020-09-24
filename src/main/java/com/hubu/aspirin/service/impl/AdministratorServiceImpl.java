@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.hubu.aspirin.converter.AdministratorConverter;
 import com.hubu.aspirin.mapper.AdministratorMapper;
 import com.hubu.aspirin.model.dto.AdministratorDTO;
+import com.hubu.aspirin.model.dto.ModifiableAdministratorDTO;
 import com.hubu.aspirin.model.entity.Administrator;
 import com.hubu.aspirin.service.AdministratorService;
 import com.hubu.aspirin.util.UserUtils;
@@ -15,8 +16,21 @@ public class AdministratorServiceImpl extends ServiceImpl<AdministratorMapper, A
 
     @Override
     public AdministratorDTO getInformation() {
-        String username = UserUtils.getCurrentUsername();
-        Administrator administrator = getOne(new QueryWrapper<Administrator>().eq("username", username));
+        Administrator administrator = getCurrentAdministrator();
         return AdministratorConverter.INSTANCE.entityToDto(administrator);
     }
+
+    @Override
+    public boolean updateInformation(ModifiableAdministratorDTO newInformation) {
+        Administrator administrator = getCurrentAdministrator();
+        AdministratorConverter.INSTANCE.updateEntityFromDto(newInformation, administrator);
+        updateById(administrator);
+        return true;
+    }
+
+    public Administrator getCurrentAdministrator() {
+        String username = UserUtils.getCurrentUsername();
+        return getOne(new QueryWrapper<Administrator>().eq("username", username));
+    }
+
 }
