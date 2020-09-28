@@ -26,7 +26,10 @@ public enum ExceptionEnum {
     IMAGE_UPLOAD_FAIL(-5, "图片为空或者不是jpg，png，gif格式"),
     DOWNLOADING_FILE_NOT_EXITS(-6, "要下载的文件不存在"),
     USERNAME_EXISTS(-7, "用户名已存在"),
-    WRONG_CREDENTIALS(-8, "用户名或密码错误");
+    // 登录时异常
+    WRONG_CREDENTIALS(-8, "用户名或密码错误"),
+    // 修改密码时异常
+    WRONG_PASSWORD(-9, "密码错误");
 
 
     private int errorCode;

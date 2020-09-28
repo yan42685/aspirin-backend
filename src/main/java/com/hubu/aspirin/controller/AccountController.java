@@ -1,14 +1,15 @@
 package com.hubu.aspirin.controller;
 
 import com.hubu.aspirin.common.JsonWrapper;
-import com.hubu.aspirin.service.AdministratorService;
 import com.hubu.aspirin.service.UserService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
+import org.apache.shiro.authz.annotation.RequiresUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -18,8 +19,6 @@ import org.springframework.web.bind.annotation.RestController;
 public class AccountController {
     @Autowired
     UserService userService;
-    @Autowired
-    AdministratorService administratorService;
 
     @ApiOperation(value = "只注册用户名密码")
     @ApiImplicitParam(name = "role", paramType = "header", value = "角色", dataType = "string")
@@ -46,4 +45,11 @@ public class AccountController {
         return new JsonWrapper<>(userService.logout());
     }
 
+    @RequiresUser
+    @ApiOperation(value = "修改密码")
+    @ApiImplicitParam(name = "role", paramType = "header", value = "角色", dataType = "string")
+    @PutMapping("password")
+    public JsonWrapper<Boolean> modifyPassword(String oldPassword, String newPassword) {
+        return new JsonWrapper<>(userService.modifyPassword(oldPassword, newPassword));
+    }
 }
