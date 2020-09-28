@@ -6,6 +6,7 @@ import com.hubu.aspirin.model.dto.ModifiableAdministratorDTO;
 import com.hubu.aspirin.model.dto.TeacherManagementDTO;
 import com.hubu.aspirin.service.AdministratorService;
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
 import org.apache.shiro.authz.annotation.RequiresRoles;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,8 +39,9 @@ public class AdministratorController {
     }
 
     @ApiOperation(value = "修改教师信息")
+    @ApiImplicitParam(name = "originalNumber", value = "原来的教师编号", paramType = "string")
     @PutMapping("information/teacher")
-    public JsonWrapper<Boolean> updateTeacher(TeacherManagementDTO teacherManagementDTO) {
-        return new JsonWrapper<>(administratorService.updateTeacher(teacherManagementDTO));
+    public JsonWrapper<Boolean> updateTeacher(TeacherManagementDTO teacherManagementDTO, String originalNumber) {
+        return new JsonWrapper<>(administratorService.updateTeacher(teacherManagementDTO, originalNumber));
     }
 }

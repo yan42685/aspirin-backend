@@ -45,13 +45,13 @@ public class AdministratorServiceImpl extends ServiceImpl<AdministratorMapper, A
 
     @Override
     public boolean addTeacher(TeacherManagementDTO dto) {
-        Teacher teacher = TeacherConverter.INSTANCE.managementDtoToEntity(dto);
-        // 默认用户名为教师编号
-        String defaultUsername = teacher.getNumber();
-        if (UserUtils.getByUsernameAndRole(defaultUsername, RoleEnum.TEACHER) != null) {
+        String number = dto.getNumber();
+        if (UserUtils.getByNumberAndRole(number, RoleEnum.TEACHER) != null) {
             throw new KnownException(ExceptionEnum.USERNAME_EXISTS);
         }
-        teacher.setUsername(defaultUsername);
+        Teacher teacher = TeacherConverter.INSTANCE.managementDtoToEntity(dto);
+        // 默认用户名为教师编号
+        teacher.setUsername(number);
         // 设置默认密码
         String defaultRawPassword = AccountConstant.DEFAULT_RAW_PASSWORD.getValue();
         String defaultPassword = UserUtils.generatePassword(teacher.getUsername(), defaultRawPassword);
@@ -61,13 +61,22 @@ public class AdministratorServiceImpl extends ServiceImpl<AdministratorMapper, A
     }
 
     @Override
-    public boolean updateTeacher(TeacherManagementDTO teacherManagementDTO) {
-        String number = teacherManagementDTO.getNumber();
-        User user = UserUtils.getByNumberAndRole(number, RoleEnum.TEACHER);
+    public boolean updateTeacher(TeacherManagementDTO teacherManagementDTO, String originalNumber) {
+        String newNumber = teacherManagementDTO.getNumber();
+        User user = UserUtils.getByNumberAndRole(newNumber, RoleEnum.TEACHER);
+        if (user != null) {
+            // 新编号已存在
+            throw new KnownException(ExceptionEnum.NUMBER_EXISTS);
+        }
+
+        user = UserUtils.getByNumberAndRole(originalNumber, RoleEnum.TEACHER);
         if (user == null) {
+            // 用户不存在
             throw new KnownException(ExceptionEnum.USER_NOT_EXISTS);
         }
-        Teacher teacher = teacherService.getById(user.getId());
+        // 待更新teacher的id
+        Long teacherId = user.getId();
+        Teacher teacher = teacherService.getById(teacherId);
         TeacherConverter.INSTANCE.updateEntityFromManagementDto(teacherManagementDTO, teacher);
         teacherService.updateById(teacher);
         return true;

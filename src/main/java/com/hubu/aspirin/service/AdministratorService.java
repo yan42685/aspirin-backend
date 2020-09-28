@@ -22,6 +22,6 @@ public interface AdministratorService extends IService<Administrator> {
      */
     boolean addTeacher(TeacherManagementDTO teacherManagementDTO);
 
-    boolean updateTeacher(TeacherManagementDTO teacherManagementDTO);
+    boolean updateTeacher(TeacherManagementDTO teacherManagementDTO, String originalNumber);
 
 }

@@ -30,7 +30,8 @@ public enum ExceptionEnum {
     WRONG_CREDENTIALS(-8, "用户名或密码错误"),
     // 修改密码时异常
     WRONG_PASSWORD(-9, "密码错误"),
-    USER_NOT_EXISTS(-10, "用户不存在");
+    USER_NOT_EXISTS(-10, "用户不存在"),
+    NUMBER_EXISTS(-11, "编号已存在");
 
 
     private int errorCode;
