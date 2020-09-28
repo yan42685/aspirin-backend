@@ -9,10 +9,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.apache.shiro.authz.annotation.RequiresRoles;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RequiresRoles("administrator")
 @Api(tags = "管理员")
@@ -35,8 +32,14 @@ public class AdministratorController {
     }
 
     @ApiOperation(value = "添加教师", notes = "默认用户名为教师编号， 默认密码为123456")
-    @GetMapping("information/teacher")
+    @PostMapping("information/teacher")
     public JsonWrapper<Boolean> addTeacher(TeacherManagementDTO teacherManagementDTO) {
         return new JsonWrapper<>(administratorService.addTeacher(teacherManagementDTO));
+    }
+
+    @ApiOperation(value = "修改教师信息")
+    @PutMapping("information/teacher")
+    public JsonWrapper<Boolean> updateTeacher(TeacherManagementDTO teacherManagementDTO) {
+        return new JsonWrapper<>(administratorService.updateTeacher(teacherManagementDTO));
     }
 }

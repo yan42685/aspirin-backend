@@ -6,6 +6,7 @@ import com.hubu.aspirin.model.dto.TeacherManagementDTO;
 import com.hubu.aspirin.model.entity.Teacher;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
+import org.mapstruct.MappingTarget;
 import org.mapstruct.NullValuePropertyMappingStrategy;
 import org.mapstruct.factory.Mappers;
 
@@ -18,4 +19,7 @@ public interface TeacherConverter extends EnumConverter {
 
     @Mapping(target = "gender", qualifiedByName = "genderEnumToInteger", source = "gender")
     Teacher managementDtoToEntity(TeacherManagementDTO teacherManagementDTO);
+
+    @Mapping(target = "gender", qualifiedByName = "genderEnumToInteger", source = "gender")
+    Teacher updateEntityFromManagementDto(TeacherManagementDTO teacherManagementDTO, @MappingTarget Teacher entity);
 }

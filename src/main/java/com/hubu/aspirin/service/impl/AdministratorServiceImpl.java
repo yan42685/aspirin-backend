@@ -14,6 +14,7 @@ import com.hubu.aspirin.model.dto.ModifiableAdministratorDTO;
 import com.hubu.aspirin.model.dto.TeacherManagementDTO;
 import com.hubu.aspirin.model.entity.Administrator;
 import com.hubu.aspirin.model.entity.Teacher;
+import com.hubu.aspirin.model.entity.User;
 import com.hubu.aspirin.service.AdministratorService;
 import com.hubu.aspirin.service.StudentService;
 import com.hubu.aspirin.service.TeacherService;
@@ -56,6 +57,19 @@ public class AdministratorServiceImpl extends ServiceImpl<AdministratorMapper, A
         String defaultPassword = UserUtils.generatePassword(teacher.getUsername(), defaultRawPassword);
         teacher.setPassword(defaultPassword);
         teacherService.save(teacher);
+        return true;
+    }
+
+    @Override
+    public boolean updateTeacher(TeacherManagementDTO teacherManagementDTO) {
+        String number = teacherManagementDTO.getNumber();
+        User user = UserUtils.getByNumberAndRole(number, RoleEnum.TEACHER);
+        if (user == null) {
+            throw new KnownException(ExceptionEnum.USER_NOT_EXISTS);
+        }
+        Teacher teacher = teacherService.getById(user.getId());
+        TeacherConverter.INSTANCE.updateEntityFromManagementDto(teacherManagementDTO, teacher);
+        teacherService.updateById(teacher);
         return true;
     }
 

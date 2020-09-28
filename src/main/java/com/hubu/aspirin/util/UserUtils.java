@@ -11,7 +11,6 @@ import com.hubu.aspirin.model.entity.User;
 import com.hubu.aspirin.service.AdministratorService;
 import com.hubu.aspirin.service.StudentService;
 import com.hubu.aspirin.service.TeacherService;
-import com.hubu.aspirin.service.UserService;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.crypto.hash.Sha256Hash;
 import org.apache.shiro.subject.Subject;
@@ -27,7 +26,6 @@ public class UserUtils {
     private static AdministratorService administratorService = SpringContextUtils.getBean("administratorServiceImpl", AdministratorService.class);
     private static StudentService studentService = SpringContextUtils.getBean("studentServiceImpl", StudentService.class);
     private static TeacherService teacherService = SpringContextUtils.getBean("teacherServiceImpl", TeacherService.class);
-    private static UserService userService = SpringContextUtils.getBean("userServiceImpl", UserService.class);
 
     public static User getCurrentUser() {
         Subject subject = SecurityUtils.getSubject();
@@ -48,43 +46,19 @@ public class UserUtils {
     }
 
     public static User getByUsernameAndRole(String username, RoleEnum role) {
-        User user = null;
-        switch (role) {
-            case ADMINISTRATOR:
-                user = administratorService.getOne(new QueryWrapper<Administrator>().eq("username", username));
-                break;
-            case STUDENT:
-                user = studentService.getOne(new QueryWrapper<Student>().eq("username", username));
-                break;
-            case TEACHER:
-                user = teacherService.getOne(new QueryWrapper<Teacher>().eq("username", username));
-                break;
-            default:
-                break;
-        }
-        return user;
+        return getByColumnAndRole("username", username, role);
     }
 
     /**
      * @param rawPassword 未加密的密码
      */
     public static User getByRawPasswordAndRole(String rawPassword, RoleEnum role) {
-        User user = null;
         String password = generatePassword(getCurrentUsername(), rawPassword);
-        switch (role) {
-            case ADMINISTRATOR:
-                user = administratorService.getOne(new QueryWrapper<Administrator>().eq("password", password));
-                break;
-            case STUDENT:
-                user = studentService.getOne(new QueryWrapper<Student>().eq("password", password));
-                break;
-            case TEACHER:
-                user = teacherService.getOne(new QueryWrapper<Teacher>().eq("password", password));
-                break;
-            default:
-                break;
-        }
-        return user;
+        return getByColumnAndRole("password", password, role);
+    }
+
+    public static User getByNumberAndRole(String number, RoleEnum role) {
+        return getByColumnAndRole("number", number, role);
     }
 
     public static RoleEnum getCurrentRole() {
@@ -98,5 +72,23 @@ public class UserUtils {
      */
     public static String generatePassword(String username, String rawPassword) {
         return new Sha256Hash(rawPassword, username, 1024).toHex();
+    }
+
+    private static User getByColumnAndRole(String column, Object property, RoleEnum role) {
+        User user = null;
+        switch (role) {
+            case ADMINISTRATOR:
+                user = administratorService.getOne(new QueryWrapper<Administrator>().eq(column, property));
+                break;
+            case STUDENT:
+                user = studentService.getOne(new QueryWrapper<Student>().eq(column, property));
+                break;
+            case TEACHER:
+                user = teacherService.getOne(new QueryWrapper<Teacher>().eq(column, property));
+                break;
+            default:
+                break;
+        }
+        return user;
     }
 }
