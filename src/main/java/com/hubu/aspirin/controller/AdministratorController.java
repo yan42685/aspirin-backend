@@ -3,6 +3,7 @@ package com.hubu.aspirin.controller;
 import com.hubu.aspirin.common.JsonWrapper;
 import com.hubu.aspirin.model.dto.AdministratorDTO;
 import com.hubu.aspirin.model.dto.ModifiableAdministratorDTO;
+import com.hubu.aspirin.model.dto.TeacherDTO;
 import com.hubu.aspirin.model.dto.TeacherManagementDTO;
 import com.hubu.aspirin.service.AdministratorService;
 import io.swagger.annotations.Api;
@@ -32,16 +33,31 @@ public class AdministratorController {
         return new JsonWrapper<>(administratorService.updateAdministratorInformation(newInformation));
     }
 
+    @ApiOperation(value = "查看教师信息")
+    @GetMapping("information/teacher")
+    public JsonWrapper<TeacherDTO> getTeacher(String number) {
+        return new JsonWrapper<>(administratorService.getTeacher(number));
+    }
+
     @ApiOperation(value = "添加教师", notes = "默认用户名为教师编号， 默认密码为123456")
     @PostMapping("information/teacher")
-    public JsonWrapper<Boolean> addTeacher(TeacherManagementDTO teacherManagementDTO) {
+    public JsonWrapper<TeacherDTO> addTeacher(TeacherManagementDTO teacherManagementDTO) {
         return new JsonWrapper<>(administratorService.addTeacher(teacherManagementDTO));
     }
 
     @ApiOperation(value = "修改教师信息")
     @ApiImplicitParam(name = "originalNumber", value = "原来的教师编号", paramType = "string")
     @PutMapping("information/teacher")
-    public JsonWrapper<Boolean> updateTeacher(TeacherManagementDTO teacherManagementDTO, String originalNumber) {
+    public JsonWrapper<TeacherDTO> updateTeacher(TeacherManagementDTO teacherManagementDTO, String originalNumber) {
         return new JsonWrapper<>(administratorService.updateTeacher(teacherManagementDTO, originalNumber));
     }
+
+    @ApiOperation(value = "删除教师")
+    @ApiImplicitParam(name = "number", value = "教师编号", paramType = "string")
+    @DeleteMapping("information/teacher")
+    public JsonWrapper<Boolean> updateTeacher(String number) {
+        return new JsonWrapper<>(administratorService.deleteTeacher(number));
+    }
+
+
 }

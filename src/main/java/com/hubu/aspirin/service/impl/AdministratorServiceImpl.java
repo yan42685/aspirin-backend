@@ -11,6 +11,7 @@ import com.hubu.aspirin.enums.RoleEnum;
 import com.hubu.aspirin.mapper.AdministratorMapper;
 import com.hubu.aspirin.model.dto.AdministratorDTO;
 import com.hubu.aspirin.model.dto.ModifiableAdministratorDTO;
+import com.hubu.aspirin.model.dto.TeacherDTO;
 import com.hubu.aspirin.model.dto.TeacherManagementDTO;
 import com.hubu.aspirin.model.entity.Administrator;
 import com.hubu.aspirin.model.entity.Teacher;
@@ -44,7 +45,18 @@ public class AdministratorServiceImpl extends ServiceImpl<AdministratorMapper, A
     }
 
     @Override
-    public boolean addTeacher(TeacherManagementDTO dto) {
+    public TeacherDTO getTeacher(String number) {
+        User user = UserUtils.getByUsernameAndRole(number, RoleEnum.TEACHER);
+        if (user == null) {
+            throw new KnownException(ExceptionEnum.USER_NOT_EXISTS);
+        }
+        Teacher teacher = teacherService.getById(user.getId());
+        return TeacherConverter.INSTANCE.entityToDto(teacher);
+    }
+
+
+    @Override
+    public TeacherDTO addTeacher(TeacherManagementDTO dto) {
         String number = dto.getNumber();
         if (UserUtils.getByNumberAndRole(number, RoleEnum.TEACHER) != null) {
             throw new KnownException(ExceptionEnum.USERNAME_EXISTS);
@@ -57,11 +69,11 @@ public class AdministratorServiceImpl extends ServiceImpl<AdministratorMapper, A
         String defaultPassword = UserUtils.generatePassword(teacher.getUsername(), defaultRawPassword);
         teacher.setPassword(defaultPassword);
         teacherService.save(teacher);
-        return true;
+        return getTeacher(number);
     }
 
     @Override
-    public boolean updateTeacher(TeacherManagementDTO teacherManagementDTO, String originalNumber) {
+    public TeacherDTO updateTeacher(TeacherManagementDTO teacherManagementDTO, String originalNumber) {
         String newNumber = teacherManagementDTO.getNumber();
         User user = UserUtils.getByNumberAndRole(newNumber, RoleEnum.TEACHER);
         if (user != null) {
@@ -79,6 +91,16 @@ public class AdministratorServiceImpl extends ServiceImpl<AdministratorMapper, A
         Teacher teacher = teacherService.getById(teacherId);
         TeacherConverter.INSTANCE.updateEntityFromManagementDto(teacherManagementDTO, teacher);
         teacherService.updateById(teacher);
+        return getTeacher(teacher.getNumber());
+    }
+
+    @Override
+    public boolean deleteTeacher(String number) {
+        User user = UserUtils.getByNumberAndRole(number, RoleEnum.TEACHER);
+        if (user == null) {
+            throw new KnownException(ExceptionEnum.USER_NOT_EXISTS);
+        }
+        teacherService.removeById(user.getId());
         return true;
     }
 
