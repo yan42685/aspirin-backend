@@ -20,6 +20,14 @@ import java.util.LinkedHashMap;
  */
 @Configuration
 public class ShiroConfig {
+    // hash迭代次数
+    public static final Integer HASH_ITERATIONS = 1024;
+
+    // 加密hash算法
+    private static final String HASH_ALGORITHM_NAME = "SHA-256";
+    // Cookie保存时间
+    private static final Integer COOKIE_MAX_AGE = 60 * 60 * 24 * 10;
+
     @Bean
     public ShiroFilterFactoryBean getShiroFilterFactoryBean() {
         ShiroFilterFactoryBean factoryBean = new ShiroFilterFactoryBean();
@@ -83,9 +91,9 @@ public class ShiroConfig {
         // 密码比对器
         HashedCredentialsMatcher matcher = new HashedCredentialsMatcher();
         // 加密方式
-        matcher.setHashAlgorithmName("SHA-256");
+        matcher.setHashAlgorithmName(HASH_ALGORITHM_NAME);
         // 迭代次数
-        matcher.setHashIterations(1024);
+        matcher.setHashIterations(HASH_ITERATIONS);
         return matcher;
     }
 
@@ -102,7 +110,7 @@ public class ShiroConfig {
         SimpleCookie simpleCookie = new SimpleCookie("rememberMe");
         //simpleCookie.setHttpOnly(true);
         //单位(秒)1天
-        simpleCookie.setMaxAge(60 * 60 * 24 * 10);
+        simpleCookie.setMaxAge(COOKIE_MAX_AGE);
         return simpleCookie;
     }
 

@@ -2,6 +2,7 @@ package com.hubu.aspirin.util;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.hubu.aspirin.common.KnownException;
+import com.hubu.aspirin.config.ShiroConfig;
 import com.hubu.aspirin.enums.ExceptionEnum;
 import com.hubu.aspirin.enums.RoleEnum;
 import com.hubu.aspirin.model.entity.Administrator;
@@ -71,7 +72,7 @@ public class UserUtils {
      * 根据用户名和密码生成新密码
      */
     public static String generatePassword(String username, String rawPassword) {
-        return new Sha256Hash(rawPassword, username, 1024).toHex();
+        return new Sha256Hash(rawPassword, username, ShiroConfig.HASH_ITERATIONS).toHex();
     }
 
     private static User getByColumnAndRole(String column, Object property, RoleEnum role) {
