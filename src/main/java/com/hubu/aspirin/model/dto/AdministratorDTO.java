@@ -1,10 +1,12 @@
 package com.hubu.aspirin.model.dto;
 
-import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
+/**
+ * @author alex
+ */
 @Data
 @ApiModel(value = "管理员个人信息")
 public class AdministratorDTO {

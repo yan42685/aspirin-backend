@@ -43,7 +43,8 @@ public class UserUtils {
     }
 
     public static String getCurrentUsername() {
-        return SecurityUtils.getSubject().getPrincipal().toString();
+        User principal = (User) SecurityUtils.getSubject().getPrincipal();
+        return principal.getUsername();
     }
 
     public static User getByUsernameAndRole(String username, RoleEnum role) {

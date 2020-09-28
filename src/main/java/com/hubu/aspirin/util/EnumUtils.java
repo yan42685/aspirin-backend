@@ -9,4 +9,8 @@ public class EnumUtils {
     public static String getFieldByOrdinal(Class<? extends Enum<?>> enumClass, String fieldName, int ordinal) {
         return (String) EnumUtil.getFieldValues(enumClass, fieldName).get(ordinal);
     }
+
+    public static String getNameLowerCase(Class<? extends Enum<?>> enumClass, int ordinal) {
+        return EnumUtil.getNames(enumClass).get(ordinal).toLowerCase();
+    }
 }

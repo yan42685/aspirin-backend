@@ -4,6 +4,9 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
+/**
+ * @author alex
+ */
 @Data
 @ApiModel(value = "教师个人信息")
 public class TeacherDTO {

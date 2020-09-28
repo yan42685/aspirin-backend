@@ -3,6 +3,9 @@ package com.hubu.aspirin.model.bo;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
+/**
+ * @author alex
+ */
 @Data
 public class StudentBO {
     @ApiModelProperty(value = "用户名")

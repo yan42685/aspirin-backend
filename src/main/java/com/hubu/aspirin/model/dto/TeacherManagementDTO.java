@@ -9,8 +9,8 @@ import lombok.Data;
  * @author alex
  */
 @Data
-@ApiModel(value = "可修改的管理员个人信息")
-public class ModifiableAdministratorDTO {
+@ApiModel("管理教师信息")
+public class TeacherManagementDTO {
     @ApiModelProperty(value = "姓名")
     private String realName;
 
@@ -23,13 +23,6 @@ public class ModifiableAdministratorDTO {
     @ApiModelProperty(value = "其他联系方式, 比如qq或邮箱等")
     private String contactInformation;
 
-    @ApiModelProperty(value = "昵称")
-    private String nickname;
-
-    @ApiModelProperty(value = "头像URL")
-    private String avatarUrl;
-
-    @ApiModelProperty(value = "工号")
+    @ApiModelProperty(value = "教师编号")
     private String number;
-
 }

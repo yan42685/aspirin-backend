@@ -17,5 +17,8 @@ public interface UserService {
      */
     boolean simpleRegister(String username, String password);
 
+    /**
+     * 修改密码
+     */
     boolean modifyPassword(String oldPassword, String newPassword);
 }
