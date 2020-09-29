@@ -1,5 +1,6 @@
 package com.hubu.aspirin.service;
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.hubu.aspirin.model.bo.StudentBO;
 import com.hubu.aspirin.model.dto.StudentDTO;
@@ -26,4 +27,8 @@ public interface StudentService extends IService<Student> {
      */
     StudentBO getBoById(Long id);
 
+    /**
+     * 根据真名和学号搜索
+     */
+    IPage<StudentBO> pageBoByNumberOrRealName(Integer current, Integer size, String queryString);
 }

@@ -32,4 +32,12 @@
         </include>
         where student.id = #{id};
     </select>
+
+    <select id="pageBoByNumberOrRealName" resultType="com.hubu.aspirin.model.bo.StudentBO">
+        <include refid="getBO">
+        </include>
+        where
+        student.real_name like concat('%', #{queryString}, '%')
+        or student.number like concat('%', #{queryString}, '%')
+    </select>
 </mapper>

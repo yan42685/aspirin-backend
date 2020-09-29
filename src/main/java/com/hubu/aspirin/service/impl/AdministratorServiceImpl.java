@@ -12,6 +12,7 @@ import com.hubu.aspirin.converter.TeacherConverter;
 import com.hubu.aspirin.enums.ExceptionEnum;
 import com.hubu.aspirin.enums.RoleEnum;
 import com.hubu.aspirin.mapper.AdministratorMapper;
+import com.hubu.aspirin.model.bo.StudentBO;
 import com.hubu.aspirin.model.dto.*;
 import com.hubu.aspirin.model.entity.Administrator;
 import com.hubu.aspirin.model.entity.Student;
@@ -46,7 +47,7 @@ public class AdministratorServiceImpl extends ServiceImpl<AdministratorMapper, A
     }
 
     @Override
-    public IPage<TeacherDTO> pageByNumberOrRealName(Integer current, Integer size, String queryString) {
+    public IPage<TeacherDTO> pageTeacherByNumberOrRealName(Integer current, Integer size, String queryString) {
         Page<Teacher> page = new Page<>(current, size);
         QueryWrapper<Teacher> queryWrapper = new QueryWrapper<Teacher>()
                 .like("number", queryString)
@@ -109,6 +110,12 @@ public class AdministratorServiceImpl extends ServiceImpl<AdministratorMapper, A
         }
         teacherService.removeById(user.getId());
         return true;
+    }
+
+    @Override
+    public IPage<StudentDTO> pageStudentByNumberOrRealName(Integer current, Integer size, String queryString) {
+        IPage<StudentBO> studentBoPage = studentService.pageBoByNumberOrRealName(current, size, queryString);
+        return StudentConverter.INSTANCE.boToDtoPage(studentBoPage);
     }
 
     @Override

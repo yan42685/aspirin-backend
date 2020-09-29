@@ -1,5 +1,7 @@
 package com.hubu.aspirin.mapper;
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.hubu.aspirin.model.bo.StudentBO;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -18,10 +20,6 @@ class StudentMapperTest {
 
     @Test
     void getBoByNumber() {
-        String number = "jixinrjgc001";
-        StudentBO studentBO = studentMapper.getBoByNumber(number);
-        System.out.println(studentBO);
-        Assertions.assertNotNull(studentBO);
     }
 }
     

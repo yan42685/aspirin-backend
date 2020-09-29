@@ -18,12 +18,8 @@ public interface AdministratorService extends IService<Administrator> {
 
     /**
      * 根据编号或真名搜索教师
-     *
-     * @param current     当前页数
-     * @param size        每页多少行
-     * @param queryString 查询字符串
      */
-    IPage<TeacherDTO> pageByNumberOrRealName(Integer current, Integer size, String queryString);
+    IPage<TeacherDTO> pageTeacherByNumberOrRealName(Integer current, Integer size, String queryString);
 
     /**
      * 查看教师信息
@@ -45,6 +41,10 @@ public interface AdministratorService extends IService<Administrator> {
      */
     boolean deleteTeacher(String number);
 
+    /**
+     * 根据学号或真名搜索学生
+     */
+    IPage<StudentDTO> pageStudentByNumberOrRealName(Integer current, Integer size, String queryString);
 
     /**
      * 查看学生信息

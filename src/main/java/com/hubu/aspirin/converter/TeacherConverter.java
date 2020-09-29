@@ -19,7 +19,6 @@ public interface TeacherConverter extends EnumConverter {
     @Mapping(target = "gender", qualifiedByName = "genderIntegerToString", source = "gender")
     TeacherDTO entityToDto(Teacher teacher);
 
-    // NOTE: 这里返回值不能是IPage, 否则会报编译错误
     Page<TeacherDTO> entityToDtoPage(IPage<Teacher> teachers);
 
     @Mapping(target = "gender", qualifiedByName = "genderEnumToInteger", source = "gender")

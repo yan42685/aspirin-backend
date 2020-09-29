@@ -4,7 +4,6 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.hubu.aspirin.common.JsonWrapper;
 import com.hubu.aspirin.model.dto.*;
 import com.hubu.aspirin.service.AdministratorService;
-import com.hubu.aspirin.service.TeacherService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
@@ -53,7 +52,7 @@ public class AdministratorController {
     })
     @GetMapping("information/teacher-page")
     public JsonWrapper<IPage<TeacherDTO>> getTeacherPage(Integer current, Integer size, String queryString) {
-        return new JsonWrapper<>(administratorService.pageByNumberOrRealName(current, size, queryString));
+        return new JsonWrapper<>(administratorService.pageTeacherByNumberOrRealName(current, size, queryString));
     }
 
 
@@ -81,6 +80,17 @@ public class AdministratorController {
     @GetMapping("information/student")
     public JsonWrapper<StudentDTO> getStudent(String number) {
         return new JsonWrapper<>(administratorService.getStudent(number));
+    }
+
+    @ApiOperation(value = "分页搜索学生", notes = "根据number或realName模糊查询")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "current", value = "当前页数", dataType = "int"),
+            @ApiImplicitParam(name = "size", value = "每页多少行", dataType = "int"),
+            @ApiImplicitParam(name = "queryString", value = "学号或真名", dataType = "string")
+    })
+    @GetMapping("information/student-page")
+    public JsonWrapper<IPage<StudentDTO>> getStudentPage(Integer current, Integer size, String queryString) {
+        return new JsonWrapper<>(administratorService.pageStudentByNumberOrRealName(current, size, queryString));
     }
 
     @ApiOperation(value = "修改学生信息")

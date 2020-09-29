@@ -1,5 +1,7 @@
 package com.hubu.aspirin.service.impl;
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.hubu.aspirin.common.KnownException;
 import com.hubu.aspirin.converter.StudentConverter;
@@ -42,6 +44,12 @@ public class StudentServiceImpl extends ServiceImpl<StudentMapper, Student> impl
     @Override
     public StudentBO getBoById(Long id) {
         return studentMapper.getBoById(id);
+    }
+
+    @Override
+    public IPage<StudentBO> pageBoByNumberOrRealName(Integer current, Integer size, String queryString) {
+        Page<StudentBO> page = new Page<>(current, size);
+        return studentMapper.pageBoByNumberOrRealName(page, queryString);
     }
 
 
