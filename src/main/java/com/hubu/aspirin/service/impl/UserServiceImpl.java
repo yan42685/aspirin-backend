@@ -12,7 +12,6 @@ import com.hubu.aspirin.service.StudentService;
 import com.hubu.aspirin.service.TeacherService;
 import com.hubu.aspirin.service.UserService;
 import com.hubu.aspirin.util.UserUtils;
-import com.hubu.aspirin.util.VerificationCodeUtils;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.subject.Subject;
@@ -31,11 +30,12 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public boolean login(String username, String password, Boolean rememberMe) {
-        RoleEnum role = UserUtils.getCurrentRole();
-        // 对管理员检查验证码
-        if (RoleEnum.ADMINISTRATOR.equals(role)) {
-            VerificationCodeUtils.checkCode();
-        }
+        // TODO: 上线后开放验证码检查
+//        RoleEnum role = UserUtils.getCurrentRole();
+//        // 对管理员检查验证码
+//        if (RoleEnum.ADMINISTRATOR.equals(role)) {
+//            VerificationCodeUtils.checkCode();
+//        }
         Subject subject = SecurityUtils.getSubject();
         UsernamePasswordToken token = new UsernamePasswordToken(username, password, rememberMe);
         subject.login(token);

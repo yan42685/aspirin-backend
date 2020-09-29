@@ -24,29 +24,29 @@ public class AccountController {
 
     @ApiOperation(value = "只注册用户名密码")
     @ApiImplicitParam(name = "role", paramType = "header", value = "角色", dataType = "string")
-    @GetMapping("simpleRegister")
+    @GetMapping("simple-register")
     public JsonWrapper<Boolean> simpleRegister(String username, String password) {
         return new JsonWrapper<>(userService.simpleRegister(username, password));
     }
 
-    @ApiOperation(value = "用户登录", notes = "role参数需要在header里")
+    @ApiOperation(value = "用户登录", notes = "不能用于管理员登录")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "username", value = "用户名", dataType = "string"),
             @ApiImplicitParam(name = "password", value = "密码", dataType = "string"),
             @ApiImplicitParam(name = "rememberMe", value = "记住我", dataType = "boolean"),
-            @ApiImplicitParam(name = "role", paramType = "header", value = "角色", dataType = "string")
+            @ApiImplicitParam(name = "role", paramType = "header", value = "角色，取值为student或teacher", dataType = "string")
     })
     @GetMapping("user-login")
     public JsonWrapper<Boolean> userLogin(String username, String password, Boolean rememberMe) {
         return new JsonWrapper<>(userService.login(username, password, rememberMe));
     }
 
-    @ApiOperation(value = "管理员登录", notes = "role参数需要在header里")
+    @ApiOperation(value = "管理员登录", notes = "role和verificationCode参数需要在header里")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "username", value = "用户名", dataType = "string"),
             @ApiImplicitParam(name = "password", value = "密码", dataType = "string"),
             @ApiImplicitParam(name = "rememberMe", value = "记住我", dataType = "boolean"),
-            @ApiImplicitParam(name = "role", paramType = "header", value = "角色", dataType = "string"),
+            @ApiImplicitParam(name = "role", paramType = "header", value = "角色，取值只能填administrator", dataType = "string"),
             @ApiImplicitParam(name = "verificationCode", paramType = "header", value = "验证码", dataType = "string")
     })
     @GetMapping("admin-login")

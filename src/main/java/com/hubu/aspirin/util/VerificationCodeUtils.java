@@ -116,11 +116,18 @@ public class VerificationCodeUtils {
 
     public static void checkCode() {
         String verificationCode = ServletUtils.getHeader(HEADER_NAME);
+        if (verificationCode == null) {
+            throw new KnownException(ExceptionEnum.VERIFICATION_CODE_MISMATCH);
+        }
         HttpSession session = ServletUtils.getSession();
+        String sessionCode = String.valueOf(session.getAttribute(SESSION_KEY));
+        if (sessionCode == null) {
+            throw new KnownException(ExceptionEnum.VERIFICATION_CODE_MISMATCH);
+        }
         // toLowerCase() 不区分大小写进行验证码校验
-        String sessionCode = String.valueOf(session.getAttribute(SESSION_KEY)).toLowerCase();
+        String rightCode = sessionCode.toLowerCase();
         String receivedCode = verificationCode.toLowerCase();
-        boolean isVerified = StringUtils.isNotEmpty(sessionCode) && StringUtils.isNotEmpty(receivedCode) && sessionCode.equals(receivedCode);
+        boolean isVerified = StringUtils.isNotEmpty(rightCode) && StringUtils.isNotEmpty(receivedCode) && rightCode.equals(receivedCode);
         if (!isVerified) {
             throw new KnownException(ExceptionEnum.VERIFICATION_CODE_MISMATCH);
         }
