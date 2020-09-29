@@ -1,6 +1,7 @@
 package com.hubu.aspirin.controller;
 
 import com.hubu.aspirin.common.JsonWrapper;
+import com.hubu.aspirin.util.UserUtils;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
@@ -38,5 +39,11 @@ public class TestController {
     @GetMapping("add")
     public JsonWrapper<Integer> add(int x, int y) {
         return new JsonWrapper<>(x + y);
+    }
+
+    @ApiOperation("生成密码")
+    @GetMapping("password")
+    public JsonWrapper<String> reverse(String username, String rawPassword) {
+        return new JsonWrapper<>(UserUtils.generatePassword(username, rawPassword));
     }
 }

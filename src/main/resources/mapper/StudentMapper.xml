@@ -1,5 +1,35 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.hubu.aspirin.mapper.StudentMapper">
+    <sql id="getBO">
+        select username,
+               real_name,
+               gender,
+               student.phone_number,
+               student.contact_information,
+               nickname,
+               student.avatar_url,
+               faculty.name   as faculty,
+               specialty.name as specialty,
+               student.number,
+               grade,
+               admission_year,
+               semester
+        from student
+                     left join faculty on student.faculty_number = faculty.number
+                     left join specialty on
+                student.specialty_number = specialty.number
+    </sql>
 
+    <select id="getBoByNumber" resultType="com.hubu.aspirin.model.bo.StudentBO">
+        <include refid="getBO">
+        </include>
+        where student.number = #{number};
+    </select>
+
+    <select id="getBoById" resultType="com.hubu.aspirin.model.bo.StudentBO">
+        <include refid="getBO">
+        </include>
+        where student.id = #{id};
+    </select>
 </mapper>

@@ -5,15 +5,14 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.hubu.aspirin.common.KnownException;
 import com.hubu.aspirin.constant.AccountConstant;
 import com.hubu.aspirin.converter.AdministratorConverter;
+import com.hubu.aspirin.converter.StudentConverter;
 import com.hubu.aspirin.converter.TeacherConverter;
 import com.hubu.aspirin.enums.ExceptionEnum;
 import com.hubu.aspirin.enums.RoleEnum;
 import com.hubu.aspirin.mapper.AdministratorMapper;
-import com.hubu.aspirin.model.dto.AdministratorDTO;
-import com.hubu.aspirin.model.dto.ModifiableAdministratorDTO;
-import com.hubu.aspirin.model.dto.TeacherDTO;
-import com.hubu.aspirin.model.dto.TeacherManagementDTO;
+import com.hubu.aspirin.model.dto.*;
 import com.hubu.aspirin.model.entity.Administrator;
+import com.hubu.aspirin.model.entity.Student;
 import com.hubu.aspirin.model.entity.Teacher;
 import com.hubu.aspirin.model.entity.User;
 import com.hubu.aspirin.service.AdministratorService;
@@ -46,12 +45,7 @@ public class AdministratorServiceImpl extends ServiceImpl<AdministratorMapper, A
 
     @Override
     public TeacherDTO getTeacher(String number) {
-        User user = UserUtils.getByUsernameAndRole(number, RoleEnum.TEACHER);
-        if (user == null) {
-            throw new KnownException(ExceptionEnum.USER_NOT_EXISTS);
-        }
-        Teacher teacher = teacherService.getById(user.getId());
-        return TeacherConverter.INSTANCE.entityToDto(teacher);
+        return teacherService.getInformationByNumber(number);
     }
 
 
@@ -101,6 +95,60 @@ public class AdministratorServiceImpl extends ServiceImpl<AdministratorMapper, A
             throw new KnownException(ExceptionEnum.USER_NOT_EXISTS);
         }
         teacherService.removeById(user.getId());
+        return true;
+    }
+
+    @Override
+    public StudentDTO getStudent(String number) {
+        return studentService.getInformationByNumber(number);
+    }
+
+    @Override
+    public StudentDTO addStudent(StudentManagementDTO dto) {
+        String number = dto.getNumber();
+        if (UserUtils.getByNumberAndRole(number, RoleEnum.STUDENT) != null) {
+            throw new KnownException(ExceptionEnum.USERNAME_EXISTS);
+        }
+        Student student = StudentConverter.INSTANCE.managementDtoToEntity(dto);
+        // 默认用户名为学号
+        student.setUsername(number);
+        // 设置默认密码
+        String defaultRawPassword = AccountConstant.DEFAULT_RAW_PASSWORD.getValue();
+        String defaultPassword = UserUtils.generatePassword(student.getUsername(), defaultRawPassword);
+        student.setPassword(defaultPassword);
+        studentService.save(student);
+        return getStudent(number);
+    }
+
+    @Override
+    public StudentDTO updateStudent(StudentManagementDTO dto, String originalNumber) {
+        String newNumber = dto.getNumber();
+        User user = UserUtils.getByNumberAndRole(newNumber, RoleEnum.STUDENT);
+        if (user != null) {
+            // 新编号已存在
+            throw new KnownException(ExceptionEnum.NUMBER_EXISTS);
+        }
+
+        user = UserUtils.getByNumberAndRole(originalNumber, RoleEnum.STUDENT);
+        if (user == null) {
+            // 用户不存在
+            throw new KnownException(ExceptionEnum.USER_NOT_EXISTS);
+        }
+        // 待更新学生的id
+        Long studentId = user.getId();
+        Student student = studentService.getById(studentId);
+        StudentConverter.INSTANCE.updateEntityFromManagementDto(dto, student);
+        studentService.updateById(student);
+        return getStudent(student.getNumber());
+    }
+
+    @Override
+    public boolean deleteStudent(String number) {
+        User user = UserUtils.getByNumberAndRole(number, RoleEnum.TEACHER);
+        if (user == null) {
+            throw new KnownException(ExceptionEnum.USER_NOT_EXISTS);
+        }
+        studentService.removeById(user.getId());
         return true;
     }
 

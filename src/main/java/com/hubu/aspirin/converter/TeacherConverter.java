@@ -21,5 +21,5 @@ public interface TeacherConverter extends EnumConverter {
     Teacher managementDtoToEntity(TeacherManagementDTO teacherManagementDTO);
 
     @Mapping(target = "gender", qualifiedByName = "genderEnumToInteger", source = "gender")
-    Teacher updateEntityFromManagementDto(TeacherManagementDTO teacherManagementDTO, @MappingTarget Teacher entity);
+    void updateEntityFromManagementDto(TeacherManagementDTO teacherManagementDTO, @MappingTarget Teacher entity);
 }

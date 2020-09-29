@@ -1,10 +1,7 @@
 package com.hubu.aspirin.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.hubu.aspirin.model.dto.AdministratorDTO;
-import com.hubu.aspirin.model.dto.ModifiableAdministratorDTO;
-import com.hubu.aspirin.model.dto.TeacherDTO;
-import com.hubu.aspirin.model.dto.TeacherManagementDTO;
+import com.hubu.aspirin.model.dto.*;
 import com.hubu.aspirin.model.entity.Administrator;
 
 public interface AdministratorService extends IService<Administrator> {
@@ -37,4 +34,25 @@ public interface AdministratorService extends IService<Administrator> {
      * 删除教师
      */
     boolean deleteTeacher(String number);
+
+
+    /**
+     * 查看学生信息
+     */
+    StudentDTO getStudent(String number);
+
+    /**
+     * 添加学生
+     */
+    StudentDTO addStudent(StudentManagementDTO dto);
+
+    /**
+     * 更新学生信息
+     */
+    StudentDTO updateStudent(StudentManagementDTO dto, String originalNumber);
+
+    /**
+     * 删除学生
+     */
+    boolean deleteStudent(String number);
 }
