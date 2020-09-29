@@ -15,4 +15,9 @@ public interface SpecialtyService extends IService<Specialty> {
      * 获取所有专业名
      */
     List<String> getAllNames();
+
+    /**
+     * 获取学院包含的专业名
+     */
+    List<String> getAllNamesByFacultyName(String facultyName);
 }

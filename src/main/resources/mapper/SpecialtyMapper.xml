@@ -1,4 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.hubu.aspirin.mapper.SpecialtyMapper">
+    <select id="getAllNamesByFacultyName" resultType="string">
+        select distinct specialty.name
+        from faculty
+                     left join specialty on faculty.number = specialty.faculty_number
+        where faculty.name = #{facultyName}
+    </select>
 </mapper>

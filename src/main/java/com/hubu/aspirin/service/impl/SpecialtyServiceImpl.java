@@ -26,4 +26,9 @@ public class SpecialtyServiceImpl extends ServiceImpl<SpecialtyMapper, Specialty
     public List<String> getAllNames() {
         return specialtyMapper.getAllNames();
     }
+
+    @Override
+    public List<String> getAllNamesByFacultyName(String facultyName) {
+        return specialtyMapper.getAllNamesByFacultyName(facultyName);
+    }
 }

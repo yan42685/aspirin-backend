@@ -10,4 +10,5 @@ public interface SpecialtyMapper extends BaseMapper<Specialty> {
     @Select("select distinct name from specialty")
     List<String> getAllNames();
 
+    List<String> getAllNamesByFacultyName(String facultyName);
 }
