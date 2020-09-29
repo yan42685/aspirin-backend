@@ -1,6 +1,8 @@
 package com.hubu.aspirin.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.hubu.aspirin.common.KnownException;
 import com.hubu.aspirin.constant.AccountConstant;
@@ -41,6 +43,17 @@ public class AdministratorServiceImpl extends ServiceImpl<AdministratorMapper, A
         AdministratorConverter.INSTANCE.updateEntityFromDto(newInformation, administrator);
         updateById(administrator);
         return true;
+    }
+
+    @Override
+    public IPage<TeacherDTO> pageByNumberOrRealName(Integer current, Integer size, String queryString) {
+        Page<Teacher> page = new Page<>(current, size);
+        QueryWrapper<Teacher> queryWrapper = new QueryWrapper<Teacher>()
+                .like("number", queryString)
+                .or()
+                .like("real_name", queryString);
+        IPage<Teacher> teachers = teacherService.page(page, queryWrapper);
+        return TeacherConverter.INSTANCE.entityToDtoPage(teachers);
     }
 
     @Override

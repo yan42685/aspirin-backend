@@ -32,4 +32,5 @@ public class TeacherServiceImpl extends ServiceImpl<TeacherMapper, Teacher> impl
         String number = getById(id).getNumber();
         return getInformationByNumber(number);
     }
+
 }

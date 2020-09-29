@@ -1,10 +1,13 @@
 package com.hubu.aspirin.controller;
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.hubu.aspirin.common.JsonWrapper;
 import com.hubu.aspirin.model.dto.*;
 import com.hubu.aspirin.service.AdministratorService;
+import com.hubu.aspirin.service.TeacherService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import org.apache.shiro.authz.annotation.RequiresRoles;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,6 +43,17 @@ public class AdministratorController {
     @GetMapping("information/teacher")
     public JsonWrapper<TeacherDTO> getTeacher(String number) {
         return new JsonWrapper<>(administratorService.getTeacher(number));
+    }
+
+    @ApiOperation(value = "分页搜索教师", notes = "根据number或realName模糊查询")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "current", value = "当前页数", dataType = "int"),
+            @ApiImplicitParam(name = "size", value = "每页多少行", dataType = "int"),
+            @ApiImplicitParam(name = "queryString", value = "编号或真名", dataType = "string")
+    })
+    @GetMapping("information/teacher-page")
+    public JsonWrapper<IPage<TeacherDTO>> getTeacherPage(Integer current, Integer size, String queryString) {
+        return new JsonWrapper<>(administratorService.pageByNumberOrRealName(current, size, queryString));
     }
 
 

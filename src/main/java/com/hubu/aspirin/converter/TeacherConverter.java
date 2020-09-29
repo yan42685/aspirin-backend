@@ -1,5 +1,7 @@
 package com.hubu.aspirin.converter;
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.hubu.aspirin.converter.common.EnumConverter;
 import com.hubu.aspirin.model.dto.TeacherDTO;
 import com.hubu.aspirin.model.dto.TeacherManagementDTO;
@@ -16,6 +18,9 @@ public interface TeacherConverter extends EnumConverter {
 
     @Mapping(target = "gender", qualifiedByName = "genderIntegerToString", source = "gender")
     TeacherDTO entityToDto(Teacher teacher);
+
+    // NOTE: 这里返回值不能是IPage, 否则会报编译错误
+    Page<TeacherDTO> entityToDtoPage(IPage<Teacher> teachers);
 
     @Mapping(target = "gender", qualifiedByName = "genderEnumToInteger", source = "gender")
     Teacher managementDtoToEntity(TeacherManagementDTO teacherManagementDTO);

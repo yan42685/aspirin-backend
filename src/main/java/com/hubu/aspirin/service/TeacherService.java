@@ -14,4 +14,5 @@ public interface TeacherService extends IService<Teacher> {
      * 获取自身个人信息
      */
     TeacherDTO getInformation();
+
 }
