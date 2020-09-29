@@ -44,8 +44,7 @@ public class ShiroConfig {
         filterChainDefinitionMap.put("/doc.html", "anon");
 
         filterChainDefinitionMap.put("/api/test/**", "anon");
-        filterChainDefinitionMap.put("/api/account/login", "anon");
-        filterChainDefinitionMap.put("/api/account/simpleRegister", "anon");
+        filterChainDefinitionMap.put("/api/account/**", "anon");
         filterChainDefinitionMap.put("/**", "authc");
         // url过滤链
         factoryBean.setFilterChainDefinitionMap(filterChainDefinitionMap);
