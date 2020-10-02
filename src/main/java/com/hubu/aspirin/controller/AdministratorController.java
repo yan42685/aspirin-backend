@@ -107,4 +107,10 @@ public class AdministratorController {
         return new JsonWrapper<>(administratorService.deleteStudent(number));
     }
 
+    @ApiOperation(value = "发布公告")
+    @PostMapping("bulletin")
+    public JsonWrapper<Boolean> sendBulletin(String title, String content) {
+        return new JsonWrapper<>(administratorService.sendBulletin(title, content));
+    }
+
 }

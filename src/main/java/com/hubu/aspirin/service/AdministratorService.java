@@ -65,4 +65,10 @@ public interface AdministratorService extends IService<Administrator> {
      * 删除学生
      */
     boolean deleteStudent(String number);
+
+    /**
+     * 发布公告
+     */
+    boolean sendBulletin(String title, String content);
+
 }

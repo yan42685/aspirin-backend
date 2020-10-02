@@ -23,7 +23,6 @@ import javax.validation.constraints.NotBlank;
 @RestController
 @Validated
 public class TestController {
-
     @ApiOperation("翻转字符串")
     @ApiImplicitParam(name = "str", value = "原始字符串", paramType = "query", dataType = "string")
     @GetMapping("reverse")

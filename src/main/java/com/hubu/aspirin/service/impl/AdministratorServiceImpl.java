@@ -14,11 +14,9 @@ import com.hubu.aspirin.enums.RoleEnum;
 import com.hubu.aspirin.mapper.AdministratorMapper;
 import com.hubu.aspirin.model.bo.StudentBO;
 import com.hubu.aspirin.model.dto.*;
-import com.hubu.aspirin.model.entity.Administrator;
-import com.hubu.aspirin.model.entity.Student;
-import com.hubu.aspirin.model.entity.Teacher;
-import com.hubu.aspirin.model.entity.User;
+import com.hubu.aspirin.model.entity.*;
 import com.hubu.aspirin.service.AdministratorService;
+import com.hubu.aspirin.service.BulletinService;
 import com.hubu.aspirin.service.StudentService;
 import com.hubu.aspirin.service.TeacherService;
 import com.hubu.aspirin.util.UserUtils;
@@ -31,6 +29,8 @@ public class AdministratorServiceImpl extends ServiceImpl<AdministratorMapper, A
     TeacherService teacherService;
     @Autowired
     StudentService studentService;
+    @Autowired
+    BulletinService bulletinService;
 
     @Override
     public AdministratorDTO getAdministratorInformation() {
@@ -169,6 +169,17 @@ public class AdministratorServiceImpl extends ServiceImpl<AdministratorMapper, A
             throw new KnownException(ExceptionEnum.USER_NOT_EXISTS);
         }
         studentService.removeById(user.getId());
+        return true;
+    }
+
+    @Override
+    public boolean sendBulletin(String title, String content) {
+        String administratorNumber = getCurrentAdministrator().getNumber();
+        Bulletin bulletin = new Bulletin();
+        bulletin.setTitle(title)
+                .setContent(content)
+                .setAdministratorNumber(administratorNumber);
+        bulletinService.save(bulletin);
         return true;
     }
 

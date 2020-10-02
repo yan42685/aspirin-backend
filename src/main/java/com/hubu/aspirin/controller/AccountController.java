@@ -55,7 +55,7 @@ public class AccountController {
     }
 
     @RequiresUser
-    @ApiOperation(value = "用户登出")
+    @ApiOperation(value = "登出")
     @GetMapping("logout")
     public JsonWrapper<Boolean> logout() {
         return new JsonWrapper<>(userService.logout());

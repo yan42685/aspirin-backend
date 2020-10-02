@@ -11,8 +11,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class
-FacultyServiceImpl extends ServiceImpl<FacultyMapper, Faculty> implements FacultyService {
+public class FacultyServiceImpl extends ServiceImpl<FacultyMapper, Faculty> implements FacultyService {
     @Autowired
     FacultyMapper facultyMapper;
 

@@ -1,16 +1,15 @@
 package com.hubu.aspirin.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.hubu.aspirin.common.KnownException;
+import com.hubu.aspirin.converter.BulletinConverter;
 import com.hubu.aspirin.enums.ExceptionEnum;
 import com.hubu.aspirin.enums.RoleEnum;
-import com.hubu.aspirin.model.entity.Administrator;
-import com.hubu.aspirin.model.entity.Student;
-import com.hubu.aspirin.model.entity.Teacher;
-import com.hubu.aspirin.model.entity.User;
-import com.hubu.aspirin.service.AdministratorService;
-import com.hubu.aspirin.service.StudentService;
-import com.hubu.aspirin.service.TeacherService;
-import com.hubu.aspirin.service.UserService;
+import com.hubu.aspirin.model.dto.BulletinDTO;
+import com.hubu.aspirin.model.entity.*;
+import com.hubu.aspirin.service.*;
 import com.hubu.aspirin.util.UserUtils;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.UsernamePasswordToken;
@@ -27,6 +26,8 @@ public class UserServiceImpl implements UserService {
     private StudentService studentService;
     @Autowired
     private TeacherService teacherService;
+    @Autowired
+    private BulletinService bulletinService;
 
     @Override
     public boolean login(String username, String password, Boolean rememberMe) {
@@ -115,8 +116,23 @@ public class UserServiceImpl implements UserService {
         return true;
     }
 
-    /**
-     * 校验验证码
-     */
-//    private
+    @Override
+    public IPage<BulletinDTO> getBulletinPage(Integer current, Integer size) {
+        Page<Bulletin> page = new Page<>(current, size);
+        IPage<Bulletin> bulletinPage = bulletinService.page(page);
+        return BulletinConverter.INSTANCE.entityToDtoPage(bulletinPage);
+    }
+
+    @Override
+    public IPage<BulletinDTO> getBulletinPageByTitleOrContent(Integer current, Integer size, String queryString) {
+        Page<Bulletin> page = new Page<>(current, size);
+        QueryWrapper<Bulletin> queryWrapper = new QueryWrapper<Bulletin>()
+                .like("title", queryString)
+                .or()
+                .like("content", queryString);
+        IPage<Bulletin> bulletinIPage = bulletinService.page(page, queryWrapper);
+        return BulletinConverter.INSTANCE.entityToDtoPage(bulletinIPage);
+    }
+
+
 }
