@@ -113,4 +113,15 @@ public class AdministratorController {
         return new JsonWrapper<>(administratorService.sendBulletin(title, content));
     }
 
+    @ApiOperation(value = "更新公告")
+    @PutMapping("bulletin")
+    public JsonWrapper<BulletinDTO> updateBulletin(Long id, String title, String content) {
+        return new JsonWrapper<>(administratorService.updateBulletin(id, title, content));
+    }
+
+    @ApiOperation(value = "删除公告")
+    @DeleteMapping("bulletin")
+    public JsonWrapper<Boolean> deleteBulletin(Long id) {
+        return new JsonWrapper<>(administratorService.deleteBulletin(id));
+    }
 }

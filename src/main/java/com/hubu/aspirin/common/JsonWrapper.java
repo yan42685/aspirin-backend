@@ -24,21 +24,21 @@ public class JsonWrapper<T> {
     /**
      * 返回API调用情况
      */
-    private String msg;
+    private String message;
 
     /**
      * 返回的数据
      */
     private T data;
 
-    private JsonWrapper(int code, String msg, T data) {
+    private JsonWrapper(int code, String message, T data) {
         this.code = code;
-        this.msg = msg;
+        this.message = message;
         this.data = data;
     }
 
-    public JsonWrapper(int code, String msg) {
-        this(code, msg, null);
+    public JsonWrapper(int code, String message) {
+        this(code, message, null);
     }
 
     public JsonWrapper(T data) {

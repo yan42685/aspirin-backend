@@ -1,12 +1,14 @@
 package com.hubu.aspirin.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.hubu.aspirin.common.KnownException;
 import com.hubu.aspirin.constant.AccountConstant;
 import com.hubu.aspirin.converter.AdministratorConverter;
+import com.hubu.aspirin.converter.BulletinConverter;
 import com.hubu.aspirin.converter.StudentConverter;
 import com.hubu.aspirin.converter.TeacherConverter;
 import com.hubu.aspirin.enums.ExceptionEnum;
@@ -180,6 +182,24 @@ public class AdministratorServiceImpl extends ServiceImpl<AdministratorMapper, A
                 .setContent(content)
                 .setAdministratorNumber(administratorNumber);
         bulletinService.save(bulletin);
+        return true;
+    }
+
+    @Override
+    public BulletinDTO updateBulletin(Long id, String title, String content) {
+        Administrator currentAdministrator = getCurrentAdministrator();
+        UpdateWrapper<Bulletin> updateWrapper = new UpdateWrapper<Bulletin>().eq("id", id)
+                .set("title", title)
+                .set("content", content)
+                .set("administratorNumber", currentAdministrator.getNumber());
+        bulletinService.update(updateWrapper);
+        Bulletin newBulletin = bulletinService.getById(id);
+        return BulletinConverter.INSTANCE.entityToDto(newBulletin);
+    }
+
+    @Override
+    public boolean deleteBulletin(Long id) {
+        bulletinService.removeById(id);
         return true;
     }
 

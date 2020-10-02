@@ -11,6 +11,8 @@ import java.time.LocalDateTime;
 @ApiModel("公告信息")
 public class BulletinDTO implements Serializable {
     private static final long serialVersionUID = 1L;
+    @ApiModelProperty(value = "主键")
+    private Long id;
 
     @ApiModelProperty(value = "创建时间")
     private LocalDateTime createTime;

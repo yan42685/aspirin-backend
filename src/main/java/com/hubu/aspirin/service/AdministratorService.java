@@ -71,4 +71,14 @@ public interface AdministratorService extends IService<Administrator> {
      */
     boolean sendBulletin(String title, String content);
 
+    /**
+     * 更新公告
+     */
+    BulletinDTO updateBulletin(Long id, String title, String content);
+
+    /**
+     * 删除公告
+     */
+    boolean deleteBulletin(Long id);
 }
+
