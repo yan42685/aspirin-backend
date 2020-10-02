@@ -18,9 +18,6 @@ public interface AdministratorConverter extends EnumConverter {
     @Mapping(target = "gender", qualifiedByName = "genderIntegerToString", source = "gender")
     AdministratorDTO entityToDto(Administrator administrator);
 
-    /**
-     * 更新对象信息
-     */
     @Mapping(target = "gender", qualifiedByName = "genderEnumToInteger", source = "gender")
     void updateEntityFromDto(ModifiableAdministratorDTO dto, @MappingTarget Administrator entity);
 }
