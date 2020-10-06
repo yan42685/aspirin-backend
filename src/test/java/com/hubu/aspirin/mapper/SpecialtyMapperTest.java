@@ -5,8 +5,6 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import java.util.List;
-
 @SpringBootTest
 class SpecialtyMapperTest {
     @Test
@@ -17,12 +15,5 @@ class SpecialtyMapperTest {
     @Autowired
     SpecialtyMapper specialtyMapper;
 
-    @Test
-    void getAllNamesByFacultyName() {
-        String facultyName = "计算机与信息工程学院";
-        String specialtyName = "软件工程";
-        List<String> specialtyNameList = specialtyMapper.getAllNamesByFacultyName(facultyName);
-        Assertions.assertTrue(specialtyNameList.contains(specialtyName));
-    }
 }
     

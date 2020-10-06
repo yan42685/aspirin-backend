@@ -41,6 +41,5 @@ public interface CourseService extends IService<Course> {
     /**
      * 修改课程图标
      */
-    String modifyIconByNumber();
-
+    String modifyIconByNumber(String number);
 }

@@ -10,7 +10,6 @@ import com.hubu.aspirin.service.SpecialtyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.awt.peer.ScrollbarPeer;
 import java.util.List;
 
 @Service
@@ -33,7 +32,7 @@ public class SpecialtyServiceImpl extends ServiceImpl<SpecialtyMapper, Specialty
 
     @Override
     public List<SpecialtyDTO> getListByFacultyNumber(String facultyNumber) {
-        List<Specialty> specialtyList = specialtyMapper.getAllNamesByFacultyName(facultyNumber);
+        List<Specialty> specialtyList = specialtyMapper.getListByFacultyNumber(facultyNumber);
         return SpecialtyConverter.INSTANCE.entityToDtoList(specialtyList);
     }
 }

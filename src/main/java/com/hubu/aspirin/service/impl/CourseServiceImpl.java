@@ -75,7 +75,7 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
 
     @Override
     // TODO: 等待完成
-    public String modifyIconByNumber() {
+    public String modifyIconByNumber(String number) {
         return null;
     }
 

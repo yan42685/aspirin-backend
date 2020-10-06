@@ -2,7 +2,9 @@ package com.hubu.aspirin.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.hubu.aspirin.converter.FacultyConverter;
 import com.hubu.aspirin.mapper.FacultyMapper;
+import com.hubu.aspirin.model.dto.FacultyDTO;
 import com.hubu.aspirin.model.entity.Faculty;
 import com.hubu.aspirin.service.FacultyService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +25,7 @@ public class FacultyServiceImpl extends ServiceImpl<FacultyMapper, Faculty> impl
     }
 
     @Override
-    public List<String> getList() {
-        return facultyMapper.getAllNames();
+    public List<FacultyDTO> getList() {
+        return FacultyConverter.INSTANCE.entityToDtoList(list());
     }
 }

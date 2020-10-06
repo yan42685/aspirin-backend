@@ -7,5 +7,5 @@ import java.util.List;
 
 public interface SpecialtyMapper extends BaseMapper<Specialty> {
 
-    List<Specialty> getAllNamesByFacultyName(String facultyName);
+    List<Specialty> getListByFacultyNumber(String facultyNumber);
 }
