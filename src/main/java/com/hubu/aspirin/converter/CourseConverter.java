@@ -6,6 +6,7 @@ import com.hubu.aspirin.model.dto.CourseDTO;
 import com.hubu.aspirin.model.dto.ModifiableCourseDTO;
 import com.hubu.aspirin.model.entity.Course;
 import org.mapstruct.Mapper;
+import org.mapstruct.MappingTarget;
 import org.mapstruct.NullValuePropertyMappingStrategy;
 import org.mapstruct.factory.Mappers;
 
@@ -20,4 +21,6 @@ public interface CourseConverter {
     Course modifiableDtoToEntity(ModifiableCourseDTO modifiableCourseDTOPage);
 
     Page<Course> modifiableDtoToEntityPage(IPage<ModifiableCourseDTO> modifiableCourseDTOPage);
+
+    Course updateEntityFromModifiableDto(ModifiableCourseDTO modifiableCourseDTO, @MappingTarget Course course);
 }

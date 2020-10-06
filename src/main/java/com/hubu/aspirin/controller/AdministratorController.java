@@ -59,8 +59,8 @@ public class AdministratorController {
     @ApiOperation(value = "修改教师信息")
     @ApiImplicitParam(name = "originalNumber", value = "原来的教师编号", dataType = "string")
     @PutMapping("information/teacher")
-    public JsonWrapper<TeacherDTO> updateTeacher(TeacherManagementDTO teacherManagementDTO, String originalNumber) {
-        return new JsonWrapper<>(administratorService.updateTeacher(teacherManagementDTO, originalNumber));
+    public JsonWrapper<TeacherDTO> updateTeacher(String originalNumber, TeacherManagementDTO teacherManagementDTO) {
+        return new JsonWrapper<>(administratorService.updateTeacher(originalNumber, teacherManagementDTO));
     }
 
     @ApiOperation(value = "删除教师")

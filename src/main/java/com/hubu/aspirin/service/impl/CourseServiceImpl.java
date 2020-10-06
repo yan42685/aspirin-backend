@@ -1,7 +1,6 @@
 package com.hubu.aspirin.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
@@ -45,11 +44,11 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
 
     @Override
     public CourseDTO createOne(ModifiableCourseDTO modifiableCourseDTO) {
-        Course courseByNumber = getByNumber(modifiableCourseDTO.getNumber());
-        if (courseByNumber != null) {
+        Course course = getByNumber(modifiableCourseDTO.getNumber());
+        if (course != null) {
             throw new KnownException(ExceptionEnum.NUMBER_EXISTS);
         }
-        Course course = CourseConverter.INSTANCE.modifiableDtoToEntity(modifiableCourseDTO);
+        course = CourseConverter.INSTANCE.modifiableDtoToEntity(modifiableCourseDTO);
         save(course);
         Course newCourse = getByNumber(course.getNumber());
         return CourseConverter.INSTANCE.entityToDto(newCourse);
@@ -57,17 +56,20 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
 
     @Override
     public CourseDTO updateByNumber(String number, ModifiableCourseDTO modifiableCourseDTO) {
-        Course course = CourseConverter.INSTANCE.modifiableDtoToEntity(modifiableCourseDTO);
-        update(course, new UpdateWrapper<Course>().eq("number", number));
-        Course updatedCourse = getByNumber(course.getNumber());
-        return CourseConverter.INSTANCE.entityToDto(updatedCourse);
+        Course course = getByNumber(number);
+        if (course == null) {
+            throw new KnownException(ExceptionEnum.NUMBER_NOT_EXIST);
+        }
+        course = CourseConverter.INSTANCE.updateEntityFromModifiableDto(modifiableCourseDTO, course);
+        updateById(course);
+        return CourseConverter.INSTANCE.entityToDto(course);
     }
 
     @Override
     public boolean deleteByNumber(String number) {
         Course byNumber = getByNumber(number);
         if (byNumber == null) {
-            throw new KnownException(ExceptionEnum.NUMBER_NOT_EXISTS);
+            throw new KnownException(ExceptionEnum.NUMBER_NOT_EXIST);
         }
         remove(new QueryWrapper<Course>().eq("number", number));
         return true;
@@ -80,7 +82,6 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
     }
 
     private Course getByNumber(String number) {
-
         QueryWrapper<Course> queryWrapper = new QueryWrapper<Course>()
                 .eq("number", number);
         return getOne(queryWrapper);
