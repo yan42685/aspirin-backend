@@ -2,8 +2,10 @@ package com.hubu.aspirin.controller;
 
 
 import com.hubu.aspirin.common.JsonWrapper;
+import com.hubu.aspirin.model.dto.ClassroomDTO;
 import com.hubu.aspirin.model.dto.FacultyDTO;
 import com.hubu.aspirin.model.dto.SpecialtyDTO;
+import com.hubu.aspirin.service.ClassroomService;
 import com.hubu.aspirin.service.FacultyService;
 import com.hubu.aspirin.service.SpecialtyService;
 import io.swagger.annotations.Api;
@@ -26,6 +28,8 @@ public class BasicInformationController {
     FacultyService facultyService;
     @Autowired
     SpecialtyService specialtyService;
+    @Autowired
+    ClassroomService classroomService;
 
     @ApiOperation(value = "获取所有学院信息")
     @GetMapping("faculty-names")
@@ -43,5 +47,11 @@ public class BasicInformationController {
     @GetMapping("faculty/specialty-names")
     public JsonWrapper<List<SpecialtyDTO>> getAllSpecialtyByFacultyNumber(String facultyNumber) {
         return new JsonWrapper<>(specialtyService.getListByFacultyNumber(facultyNumber));
+    }
+
+    @ApiOperation("获取所有教室信息")
+    @GetMapping("classroom/list")
+    public JsonWrapper<List<ClassroomDTO>> getClassroomList() {
+        return new JsonWrapper<>(classroomService.getList());
     }
 }
