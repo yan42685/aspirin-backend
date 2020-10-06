@@ -32,7 +32,9 @@ public enum ExceptionEnum {
     WRONG_PASSWORD(-9, "密码错误"),
     USER_NOT_EXISTS(-10, "用户不存在"),
     NUMBER_EXISTS(-11, "编号已存在"),
-    VERIFICATION_CODE_MISMATCH(-12, "验证码错误");
+    VERIFICATION_CODE_MISMATCH(-12, "验证码错误"),
+    NUMBER_NOT_EXISTS(-13, "编号不存在");
+
 
     private int errorCode;
     private String errorMsg;

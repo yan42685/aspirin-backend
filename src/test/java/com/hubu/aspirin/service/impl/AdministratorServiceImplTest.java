@@ -1,5 +1,6 @@
 package com.hubu.aspirin.service.impl;
 
+import com.hubu.aspirin.model.dto.BulletinDTO;
 import com.hubu.aspirin.service.AdministratorService;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -19,5 +20,10 @@ class AdministratorServiceImplTest {
     @Test
     void pageStudentByNumberOrRealName() {
     }
+
+    @Test
+    void updateBulletinTest() {
+    }
 }
+
     

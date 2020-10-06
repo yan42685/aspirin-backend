@@ -1,6 +1,7 @@
 package com.hubu.aspirin.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.hubu.aspirin.model.dto.SpecialtyDTO;
 import com.hubu.aspirin.model.entity.Specialty;
 
 import java.util.List;
@@ -12,12 +13,12 @@ public interface SpecialtyService extends IService<Specialty> {
     String getNumberByName(String name);
 
     /**
-     * 获取所有专业名
+     * 获取所有专业
      */
-    List<String> getAllNames();
+    List<SpecialtyDTO> getList();
 
     /**
-     * 获取学院包含的专业名
+     * 获取学院包含的专业
      */
-    List<String> getAllNamesByFacultyName(String facultyName);
+    List<SpecialtyDTO> getListByFacultyNumber(String facultyNumber);
 }

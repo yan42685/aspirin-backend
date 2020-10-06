@@ -1,6 +1,7 @@
 package com.hubu.aspirin.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.hubu.aspirin.model.dto.FacultyDTO;
 import com.hubu.aspirin.model.entity.Faculty;
 
 import java.util.List;
@@ -12,8 +13,8 @@ public interface FacultyService extends IService<Faculty> {
     String getNumberByName(String name);
 
     /**
-     * 获取所有学院名
+     * 获取所有学院
      */
-    List<String> getAllNames();
+    List<FacultyDTO> getList();
 
 }

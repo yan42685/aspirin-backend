@@ -1,5 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.hubu.aspirin.mapper.CourseMapper">
+    <sql id="getBySpecialtyNumber">
+        select course.*
+        from course
+                     left join specialty_course on course.number = specialty_course.course_number
+                     left join specialty s on specialty_course.specialty_number = s.number
+    </sql>
 
+    <select id="getAllPageBySpecialtyNumber" resultType="com.hubu.aspirin.model.entity.Course">
+        <include refid="getBySpecialtyNumber">
+        </include>
+        where s.number = #{specialtyNumber}
+    </select>
+
+    <select id="getAllPageBySpecialtyNumberAndCourseType" resultType="com.hubu.aspirin.model.entity.Course">
+        <include refid="getBySpecialtyNumber">
+        </include>
+        where s.number = #{specialtyNumber} and course.type = #{courseType}
+    </select>
 </mapper>

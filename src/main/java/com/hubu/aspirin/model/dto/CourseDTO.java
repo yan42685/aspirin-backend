@@ -1,8 +1,4 @@
-package com.hubu.aspirin.model.entity;
-
-import java.math.BigDecimal;
-import java.time.LocalDateTime;
-import java.io.Serializable;
+package com.hubu.aspirin.model.dto;
 
 import com.hubu.aspirin.enums.CourseTypeEnum;
 import io.swagger.annotations.ApiModel;
@@ -11,22 +7,16 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
 
+import java.io.Serializable;
+import java.time.LocalDateTime;
+
 @Data
 @EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
-@ApiModel(value="Course对象", description="")
-public class Course implements Serializable {
+@ApiModel(value="CourseDTO")
+public class CourseDTO implements Serializable {
 
     private static final long serialVersionUID=1L;
-
-    @ApiModelProperty(value = "主键")
-    private Long id;
-
-    @ApiModelProperty(value = "创建时间")
-    private LocalDateTime createTime;
-
-    @ApiModelProperty(value = "更新时间")
-    private LocalDateTime updateTime;
 
     @ApiModelProperty(value = "课程图标URL")
     private String iconUrl;
@@ -48,6 +38,5 @@ public class Course implements Serializable {
 
     @ApiModelProperty(value = "学分")
     private Float credit;
-
 
 }

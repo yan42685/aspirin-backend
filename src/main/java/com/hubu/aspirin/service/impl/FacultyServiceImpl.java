@@ -23,7 +23,7 @@ public class FacultyServiceImpl extends ServiceImpl<FacultyMapper, Faculty> impl
     }
 
     @Override
-    public List<String> getAllNames() {
+    public List<String> getList() {
         return facultyMapper.getAllNames();
     }
 }

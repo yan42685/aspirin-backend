@@ -2,12 +2,15 @@ package com.hubu.aspirin.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.hubu.aspirin.converter.SpecialtyConverter;
 import com.hubu.aspirin.mapper.SpecialtyMapper;
+import com.hubu.aspirin.model.dto.SpecialtyDTO;
 import com.hubu.aspirin.model.entity.Specialty;
 import com.hubu.aspirin.service.SpecialtyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.awt.peer.ScrollbarPeer;
 import java.util.List;
 
 @Service
@@ -23,12 +26,14 @@ public class SpecialtyServiceImpl extends ServiceImpl<SpecialtyMapper, Specialty
     }
 
     @Override
-    public List<String> getAllNames() {
-        return specialtyMapper.getAllNames();
+    public List<SpecialtyDTO> getList() {
+        List<Specialty> specialtyList = list();
+        return SpecialtyConverter.INSTANCE.entityToDtoList(specialtyList);
     }
 
     @Override
-    public List<String> getAllNamesByFacultyName(String facultyName) {
-        return specialtyMapper.getAllNamesByFacultyName(facultyName);
+    public List<SpecialtyDTO> getListByFacultyNumber(String facultyNumber) {
+        List<Specialty> specialtyList = specialtyMapper.getAllNamesByFacultyName(facultyNumber);
+        return SpecialtyConverter.INSTANCE.entityToDtoList(specialtyList);
     }
 }

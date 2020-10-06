@@ -2,6 +2,8 @@ package com.hubu.aspirin.controller;
 
 
 import com.hubu.aspirin.common.JsonWrapper;
+import com.hubu.aspirin.model.dto.FacultyDTO;
+import com.hubu.aspirin.model.dto.SpecialtyDTO;
 import com.hubu.aspirin.service.FacultyService;
 import com.hubu.aspirin.service.SpecialtyService;
 import io.swagger.annotations.Api;
@@ -25,21 +27,21 @@ public class BasicInformationController {
     @Autowired
     SpecialtyService specialtyService;
 
-    @ApiOperation(value = "获取所有学院名")
+    @ApiOperation(value = "获取所有学院信息")
     @GetMapping("faculty-names")
-    public JsonWrapper<List<String>> getAllFacultyNames() {
-        return new JsonWrapper<>(facultyService.getAllNames());
+    public JsonWrapper<List<FacultyDTO>> getAllFaculty() {
+        return new JsonWrapper<>(facultyService.getList());
     }
 
-    @ApiOperation(value = "获取所有专业名")
+    @ApiOperation(value = "获取所有专业信息")
     @GetMapping("specialty-names")
-    public JsonWrapper<List<String>> getAllSpecialtyNames() {
-        return new JsonWrapper<>(specialtyService.getAllNames());
+    public JsonWrapper<List<SpecialtyDTO>> getAllSpecialty() {
+        return new JsonWrapper<>(specialtyService.getList());
     }
 
-    @ApiOperation(value = "获取学院包含的专业名")
+    @ApiOperation(value = "获取学院包含的专业")
     @GetMapping("faculty/specialty-names")
-    public JsonWrapper<List<String>> getAllSpecialtyNamesByFacultyName(String facultyName) {
-        return new JsonWrapper<>(specialtyService.getAllNamesByFacultyName(facultyName));
+    public JsonWrapper<List<SpecialtyDTO>> getAllSpecialtyByFacultyNumber(String facultyNumber) {
+        return new JsonWrapper<>(specialtyService.getListByFacultyNumber(facultyNumber));
     }
 }
