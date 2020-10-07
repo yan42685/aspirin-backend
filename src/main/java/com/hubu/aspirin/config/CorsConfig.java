@@ -2,6 +2,10 @@ package com.hubu.aspirin.config;
 
 import org.springframework.boot.SpringBootConfiguration;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+import org.springframework.web.filter.CorsFilter;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
@@ -12,25 +16,25 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
  */
 @SpringBootConfiguration
 public class CorsConfig {
+    private CorsConfiguration buildConfig() {
+        CorsConfiguration corsConfiguration = new CorsConfiguration();
+        // 允许任何域名使用
+        corsConfiguration.addAllowedOrigin("*");
+        // 允许任何头
+        corsConfiguration.addAllowedHeader("*");
+        // 允许任何方法（post、get等）
+        corsConfiguration.addAllowedMethod("*");
+        //添加暴露响应头
+        //corsConfiguration.addExposedHeader("token");
+        return corsConfiguration;
+    }
+
     @Bean
-    public WebMvcConfigurer corsConfigurer() {
-        return new WebMvcConfigurer() {
-            @Override
-            //重写父类提供的跨域请求处理的接口
-            public void addCorsMappings(CorsRegistry registry) {
-                //添加映射路径
-                registry.addMapping("/**")
-                        //放行哪些原始域
-                        .allowedOrigins("*")
-                        //放行哪些原始域(请求方式)
-                        .allowedMethods("GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS", "HEAD")
-                        //放行哪些原始域(头部信息)
-                        .allowedHeaders("*")
-                        //是否发送cookie信息
-                        .allowCredentials(true)
-                        .maxAge(60 * 60 * 24 * 10);
-            }
-        };
+    public CorsFilter corsFilter() {
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        // 对接口配置跨域设置
+        source.registerCorsConfiguration("/**", buildConfig());
+        return new CorsFilter(source);
     }
 }
 
