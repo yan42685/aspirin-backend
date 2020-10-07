@@ -12,9 +12,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-@RequiresRoles("administrator")
 @Api(tags = "用户通用")
-@RequestMapping("api/administrator")
+@RequestMapping("api/user")
 @RestController
 public class UserController {
     @Autowired
