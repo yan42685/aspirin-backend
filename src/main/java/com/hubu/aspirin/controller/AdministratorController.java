@@ -12,7 +12,7 @@ import org.apache.shiro.authz.annotation.RequiresRoles;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-@RequiresRoles("administrator")
+//@RequiresRoles("administrator")
 @Api(tags = "管理员")
 @RequestMapping("api/administrator")
 @RestController

@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @Api(tags = "教师")
-@RequiresRoles("teacher")
+//@RequiresRoles("teacher")
 @RequestMapping("api/teacher")
 @RestController
 public class TeacherController {

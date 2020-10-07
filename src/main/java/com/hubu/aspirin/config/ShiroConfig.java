@@ -45,7 +45,8 @@ public class ShiroConfig {
 
         filterChainDefinitionMap.put("/api/test/**", "anon");
         filterChainDefinitionMap.put("/api/account/**", "anon");
-        filterChainDefinitionMap.put("/**", "authc");
+        // TODO: 开启登录权限
+//        filterChainDefinitionMap.put("/**", "authc");
         // url过滤链
         factoryBean.setFilterChainDefinitionMap(filterChainDefinitionMap);
         // 使用自定义的过滤器

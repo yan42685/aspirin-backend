@@ -26,6 +26,8 @@ public class CorsConfig {
         corsConfiguration.addAllowedMethod("*");
         //添加暴露响应头
         //corsConfiguration.addExposedHeader("token");
+        // 允许使用cookies
+        corsConfiguration.setAllowCredentials(true);
         return corsConfiguration;
     }
 

@@ -62,6 +62,7 @@ public class UserUtils {
         return getByColumnAndRole("number", number, role);
     }
 
+    // TODO: 和getcurrentUser只在shiro中使用，清除其他使用方式
     public static RoleEnum getCurrentRole() {
         // 获取用户角色
         HttpServletRequest request = ServletUtils.getRequest();
