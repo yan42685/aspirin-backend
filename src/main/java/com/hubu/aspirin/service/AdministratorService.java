@@ -15,7 +15,7 @@ public interface AdministratorService extends IService<Administrator> {
     /**
      * 修改管理员个人信息
      */
-    boolean updateAdministratorInformation(ModifiableAdministratorDTO newInformation);
+    AdministratorDTO updateAdministratorInformation(ModifiableAdministratorDTO newInformation);
 
     /**
      * 根据编号或真名搜索教师

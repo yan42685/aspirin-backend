@@ -42,11 +42,11 @@ public class AdministratorServiceImpl extends ServiceImpl<AdministratorMapper, A
     }
 
     @Override
-    public boolean updateAdministratorInformation(ModifiableAdministratorDTO newInformation) {
+    public AdministratorDTO updateAdministratorInformation(ModifiableAdministratorDTO newInformation) {
         Administrator administrator = getCurrentAdministrator();
         AdministratorConverter.INSTANCE.updateEntityFromDto(newInformation, administrator);
         updateById(administrator);
-        return true;
+        return AdministratorConverter.INSTANCE.entityToDto(getCurrentAdministrator());
     }
 
     @Override

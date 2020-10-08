@@ -27,7 +27,7 @@ public class AdministratorController {
 
     @ApiOperation("修改个人信息")
     @PutMapping("information")
-    public JsonWrapper<Boolean> updateAdministratorInformation(ModifiableAdministratorDTO newInformation) {
+    public JsonWrapper<AdministratorDTO> updateAdministratorInformation(ModifiableAdministratorDTO newInformation) {
         return new JsonWrapper<>(administratorService.updateAdministratorInformation(newInformation));
     }
 
