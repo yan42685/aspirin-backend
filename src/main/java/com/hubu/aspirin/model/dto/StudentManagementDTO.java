@@ -32,9 +32,6 @@ public class StudentManagementDTO {
     @ApiModelProperty(value = "学号")
     private String number;
 
-    @ApiModelProperty(value = "年级")
-    private Integer grade;
-
     @ApiModelProperty(value = "入学年份")
     private Integer admissionYear;
 

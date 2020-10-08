@@ -83,7 +83,6 @@ CREATE TABLE student
     `number`              varchar(255) unique comment '学号',
     `faculty_number`      varchar(255) comment '学院编号',
     `specialty_number`    varchar(255) comment '专业编号',
-    `grade`               tinyint comment '年级',
     admission_year        smallint comment '入学年份',
     semester              smallint comment '所处学期',
     PRIMARY KEY (`id`),
