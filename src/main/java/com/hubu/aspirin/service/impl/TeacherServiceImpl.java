@@ -18,7 +18,7 @@ public class TeacherServiceImpl extends ServiceImpl<TeacherMapper, Teacher> impl
 
     @Override
     public TeacherDTO getInformationByNumber(String number) {
-        User user = UserUtils.getByUsernameAndRole(number, RoleEnum.TEACHER);
+        User user = UserUtils.getByNumberAndRole(number, RoleEnum.TEACHER);
         if (user == null) {
             throw new KnownException(ExceptionEnum.USER_NOT_EXISTS);
         }

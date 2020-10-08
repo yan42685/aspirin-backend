@@ -22,13 +22,6 @@ public class AccountController {
     @Autowired
     UserService userService;
 
-//    @ApiOperation(value = "只注册用户名密码")
-//    @ApiImplicitParam(name = "role", paramType = "header", value = "角色", dataType = "string")
-//    @GetMapping("simple-register")
-//    public JsonWrapper<Boolean> simpleRegister(String username, String password) {
-//        return new JsonWrapper<>(userService.simpleRegister(username, password));
-//    }
-
     @ApiOperation(value = "用户登录", notes = "不能用于管理员登录")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "username", value = "用户名", dataType = "string"),

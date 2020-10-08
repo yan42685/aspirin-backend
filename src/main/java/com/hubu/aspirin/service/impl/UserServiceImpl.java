@@ -51,39 +51,6 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public boolean simpleRegister(String username, String password) {
-        RoleEnum role = UserUtils.getCurrentRole();
-
-        // 如果用户名已存在
-        if (UserUtils.getByUsernameAndRole(username, role) != null) {
-            throw new KnownException(ExceptionEnum.USERNAME_EXISTS);
-        }
-        // 进行Sha256加密,用户名作为盐，并转为16进制
-        password = UserUtils.generatePassword(username, password);
-
-        switch (role) {
-            case ADMINISTRATOR:
-                Administrator administrator = new Administrator();
-                administrator.setUsername(username).setPassword(password);
-                administratorService.save(administrator);
-                break;
-            case STUDENT:
-                Student student = new Student();
-                student.setUsername(username).setPassword(password);
-                studentService.save(student);
-                break;
-            case TEACHER:
-                Teacher teacher = new Teacher();
-                teacher.setUsername(username).setPassword(password);
-                teacherService.save(teacher);
-                break;
-            default:
-                break;
-        }
-        return true;
-    }
-
-    @Override
     public boolean modifyPassword(String oldPassword, String newPassword) {
         RoleEnum role = UserUtils.getCurrentRole();
         User user = UserUtils.getByRawPasswordAndRole(oldPassword, role);

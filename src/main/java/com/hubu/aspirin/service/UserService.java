@@ -15,10 +15,6 @@ public interface UserService {
      */
     boolean logout();
 
-    /**
-     * 只注册用户名和密码
-     */
-    boolean simpleRegister(String username, String password);
 
     /**
      * 修改密码
