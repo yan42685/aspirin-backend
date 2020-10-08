@@ -2,6 +2,7 @@ package com.hubu.aspirin.service;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.hubu.aspirin.model.dto.BulletinDTO;
+import org.springframework.web.multipart.MultipartFile;
 
 public interface UserService {
 
@@ -30,4 +31,9 @@ public interface UserService {
      * 根据标题或内容分页查找公告
      */
     IPage<BulletinDTO> getBulletinPageByTitleOrContent(Integer current, Integer size, String queryString);
+
+    /**
+     * 上传头像, number作为key
+     */
+    String uploadAvatar(MultipartFile file);
 }

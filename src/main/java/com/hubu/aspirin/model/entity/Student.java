@@ -18,7 +18,7 @@ public class Student extends User implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @ApiModelProperty(value = "角色")
-    private Integer role = RoleEnum.STUDENT.ordinal();
+    private RoleEnum role = RoleEnum.STUDENT;
 
     @ApiModelProperty(value = "学院编号")
     private String facultyNumber;

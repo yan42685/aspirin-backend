@@ -19,7 +19,7 @@ public class Administrator extends User implements Serializable {
     private static final long serialVersionUID=1L;
 
     @ApiModelProperty(value = "角色")
-    private Integer role = RoleEnum.ADMINISTRATOR.ordinal();
+    private RoleEnum role = RoleEnum.ADMINISTRATOR;
 
     @ApiModelProperty(value = "工号")
     private String number;

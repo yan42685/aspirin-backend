@@ -1,6 +1,7 @@
 package com.hubu.aspirin.model.entity;
 
 import com.hubu.aspirin.enums.GenderEnum;
+import com.hubu.aspirin.enums.RoleEnum;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -55,5 +56,5 @@ public class User implements Serializable {
     protected Integer status;
 
     @ApiModelProperty(value = "角色")
-    protected Integer role;
+    protected RoleEnum role;
 }

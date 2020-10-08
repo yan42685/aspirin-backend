@@ -51,7 +51,7 @@ public class UserUtils {
         return getByColumnAndRole("number", number, role);
     }
 
-    public static RoleEnum getCurrentRole() {
+    public static RoleEnum getRoleFromHeader() {
         // 获取用户角色
         HttpServletRequest request = ServletUtils.getRequest();
         String role = request.getHeader("role");
@@ -59,6 +59,11 @@ public class UserUtils {
             throw new KnownException(ExceptionEnum.ROLE_HEADER_MISSING);
         }
         return RoleEnum.valueOf(role.toUpperCase());
+    }
+
+    public static RoleEnum getCurrentRole() {
+        User user = (User) SecurityUtils.getSubject().getPrincipal();
+        return user.getRole();
     }
 
     /**

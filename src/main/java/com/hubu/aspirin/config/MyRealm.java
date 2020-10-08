@@ -32,7 +32,7 @@ public class MyRealm extends AuthorizingRealm {
         // 获取用户信息
         UsernamePasswordToken userToken = (UsernamePasswordToken) token;
         String username = userToken.getUsername();
-        RoleEnum role = UserUtils.getCurrentRole();
+        RoleEnum role = UserUtils.getRoleFromHeader();
 
         User principle = UserUtils.getByUsernameAndRole(username, role);
         if (principle == null) {
@@ -57,7 +57,7 @@ public class MyRealm extends AuthorizingRealm {
         User principal = (User) principals.getPrimaryPrincipal();
         // 查看在doGetAuthenticationInfo中授权的权限
         SimpleAuthorizationInfo authorizationInfo = new SimpleAuthorizationInfo();
-        String role = EnumUtils.getNameLowerCase(RoleEnum.class, principal.getRole());
+        String role = EnumUtils.getNameLowerCase(RoleEnum.class, principal.getRole().ordinal());
         HashSet<String> rolesCollection = new HashSet<>();
         rolesCollection.add(role);
         authorizationInfo.addRoles(rolesCollection);

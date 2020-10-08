@@ -56,7 +56,6 @@ public class AccountController {
 
     @RequiresUser
     @ApiOperation(value = "修改密码")
-    @ApiImplicitParam(name = "role", paramType = "header", value = "角色", dataType = "string")
     @PutMapping("password")
     public JsonWrapper<Boolean> modifyPassword(String oldPassword, String newPassword) {
         return new JsonWrapper<>(userService.modifyPassword(oldPassword, newPassword));

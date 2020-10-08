@@ -16,6 +16,7 @@ import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -99,6 +100,11 @@ public class UserServiceImpl implements UserService {
                 .like("content", queryString);
         IPage<Bulletin> bulletinIPage = bulletinService.page(page, queryWrapper);
         return BulletinConverter.INSTANCE.entityToDtoPage(bulletinIPage);
+    }
+
+    @Override
+    public String uploadAvatar(MultipartFile file) {
+        return null;
     }
 
 
