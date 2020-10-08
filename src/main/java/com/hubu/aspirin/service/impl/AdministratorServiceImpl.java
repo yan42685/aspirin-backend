@@ -59,11 +59,6 @@ public class AdministratorServiceImpl extends ServiceImpl<AdministratorMapper, A
         return TeacherConverter.INSTANCE.entityToDtoPage(teachers);
     }
 
-    @Override
-    public TeacherDTO getTeacher(String number) {
-        return teacherService.getDtoByNumber(number);
-    }
-
 
     @Override
     public TeacherDTO addTeacher(TeacherManagementDTO dto) {
@@ -79,7 +74,7 @@ public class AdministratorServiceImpl extends ServiceImpl<AdministratorMapper, A
         String defaultPassword = UserUtils.generatePassword(teacher.getUsername(), defaultRawPassword);
         teacher.setPassword(defaultPassword);
         teacherService.save(teacher);
-        return getTeacher(number);
+        return teacherService.getDtoByNumber(number);
     }
 
     @Override
@@ -92,7 +87,7 @@ public class AdministratorServiceImpl extends ServiceImpl<AdministratorMapper, A
         }
 
         user = UserUtils.getByNumberAndRole(originalNumber, RoleEnum.TEACHER);
-        if (user == null) {
+        if (!newNumber.equals(originalNumber) && user == null) {
             // 用户不存在
             throw new KnownException(ExceptionEnum.USER_NOT_EXISTS);
         }
@@ -101,7 +96,7 @@ public class AdministratorServiceImpl extends ServiceImpl<AdministratorMapper, A
         Teacher teacher = teacherService.getById(teacherId);
         TeacherConverter.INSTANCE.updateEntityFromManagementDto(teacherManagementDTO, teacher);
         teacherService.updateById(teacher);
-        return getTeacher(teacher.getNumber());
+        return teacherService.getDtoByNumber(teacher.getNumber());
     }
 
     @Override
@@ -120,11 +115,6 @@ public class AdministratorServiceImpl extends ServiceImpl<AdministratorMapper, A
     }
 
     @Override
-    public StudentDTO getStudent(String number) {
-        return studentService.getDtoByNumber(number);
-    }
-
-    @Override
     public StudentDTO addStudent(StudentManagementDTO dto) {
         String number = dto.getNumber();
         if (UserUtils.getByNumberAndRole(number, RoleEnum.STUDENT) != null) {
@@ -138,14 +128,14 @@ public class AdministratorServiceImpl extends ServiceImpl<AdministratorMapper, A
         String defaultPassword = UserUtils.generatePassword(student.getUsername(), defaultRawPassword);
         student.setPassword(defaultPassword);
         studentService.save(student);
-        return getStudent(number);
+        return studentService.getDtoByNumber(number);
     }
 
     @Override
     public StudentDTO updateStudent(String originalNumber, StudentManagementDTO dto) {
         String newNumber = dto.getNumber();
         User user = UserUtils.getByNumberAndRole(newNumber, RoleEnum.STUDENT);
-        if (!originalNumber.equals(newNumber) && user != null) {
+        if (!newNumber.equals(originalNumber) && user != null) {
             // 新编号已存在
             throw new KnownException(ExceptionEnum.NUMBER_EXISTS);
         }
@@ -160,7 +150,7 @@ public class AdministratorServiceImpl extends ServiceImpl<AdministratorMapper, A
         Student student = studentService.getById(studentId);
         StudentConverter.INSTANCE.updateEntityFromManagementDto(dto, student);
         studentService.updateById(student);
-        return getStudent(student.getNumber());
+        return studentService.getDtoByNumber(student.getNumber());
     }
 
     @Override

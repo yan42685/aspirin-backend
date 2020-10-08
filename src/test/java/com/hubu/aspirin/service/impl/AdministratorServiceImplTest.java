@@ -25,11 +25,6 @@ class AdministratorServiceImplTest {
 
     @Test
     void updateStudent() {
-//        String originalNumber = "201822111710101";
-//        StudentManagementDTO dto = new StudentManagementDTO();
-//        dto.setNumber("201822111710101");
-//        dto.setGender(GenderEnum.FEMALE);
-//        administratorService.updateStudent(originalNumber, dto);
     }
 }
 

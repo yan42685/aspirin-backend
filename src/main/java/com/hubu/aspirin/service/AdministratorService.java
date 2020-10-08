@@ -22,11 +22,6 @@ public interface AdministratorService extends IService<Administrator> {
     IPage<TeacherDTO> pageTeacherByNumberOrRealName(Integer current, Integer size, String queryString);
 
     /**
-     * 查看教师信息
-     */
-    TeacherDTO getTeacher(String number);
-
-    /**
      * 添加教师
      */
     TeacherDTO addTeacher(TeacherManagementDTO teacherManagementDTO);
@@ -45,11 +40,6 @@ public interface AdministratorService extends IService<Administrator> {
      * 根据学号或真名搜索学生
      */
     IPage<StudentDTO> pageStudentByNumberOrRealName(Integer current, Integer size, String queryString);
-
-    /**
-     * 查看学生信息
-     */
-    StudentDTO getStudent(String number);
 
     /**
      * 添加学生

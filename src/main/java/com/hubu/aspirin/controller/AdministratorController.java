@@ -38,12 +38,6 @@ public class AdministratorController {
         return new JsonWrapper<>(administratorService.addTeacher(teacherManagementDTO));
     }
 
-    @ApiOperation(value = "查看教师信息")
-    @GetMapping("information/teacher")
-    public JsonWrapper<TeacherDTO> getTeacher(String number) {
-        return new JsonWrapper<>(administratorService.getTeacher(number));
-    }
-
     @ApiOperation(value = "分页搜索教师", notes = "根据number或realName模糊查询")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "current", value = "当前页数", dataType = "int"),
@@ -76,11 +70,6 @@ public class AdministratorController {
         return new JsonWrapper<>(administratorService.addStudent(studentManagementDTO));
     }
 
-    @ApiOperation(value = "查看学生信息")
-    @GetMapping("information/student")
-    public JsonWrapper<StudentDTO> getStudent(String number) {
-        return new JsonWrapper<>(administratorService.getStudent(number));
-    }
 
     @ApiOperation(value = "分页搜索学生", notes = "根据number或realName模糊查询")
     @ApiImplicitParams({
