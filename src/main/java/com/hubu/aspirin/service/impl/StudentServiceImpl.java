@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.hubu.aspirin.mapper.StudentMapper;
 import com.hubu.aspirin.model.dto.StudentDTO;
+import com.hubu.aspirin.model.dto.StudentQueryDTO;
 import com.hubu.aspirin.model.entity.Student;
 import com.hubu.aspirin.model.entity.User;
 import com.hubu.aspirin.service.StudentService;
@@ -33,13 +34,13 @@ public class StudentServiceImpl extends ServiceImpl<StudentMapper, Student> impl
 
     @Override
     public StudentDTO getDtoById(Long id) {
-        return studentMapper.getBoById(id);
+        return studentMapper.getDtoById(id);
     }
 
     @Override
-    public IPage<StudentDTO> pageBoByNumberOrRealName(Integer current, Integer size, String queryString) {
+    public IPage<StudentDTO> pageByQueryDto(Integer current, Integer size, StudentQueryDTO info) {
         Page<StudentDTO> page = new Page<>(current, size);
-        return studentMapper.pageBoByNumberOrRealName(page, queryString);
+        return studentMapper.page(page, info);
     }
 
 

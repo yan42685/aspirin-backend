@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.hubu.aspirin.model.dto.*;
 import com.hubu.aspirin.model.entity.Administrator;
+import io.swagger.models.auth.In;
 
 public interface AdministratorService extends IService<Administrator> {
     /**
@@ -19,7 +20,7 @@ public interface AdministratorService extends IService<Administrator> {
     /**
      * 根据编号或真名搜索教师
      */
-    IPage<TeacherDTO> pageTeacherByNumberOrRealName(Integer current, Integer size, String queryString);
+    IPage<TeacherDTO> pageTeacher(Integer current, Integer size, String queryString);
 
     /**
      * 添加教师
@@ -39,7 +40,7 @@ public interface AdministratorService extends IService<Administrator> {
     /**
      * 根据学号或真名搜索学生
      */
-    IPage<StudentDTO> pageStudentByNumberOrRealName(Integer current, Integer size, String queryString);
+    IPage<StudentDTO> pageStudent(Integer current, Integer size, StudentQueryDTO studentQueryDTO);
 
     /**
      * 添加学生

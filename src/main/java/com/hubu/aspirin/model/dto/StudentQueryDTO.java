@@ -16,6 +16,6 @@ public class StudentQueryDTO {
     @ApiModelProperty(value = "入学年份")
     private Integer admissionYear;
 
-    @ApiModelProperty("真名或学号")
-    private String queryString;
+    @ApiModelProperty("学号或真名")
+    private String numberOrRealName;
 }

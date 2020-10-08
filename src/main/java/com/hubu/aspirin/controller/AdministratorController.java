@@ -8,7 +8,6 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
-import org.apache.shiro.authz.annotation.RequiresRoles;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -42,11 +41,11 @@ public class AdministratorController {
     @ApiImplicitParams({
             @ApiImplicitParam(name = "current", value = "当前页数", dataType = "int"),
             @ApiImplicitParam(name = "size", value = "每页多少行", dataType = "int"),
-            @ApiImplicitParam(name = "queryString", value = "编号或真名", dataType = "string")
+            @ApiImplicitParam(name = "numberOrRealName", value = "编号或真名", dataType = "string")
     })
     @GetMapping("information/teacher-page")
-    public JsonWrapper<IPage<TeacherDTO>> getTeacherPage(Integer current, Integer size, String queryString) {
-        return new JsonWrapper<>(administratorService.pageTeacherByNumberOrRealName(current, size, queryString));
+    public JsonWrapper<IPage<TeacherDTO>> getTeacherPage(Integer current, Integer size, String numberOrRealName) {
+        return new JsonWrapper<>(administratorService.pageTeacher(current, size, numberOrRealName));
     }
 
 
@@ -71,15 +70,10 @@ public class AdministratorController {
     }
 
 
-    @ApiOperation(value = "分页搜索学生", notes = "根据number或realName模糊查询")
-    @ApiImplicitParams({
-            @ApiImplicitParam(name = "current", value = "当前页数", dataType = "int"),
-            @ApiImplicitParam(name = "size", value = "每页多少行", dataType = "int"),
-            @ApiImplicitParam(name = "queryString", value = "学号或真名", dataType = "string")
-    })
+    @ApiOperation(value = "分页搜索学生")
     @GetMapping("information/student-page")
-    public JsonWrapper<IPage<StudentDTO>> getStudentPage(Integer current, Integer size, String queryString) {
-        return new JsonWrapper<>(administratorService.pageStudentByNumberOrRealName(current, size, queryString));
+    public JsonWrapper<IPage<StudentDTO>> getStudentPage(Integer current, Integer size, StudentQueryDTO studentQueryDTO) {
+        return new JsonWrapper<>(administratorService.pageStudent(current, size, studentQueryDTO));
     }
 
     @ApiOperation(value = "修改学生信息")

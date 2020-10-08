@@ -3,6 +3,7 @@ package com.hubu.aspirin.service;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.hubu.aspirin.model.dto.StudentDTO;
+import com.hubu.aspirin.model.dto.StudentQueryDTO;
 import com.hubu.aspirin.model.entity.Student;
 
 public interface StudentService extends IService<Student> {
@@ -25,5 +26,5 @@ public interface StudentService extends IService<Student> {
     /**
      * 根据真名和学号搜索
      */
-    IPage<StudentDTO> pageBoByNumberOrRealName(Integer current, Integer size, String queryString);
+    IPage<StudentDTO> pageByQueryDto(Integer current, Integer size, StudentQueryDTO studentQueryDTO);
 }

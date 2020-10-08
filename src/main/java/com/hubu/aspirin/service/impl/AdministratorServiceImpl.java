@@ -49,12 +49,12 @@ public class AdministratorServiceImpl extends ServiceImpl<AdministratorMapper, A
     }
 
     @Override
-    public IPage<TeacherDTO> pageTeacherByNumberOrRealName(Integer current, Integer size, String queryString) {
+    public IPage<TeacherDTO> pageTeacher(Integer current, Integer size, String numberOrRealName) {
         Page<Teacher> page = new Page<>(current, size);
         QueryWrapper<Teacher> queryWrapper = new QueryWrapper<Teacher>()
-                .like("number", queryString)
+                .like("number", numberOrRealName)
                 .or()
-                .like("real_name", queryString);
+                .like("real_name", numberOrRealName);
         IPage<Teacher> teachers = teacherService.page(page, queryWrapper);
         return TeacherConverter.INSTANCE.entityToDtoPage(teachers);
     }
@@ -110,12 +110,12 @@ public class AdministratorServiceImpl extends ServiceImpl<AdministratorMapper, A
     }
 
     @Override
-    public IPage<StudentDTO> pageStudentByNumberOrRealName(Integer current, Integer size, String queryString) {
-        return studentService.pageBoByNumberOrRealName(current, size, queryString);
+    public IPage<StudentDTO> pageStudent(Integer current, Integer size, StudentQueryDTO studentQueryDTO) {
+        return studentService.pageByQueryDto(current, size, studentQueryDTO);
     }
 
     @Override
-    public StudentDTO addStudent(StudentManagementDTO dto) {
+    public StudentDTO addStudent( StudentManagementDTO dto) {
         String number = dto.getNumber();
         if (UserUtils.getByNumberAndRole(number, RoleEnum.STUDENT) != null) {
             throw new KnownException(ExceptionEnum.USERNAME_EXISTS);
