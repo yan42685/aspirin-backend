@@ -55,8 +55,8 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
     }
 
     @Override
-    public CourseDTO updateByNumber(String number, ModifiableCourseDTO modifiableCourseDTO) {
-        Course course = getByNumber(number);
+    public CourseDTO updateByNumber(String originalNumber, ModifiableCourseDTO modifiableCourseDTO) {
+        Course course = getByNumber(originalNumber);
         if (course == null) {
             throw new KnownException(ExceptionEnum.NUMBER_NOT_EXIST);
         }

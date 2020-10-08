@@ -31,7 +31,7 @@ public interface CourseService extends IService<Course> {
     /**
      * 修改课程
      */
-    CourseDTO updateByNumber(String number, ModifiableCourseDTO modifiableCourseDTO);
+    CourseDTO updateByNumber(String originalNumber, ModifiableCourseDTO modifiableCourseDTO);
 
     /**
      * 删除课程

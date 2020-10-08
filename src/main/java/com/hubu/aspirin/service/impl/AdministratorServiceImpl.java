@@ -142,7 +142,7 @@ public class AdministratorServiceImpl extends ServiceImpl<AdministratorMapper, A
     }
 
     @Override
-    public StudentDTO updateStudent(StudentManagementDTO dto, String originalNumber) {
+    public StudentDTO updateStudent(String originalNumber, StudentManagementDTO dto) {
         String newNumber = dto.getNumber();
         User user = UserUtils.getByNumberAndRole(newNumber, RoleEnum.STUDENT);
         if (user != null) {

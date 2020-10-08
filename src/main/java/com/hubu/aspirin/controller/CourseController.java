@@ -45,8 +45,8 @@ public class CourseController {
 
     @ApiOperation("修改课程")
     @PutMapping
-    JsonWrapper<CourseDTO> updateByNumber(String number, ModifiableCourseDTO modifiableCourseDTO) {
-        return new JsonWrapper<>(courseService.updateByNumber(number, modifiableCourseDTO));
+    JsonWrapper<CourseDTO> updateByNumber(String originalNumber, ModifiableCourseDTO modifiableCourseDTO) {
+        return new JsonWrapper<>(courseService.updateByNumber(originalNumber, modifiableCourseDTO));
     }
 
     @ApiOperation("删除课程")

@@ -59,7 +59,7 @@ public interface AdministratorService extends IService<Administrator> {
     /**
      * 更新学生信息
      */
-    StudentDTO updateStudent(StudentManagementDTO dto, String originalNumber);
+    StudentDTO updateStudent(String originalNumber, StudentManagementDTO dto);
 
     /**
      * 删除学生
