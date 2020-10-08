@@ -58,7 +58,7 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
     public CourseDTO updateByNumber(String originalNumber, ModifiableCourseDTO modifiableCourseDTO) {
         String newNumber = modifiableCourseDTO.getNumber();
         Course course = getByNumber(originalNumber);
-        if (!newNumber.equals(originalNumber) && course == null) {
+        if (!originalNumber.equals(newNumber) && course == null) {
             throw new KnownException(ExceptionEnum.NUMBER_NOT_EXIST);
         }
         course = CourseConverter.INSTANCE.updateEntityFromModifiableDto(modifiableCourseDTO, course);

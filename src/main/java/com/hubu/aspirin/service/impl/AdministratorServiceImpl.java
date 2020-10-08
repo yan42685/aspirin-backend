@@ -22,6 +22,7 @@ import com.hubu.aspirin.service.BulletinService;
 import com.hubu.aspirin.service.StudentService;
 import com.hubu.aspirin.service.TeacherService;
 import com.hubu.aspirin.util.UserUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -81,7 +82,7 @@ public class AdministratorServiceImpl extends ServiceImpl<AdministratorMapper, A
     public TeacherDTO updateTeacher(String originalNumber, TeacherManagementDTO teacherManagementDTO) {
         String newNumber = teacherManagementDTO.getNumber();
         User user = UserUtils.getByNumberAndRole(newNumber, RoleEnum.TEACHER);
-        if (user != null) {
+        if (!originalNumber.equals(newNumber) && user != null) {
             // 新编号已存在
             throw new KnownException(ExceptionEnum.NUMBER_EXISTS);
         }
@@ -135,7 +136,7 @@ public class AdministratorServiceImpl extends ServiceImpl<AdministratorMapper, A
     public StudentDTO updateStudent(String originalNumber, StudentManagementDTO dto) {
         String newNumber = dto.getNumber();
         User user = UserUtils.getByNumberAndRole(newNumber, RoleEnum.STUDENT);
-        if (!newNumber.equals(originalNumber) && user != null) {
+        if (!originalNumber.equals(newNumber) && user != null) {
             // 新编号已存在
             throw new KnownException(ExceptionEnum.NUMBER_EXISTS);
         }
