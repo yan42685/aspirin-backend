@@ -9,7 +9,7 @@ public enum AccountConstant {
     // 默认密码
     DEFAULT_RAW_PASSWORD("123456"),
     // 默认头像图片链接
-    DEFAULT_AVATAR_URL("");
+    DEFAULT_AVATAR_URL("http://qiniu-cdn.alexyan.cn/administrator/admin1/avatar/defaultAvatar.jpg");
 
 
     private String value;

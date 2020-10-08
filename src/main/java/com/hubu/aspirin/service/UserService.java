@@ -33,7 +33,7 @@ public interface UserService {
     IPage<BulletinDTO> getBulletinPageByTitleOrContent(Integer current, Integer size, String queryString);
 
     /**
-     * 上传头像, number作为key
+     * 修改头像
      */
-    String uploadAvatar(MultipartFile file);
+    String updateAvatar(MultipartFile file);
 }

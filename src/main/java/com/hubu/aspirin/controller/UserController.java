@@ -6,11 +6,12 @@ import com.hubu.aspirin.model.dto.BulletinDTO;
 import com.hubu.aspirin.service.UserService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import org.apache.shiro.authz.annotation.RequiresRoles;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 @Api(tags = "用户通用")
 @RequestMapping("api/user")
@@ -29,5 +30,11 @@ public class UserController {
     @GetMapping("bulletin-page-query")
     public JsonWrapper<IPage<BulletinDTO>> getBulletinPageByTitleOrContent(Integer current, Integer size, String queryString) {
         return new JsonWrapper<>(userService.getBulletinPageByTitleOrContent(current, size, queryString));
+    }
+
+    @ApiOperation("修改头像")
+    @PutMapping("avatar")
+    public JsonWrapper<String> updateAvatar(MultipartFile multipartFile) {
+        return new JsonWrapper<>(userService.updateAvatar(multipartFile));
     }
 }

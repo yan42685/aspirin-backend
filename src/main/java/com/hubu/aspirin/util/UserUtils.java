@@ -29,9 +29,16 @@ public class UserUtils {
     private static StudentService studentService = SpringContextUtils.getBean("studentServiceImpl", StudentService.class);
     private static TeacherService teacherService = SpringContextUtils.getBean("teacherServiceImpl", TeacherService.class);
 
+    public static User getCurrentUser() {
+        User user = (User) SecurityUtils.getSubject().getPrincipal();
+        String username = user.getUsername();
+        RoleEnum role = user.getRole();
+        return getByUsernameAndRole(username, role);
+    }
+
     public static String getCurrentUsername() {
-        User principal = (User) SecurityUtils.getSubject().getPrincipal();
-        return principal.getUsername();
+        User user = (User) SecurityUtils.getSubject().getPrincipal();
+        return user.getUsername();
     }
 
 

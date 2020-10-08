@@ -1,25 +1,31 @@
 package com.hubu.aspirin.util;
 
+import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.hubu.aspirin.common.KnownException;
 import com.hubu.aspirin.enums.ExceptionEnum;
 import com.qiniu.common.QiniuException;
+import com.qiniu.common.Zone;
 import com.qiniu.http.Response;
 import com.qiniu.storage.BucketManager;
 import com.qiniu.storage.Configuration;
 import com.qiniu.storage.Region;
 import com.qiniu.storage.UploadManager;
 import com.qiniu.util.Auth;
+import lombok.extern.slf4j.Slf4j;
 
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Arrays;
 
 /**
  * 七牛云工具类
  * @author alex
  */
+@Slf4j
 public class QiniuUtils {
+    public static String BASE_URL = "http://qiniu-cdn.alexyan.cn/";
 
     private static String ACCESS_KEY = "JjdzmIiQdIMab9opiMa5qr_Jcp11U9VQQGvCYbav";
 
@@ -27,7 +33,6 @@ public class QiniuUtils {
 
     private static String BUCKET_NAME = "hubu-aspirin";
 
-    private static String BASE_URL = "http://qiniu-cdn.alexyan.cn";
 
     /**
      * 上传凭证有效期 10min
@@ -39,52 +44,54 @@ public class QiniuUtils {
      */
     private static String DEFAULT_DOWNLOAD_PATH = "D:/photos/";
 
+    private static Auth auth;
+    private static UploadManager uploadManager;
+    private static Configuration config;
 
-    /**
-     * 生成文件上传凭证
-     */
-    public static String createUploadToken() {
-        Auth auth = Auth.create(ACCESS_KEY, SECRET_KEY);
-        String upToken = auth.uploadToken(BUCKET_NAME, null, expireSeconds, null);
-        return upToken;
+    static {
+        auth = Auth.create(ACCESS_KEY,SECRET_KEY);
+        // Region.region2是指华南
+        config = new Configuration(Region.autoRegion());
+        uploadManager = new UploadManager(config);
     }
 
+
+
     /**
-     * 上传图片
+     * 上传文件
      *
      * @param file 文件
      * @return 图片存储的url
      */
-    public static String uploadPhoto(File file) {
-        Configuration cfg = new Configuration(Region.region0());
-        String name = file.getName();
-        UploadManager uploadManager = new UploadManager(cfg);
+    public static String uploadFile(File file) {
+        String fileName = file.getName();
         try {
             InputStream inputStream = new FileInputStream(file);
-            Auth auth = Auth.create(ACCESS_KEY, SECRET_KEY);
-            String upToken = auth.uploadToken(BUCKET_NAME, name, expireSeconds, null);
-            Response response = uploadManager.put(inputStream, name, upToken, null, null);
+            String upToken = auth.uploadToken(BUCKET_NAME, fileName, expireSeconds, null);
+            Response response = uploadManager.put(inputStream, fileName, upToken, null, null);
+        } catch (QiniuException e) {
+            log.error(e.response.toString());
+            throw new KnownException(ExceptionEnum.FILE_IO_EXCEPTION);
         } catch (IOException e) {
+            log.error(Arrays.toString(e.getStackTrace()));
             throw new KnownException(ExceptionEnum.FILE_IO_EXCEPTION);
         }
-        return BASE_URL + name;
+        return BASE_URL + fileName;
     }
 
     /**
      *  字节数组上传文件时调用该方法
-     * @param key: 文件在七牛云中的存储索引
+     * @param uploadKey: 文件在七牛云中的存储索引
      */
-    public static String uploadPhoto(byte[] bytes,String key) {
-        Configuration cfg = new Configuration(Region.region0());
-        UploadManager uploadManager = new UploadManager(cfg);
+    public static String uploadFile(byte[] bytes, String uploadKey) {
         try {
-            Auth auth = Auth.create(ACCESS_KEY, SECRET_KEY);
-            String upToken = auth.uploadToken(BUCKET_NAME, key, expireSeconds, null);
-            Response response = uploadManager.put(bytes, key, upToken);
-        }catch (IOException e) {
+            String upToken = auth.uploadToken(BUCKET_NAME, uploadKey, expireSeconds, null);
+            Response response = uploadManager.put(bytes, uploadKey, upToken);
+        }catch (QiniuException e) {
+            log.error(e.response.toString());
             throw new KnownException(ExceptionEnum.FILE_IO_EXCEPTION);
         }
-        return BASE_URL + key;
+        return BASE_URL + uploadKey;
     }
 
     /**
@@ -92,25 +99,21 @@ public class QiniuUtils {
      *
      * @param key:待删除的文件在存储空间的索引
      */
-    public static void deletePhoto(String key) {
-        Configuration config = new Configuration(Region.region0());
-        Auth auth = Auth.create(ACCESS_KEY, SECRET_KEY);
+    public static boolean deleteFile(String key) {
         BucketManager bucketManager = new BucketManager(auth, config);
         try {
             bucketManager.delete(BUCKET_NAME, key);
         } catch (QiniuException e) {
             throw new KnownException(ExceptionEnum.FILE_IO_EXCEPTION);
         }
-        System.out.println("删除成功");
+        return true;
     }
 
     /**
      * 批量删除文件
      */
-    public static void deletePhotos(String[] names) {
-        Configuration cfg = new Configuration(Region.region0());
-        Auth auth = Auth.create(ACCESS_KEY, SECRET_KEY);
-        BucketManager bucketManager = new BucketManager(auth, cfg);
+    public static boolean deleteFiles(String[] names) {
+        BucketManager bucketManager = new BucketManager(auth, config);
         BucketManager.BatchOperations batchOperations = new BucketManager.BatchOperations();
         batchOperations.addDeleteOp(BUCKET_NAME, names);
         try {
@@ -118,6 +121,6 @@ public class QiniuUtils {
         } catch (QiniuException e) {
             throw new KnownException(ExceptionEnum.FILE_IO_EXCEPTION);
         }
-        System.out.println("删除成功");
+        return true;
     }
 }

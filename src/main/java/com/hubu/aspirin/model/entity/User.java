@@ -1,5 +1,6 @@
 package com.hubu.aspirin.model.entity;
 
+import com.hubu.aspirin.constant.AccountConstant;
 import com.hubu.aspirin.enums.GenderEnum;
 import com.hubu.aspirin.enums.RoleEnum;
 import io.swagger.annotations.ApiModel;
@@ -50,7 +51,7 @@ public class User implements Serializable {
     protected String nickname;
 
     @ApiModelProperty(value = "头像URL")
-    protected String avatarUrl;
+    protected String avatarUrl = AccountConstant.DEFAULT_AVATAR_URL.getValue();
 
     @ApiModelProperty(value = "用户账号状态")
     protected Integer status;
