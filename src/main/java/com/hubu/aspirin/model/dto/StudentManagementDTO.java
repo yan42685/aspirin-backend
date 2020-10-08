@@ -37,4 +37,5 @@ public class StudentManagementDTO {
 
     @ApiModelProperty(value = "所处学期")
     private Integer semester;
+
 }

@@ -13,14 +13,13 @@ import org.mapstruct.factory.Mappers;
 public interface StudentConverter  {
     StudentConverter INSTANCE = Mappers.getMapper(StudentConverter.class);
 
+    @Mapping(target = "facultyNumber", qualifiedByName = "facultyNameToNumber", source = "faculty")
+    @Mapping(target = "specialtyNumber", qualifiedByName = "specialtyNameToNumber", source = "specialty")
+    Student managementDtoToEntity(StudentManagementDTO managementDTO);
 
     @Mapping(target = "facultyNumber", qualifiedByName = "facultyNameToNumber", source = "faculty")
     @Mapping(target = "specialtyNumber", qualifiedByName = "specialtyNameToNumber", source = "specialty")
-    Student managementDtoToEntity(StudentManagementDTO studentManagementDTO);
-
-    @Mapping(target = "facultyNumber", qualifiedByName = "facultyNameToNumber", source = "faculty")
-    @Mapping(target = "specialtyNumber", qualifiedByName = "specialtyNameToNumber", source = "specialty")
-    void updateEntityFromManagementDto(StudentManagementDTO dto, @MappingTarget Student entity);
+    void updateEntityFromManagementDto(StudentManagementDTO managementDTO, @MappingTarget Student student);
 
     @Named("facultyNameToNumber")
     default String facultyNameToNumber(String name) {

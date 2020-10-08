@@ -145,7 +145,7 @@ public class AdministratorServiceImpl extends ServiceImpl<AdministratorMapper, A
     public StudentDTO updateStudent(String originalNumber, StudentManagementDTO dto) {
         String newNumber = dto.getNumber();
         User user = UserUtils.getByNumberAndRole(newNumber, RoleEnum.STUDENT);
-        if (user != null) {
+        if (!originalNumber.equals(newNumber) && user != null) {
             // 新编号已存在
             throw new KnownException(ExceptionEnum.NUMBER_EXISTS);
         }

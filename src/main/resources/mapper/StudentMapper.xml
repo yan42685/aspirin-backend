@@ -12,7 +12,6 @@
                faculty.name   as faculty,
                specialty.name as specialty,
                student.number,
-               grade,
                admission_year,
                semester
         from student

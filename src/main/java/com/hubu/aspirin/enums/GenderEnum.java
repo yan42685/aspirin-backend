@@ -11,7 +11,7 @@ import lombok.Getter;
 @AllArgsConstructor
 public enum GenderEnum implements IEnum<Integer> {
     // 保密
-    UNKNOWN(0, "保密"),
+    SECRETE(0, "保密"),
     // 男
     MALE(1, "男"),
     // 女
