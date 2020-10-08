@@ -10,8 +10,10 @@ import com.hubu.aspirin.mapper.StudentMapper;
 import com.hubu.aspirin.model.bo.StudentBO;
 import com.hubu.aspirin.model.dto.StudentDTO;
 import com.hubu.aspirin.model.entity.Student;
+import com.hubu.aspirin.model.entity.User;
 import com.hubu.aspirin.service.StudentService;
 import com.hubu.aspirin.util.UserUtils;
+import org.apache.shiro.SecurityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,7 +23,7 @@ public class StudentServiceImpl extends ServiceImpl<StudentMapper, Student> impl
     StudentMapper studentMapper;
 
     @Override
-    public StudentDTO getInformationByNumber(String number) {
+    public StudentDTO getDtoByNumber(String number) {
         StudentBO studentBO = getBoByNumber(number);
         if (studentBO == null) {
             throw new KnownException(ExceptionEnum.USER_NOT_EXISTS);
@@ -31,9 +33,10 @@ public class StudentServiceImpl extends ServiceImpl<StudentMapper, Student> impl
 
     @Override
     public StudentDTO getInformation() {
-        Long id = UserUtils.getCurrentUser().getId();
+        User user  = (User) SecurityUtils.getSubject().getPrincipal();
+        Long id = user.getId();
         String number = getById(id).getNumber();
-        return getInformationByNumber(number);
+        return getDtoByNumber(number);
     }
 
     @Override

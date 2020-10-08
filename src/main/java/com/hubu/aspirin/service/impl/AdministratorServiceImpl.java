@@ -61,7 +61,7 @@ public class AdministratorServiceImpl extends ServiceImpl<AdministratorMapper, A
 
     @Override
     public TeacherDTO getTeacher(String number) {
-        return teacherService.getInformationByNumber(number);
+        return teacherService.getDtoByNumber(number);
     }
 
 
@@ -122,7 +122,7 @@ public class AdministratorServiceImpl extends ServiceImpl<AdministratorMapper, A
 
     @Override
     public StudentDTO getStudent(String number) {
-        return studentService.getInformationByNumber(number);
+        return studentService.getDtoByNumber(number);
     }
 
     @Override

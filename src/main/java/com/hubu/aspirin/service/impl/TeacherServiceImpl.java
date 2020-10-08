@@ -11,13 +11,14 @@ import com.hubu.aspirin.model.entity.Teacher;
 import com.hubu.aspirin.model.entity.User;
 import com.hubu.aspirin.service.TeacherService;
 import com.hubu.aspirin.util.UserUtils;
+import org.apache.shiro.SecurityUtils;
 import org.springframework.stereotype.Service;
 
 @Service
 public class TeacherServiceImpl extends ServiceImpl<TeacherMapper, Teacher> implements TeacherService {
 
     @Override
-    public TeacherDTO getInformationByNumber(String number) {
+    public TeacherDTO getDtoByNumber(String number) {
         User user = UserUtils.getByNumberAndRole(number, RoleEnum.TEACHER);
         if (user == null) {
             throw new KnownException(ExceptionEnum.USER_NOT_EXISTS);
@@ -28,9 +29,10 @@ public class TeacherServiceImpl extends ServiceImpl<TeacherMapper, Teacher> impl
 
     @Override
     public TeacherDTO getInformation() {
-        Long id = UserUtils.getCurrentUser().getId();
+        User user = (User) SecurityUtils.getSubject().getPrincipal();
+        Long id = user.getId();
         String number = getById(id).getNumber();
-        return getInformationByNumber(number);
+        return getDtoByNumber(number);
     }
 
 }

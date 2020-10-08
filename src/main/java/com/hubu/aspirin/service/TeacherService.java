@@ -8,7 +8,7 @@ public interface TeacherService extends IService<Teacher> {
     /**
      * 根据编号获取个人信息
      */
-    TeacherDTO getInformationByNumber(String number);
+    TeacherDTO getDtoByNumber(String number);
 
     /**
      * 获取自身个人信息

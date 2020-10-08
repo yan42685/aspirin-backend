@@ -10,7 +10,7 @@ public interface StudentService extends IService<Student> {
     /**
      * 根据编号获取个人信息
      */
-    StudentDTO getInformationByNumber(String number);
+    StudentDTO getDtoByNumber(String number);
 
     /**
      * 获取自身个人信息

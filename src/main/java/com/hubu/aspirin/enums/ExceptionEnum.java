@@ -33,7 +33,8 @@ public enum ExceptionEnum {
     USER_NOT_EXISTS(-10, "用户不存在"),
     NUMBER_EXISTS(-11, "编号已存在"),
     VERIFICATION_CODE_MISMATCH(-12, "验证码错误"),
-    NUMBER_NOT_EXIST(-13, "编号不存在");
+    NUMBER_NOT_EXIST(-13, "编号不存在"),
+    ROLE_HEADER_MISSING(-14, "header中缺少role参数");
 
 
     private int errorCode;
