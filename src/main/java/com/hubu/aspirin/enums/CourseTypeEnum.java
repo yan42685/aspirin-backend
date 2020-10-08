@@ -14,8 +14,8 @@ public enum CourseTypeEnum implements IEnum<Integer> {
     COMMON_ELECTIVE(2, "公共选修"),
     PROFESSIONAL_ELECTIVE(3, "专业选修");
 
-    @EnumValue  //标记数据库存的值
+    @EnumValue  // 标记数据库存的值
     private Integer value;
-    @JsonValue  //标记响应json值
+    @JsonValue  // 标记响应json值
     private String description;
 }

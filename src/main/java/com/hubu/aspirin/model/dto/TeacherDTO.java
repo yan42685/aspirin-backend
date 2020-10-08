@@ -1,5 +1,6 @@
 package com.hubu.aspirin.model.dto;
 
+import com.hubu.aspirin.enums.GenderEnum;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -17,7 +18,7 @@ public class TeacherDTO {
     private String realName;
 
     @ApiModelProperty(value = "性别")
-    private String gender;
+    private GenderEnum gender;
 
     @ApiModelProperty(value = "手机号")
     private String phoneNumber;

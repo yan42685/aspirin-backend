@@ -1,5 +1,6 @@
 package com.hubu.aspirin.model.entity;
 
+import com.hubu.aspirin.enums.GenderEnum;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -36,7 +37,7 @@ public class User implements Serializable {
     protected String realName;
 
     @ApiModelProperty(value = "性别")
-    protected Integer gender;
+    protected GenderEnum gender;
 
     @ApiModelProperty(value = "手机号")
     protected String phoneNumber;

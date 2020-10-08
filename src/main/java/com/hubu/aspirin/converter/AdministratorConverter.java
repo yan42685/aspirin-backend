@@ -1,6 +1,5 @@
 package com.hubu.aspirin.converter;
 
-import com.hubu.aspirin.converter.common.EnumConverter;
 import com.hubu.aspirin.model.dto.AdministratorDTO;
 import com.hubu.aspirin.model.dto.ModifiableAdministratorDTO;
 import com.hubu.aspirin.model.entity.Administrator;
@@ -12,12 +11,10 @@ import org.mapstruct.factory.Mappers;
 
 
 @Mapper(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE) // 更新时忽略source的 null字段
-public interface AdministratorConverter extends EnumConverter {
+public interface AdministratorConverter  {
     AdministratorConverter INSTANCE = Mappers.getMapper(AdministratorConverter.class);
 
-    @Mapping(target = "gender", qualifiedByName = "genderIntegerToString", source = "gender")
     AdministratorDTO entityToDto(Administrator administrator);
 
-    @Mapping(target = "gender", qualifiedByName = "genderEnumToInteger", source = "gender")
     void updateEntityFromDto(ModifiableAdministratorDTO dto, @MappingTarget Administrator entity);
 }

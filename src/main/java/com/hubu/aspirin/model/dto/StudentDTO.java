@@ -1,14 +1,14 @@
 package com.hubu.aspirin.model.dto;
 
-import io.swagger.annotations.ApiModel;
+import com.hubu.aspirin.enums.GenderEnum;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
+import org.springframework.context.support.GenericXmlApplicationContext;
 
 /**
  * @author alex
  */
 @Data
-@ApiModel(value = "学生个人信息")
 public class StudentDTO {
     @ApiModelProperty(value = "用户名")
     private String username;
@@ -17,7 +17,7 @@ public class StudentDTO {
     private String realName;
 
     @ApiModelProperty(value = "性别")
-    private String gender;
+    private GenderEnum gender;
 
     @ApiModelProperty(value = "手机号")
     private String phoneNumber;
@@ -48,5 +48,4 @@ public class StudentDTO {
 
     @ApiModelProperty(value = "所处学期")
     private Integer semester;
-
 }

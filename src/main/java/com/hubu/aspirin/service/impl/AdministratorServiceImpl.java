@@ -14,7 +14,7 @@ import com.hubu.aspirin.converter.TeacherConverter;
 import com.hubu.aspirin.enums.ExceptionEnum;
 import com.hubu.aspirin.enums.RoleEnum;
 import com.hubu.aspirin.mapper.AdministratorMapper;
-import com.hubu.aspirin.model.bo.StudentBO;
+import com.hubu.aspirin.model.dto.StudentDTO;
 import com.hubu.aspirin.model.dto.*;
 import com.hubu.aspirin.model.entity.*;
 import com.hubu.aspirin.service.AdministratorService;
@@ -116,8 +116,7 @@ public class AdministratorServiceImpl extends ServiceImpl<AdministratorMapper, A
 
     @Override
     public IPage<StudentDTO> pageStudentByNumberOrRealName(Integer current, Integer size, String queryString) {
-        IPage<StudentBO> studentBoPage = studentService.pageBoByNumberOrRealName(current, size, queryString);
-        return StudentConverter.INSTANCE.boToDtoPage(studentBoPage);
+        return studentService.pageBoByNumberOrRealName(current, size, queryString);
     }
 
     @Override

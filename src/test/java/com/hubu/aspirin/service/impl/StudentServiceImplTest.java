@@ -1,9 +1,6 @@
 package com.hubu.aspirin.service.impl;
 
-import com.hubu.aspirin.converter.StudentConverter;
 import com.hubu.aspirin.mapper.StudentMapper;
-import com.hubu.aspirin.model.bo.StudentBO;
-import com.hubu.aspirin.model.dto.StudentDTO;
 import com.hubu.aspirin.service.StudentService;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;

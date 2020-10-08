@@ -16,6 +16,7 @@ public interface CourseConverter {
 
     CourseDTO entityToDto(Course course);
 
+    // NOTE: 这里返回值不能是IPage, 否则会报编译错误
     Page<CourseDTO> entityToDtoPage(IPage<Course> course);
 
     Course modifiableDtoToEntity(ModifiableCourseDTO modifiableCourseDTOPage);
