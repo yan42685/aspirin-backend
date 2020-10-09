@@ -12,11 +12,13 @@ import com.qiniu.storage.Region;
 import com.qiniu.storage.UploadManager;
 import com.qiniu.util.Auth;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.util.CollectionUtils;
 
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.URL;
 import java.util.Arrays;
 
 /**
@@ -63,21 +65,21 @@ public class QiniuUtils {
      * @param file 文件
      * @return 图片存储的url
      */
-    public static String uploadFile(File file) {
-        String fileName = file.getName();
-        try {
-            InputStream inputStream = new FileInputStream(file);
-            String upToken = auth.uploadToken(BUCKET_NAME, fileName, expireSeconds, null);
-            Response response = uploadManager.put(inputStream, fileName, upToken, null, null);
-        } catch (QiniuException e) {
-            log.error(e.response.toString());
-            throw new KnownException(ExceptionEnum.FILE_IO_EXCEPTION);
-        } catch (IOException e) {
-            log.error(Arrays.toString(e.getStackTrace()));
-            throw new KnownException(ExceptionEnum.FILE_IO_EXCEPTION);
-        }
-        return BASE_URL + fileName;
-    }
+//    public static String uploadFile(File file) {
+//        String fileName = file.getName();
+//        try {
+//            InputStream inputStream = new FileInputStream(file);
+//            String upToken = auth.uploadToken(BUCKET_NAME, fileName, expireSeconds, null);
+//            Response response = uploadManager.put(inputStream, fileName, upToken, null, null);
+//        } catch (QiniuException e) {
+//            log.error(e.response.toString());
+//            throw new KnownException(ExceptionEnum.FILE_IO_EXCEPTION);
+//        } catch (IOException e) {
+//            log.error(Arrays.toString(e.getStackTrace()));
+//            throw new KnownException(ExceptionEnum.FILE_IO_EXCEPTION);
+//        }
+//        return BASE_URL + fileName;
+//    }
 
     /**
      *  字节数组上传文件时调用该方法
@@ -100,6 +102,9 @@ public class QiniuUtils {
      * @param key:待删除的文件在存储空间的索引
      */
     public static boolean deleteFile(String key) {
+        if (key == null) {
+            return false;
+        }
         BucketManager bucketManager = new BucketManager(auth, config);
         try {
             bucketManager.delete(BUCKET_NAME, key);
@@ -113,6 +118,9 @@ public class QiniuUtils {
      * 批量删除文件
      */
     public static boolean deleteFiles(String[] names) {
+        if (CollectionUtils.isEmpty(Arrays.asList(names))) {
+            return false;
+        }
         BucketManager bucketManager = new BucketManager(auth, config);
         BucketManager.BatchOperations batchOperations = new BucketManager.BatchOperations();
         batchOperations.addDeleteOp(BUCKET_NAME, names);
@@ -122,5 +130,10 @@ public class QiniuUtils {
             throw new KnownException(ExceptionEnum.FILE_IO_EXCEPTION);
         }
         return true;
+    }
+
+    public static String getKeyFromUrl(String url) {
+        String[] urlParts = url.split(BASE_URL);
+        return urlParts.length > 1 ? urlParts[1] : null;
     }
 }

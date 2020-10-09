@@ -6,7 +6,7 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.hubu.aspirin.common.KnownException;
-import com.hubu.aspirin.constant.AccountConstant;
+import com.hubu.aspirin.common.AspirinConstant;
 import com.hubu.aspirin.converter.AdministratorConverter;
 import com.hubu.aspirin.converter.BulletinConverter;
 import com.hubu.aspirin.converter.StudentConverter;
@@ -22,7 +22,6 @@ import com.hubu.aspirin.service.BulletinService;
 import com.hubu.aspirin.service.StudentService;
 import com.hubu.aspirin.service.TeacherService;
 import com.hubu.aspirin.util.UserUtils;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -71,7 +70,7 @@ public class AdministratorServiceImpl extends ServiceImpl<AdministratorMapper, A
         // 默认用户名为教师编号
         teacher.setUsername(number);
         // 设置默认密码
-        String defaultRawPassword = AccountConstant.DEFAULT_RAW_PASSWORD.getValue();
+        String defaultRawPassword = AspirinConstant.DEFAULT_RAW_PASSWORD.getValue();
         String defaultPassword = UserUtils.generatePassword(teacher.getUsername(), defaultRawPassword);
         teacher.setPassword(defaultPassword);
         teacherService.save(teacher);
@@ -125,7 +124,7 @@ public class AdministratorServiceImpl extends ServiceImpl<AdministratorMapper, A
         // 默认用户名为学号
         student.setUsername(number);
         // 设置默认密码
-        String defaultRawPassword = AccountConstant.DEFAULT_RAW_PASSWORD.getValue();
+        String defaultRawPassword = AspirinConstant.DEFAULT_RAW_PASSWORD.getValue();
         String defaultPassword = UserUtils.generatePassword(student.getUsername(), defaultRawPassword);
         student.setPassword(defaultPassword);
         studentService.save(student);

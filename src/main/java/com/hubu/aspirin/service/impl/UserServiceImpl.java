@@ -1,12 +1,11 @@
 package com.hubu.aspirin.service.impl;
 
-import cn.hutool.core.text.StrBuilder;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.hubu.aspirin.common.KnownException;
-import com.hubu.aspirin.constant.AccountConstant;
+import com.hubu.aspirin.common.AspirinConstant;
 import com.hubu.aspirin.converter.BulletinConverter;
 import com.hubu.aspirin.enums.ExceptionEnum;
 import com.hubu.aspirin.enums.RoleEnum;
@@ -15,14 +14,13 @@ import com.hubu.aspirin.model.entity.*;
 import com.hubu.aspirin.service.*;
 import com.hubu.aspirin.util.QiniuUtils;
 import com.hubu.aspirin.util.UserUtils;
+import lombok.SneakyThrows;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
-
-import java.io.IOException;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -108,6 +106,7 @@ public class UserServiceImpl implements UserService {
         return BulletinConverter.INSTANCE.entityToDtoPage(bulletinIPage);
     }
 
+    @SneakyThrows
     @Override
     public String updateAvatar(MultipartFile file) {
         String username = UserUtils.getCurrentUsername();
@@ -115,41 +114,37 @@ public class UserServiceImpl implements UserService {
         String fileName = file.getOriginalFilename();
         String uploadKey = roleName + "/" + username + "/avatar" + "/" + fileName;
 
-        String defaultAvatarUrl = AccountConstant.DEFAULT_AVATAR_URL.getValue();
+        String defaultAvatarUrl = AspirinConstant.DEFAULT_USER_AVATAR_URL.getValue();
         String oldAvatarUrl = UserUtils.getCurrentUser().getAvatarUrl();
         // 原来的头像不是默认头像时才删除之前的头像
         if (!defaultAvatarUrl.equals(oldAvatarUrl)) {
-            String oldUploadKey = oldAvatarUrl.split(QiniuUtils.BASE_URL)[1];
+            String oldUploadKey = QiniuUtils.getKeyFromUrl(oldAvatarUrl);
             QiniuUtils.deleteFile(oldUploadKey);
         }
 
-        String url;
-        try {
-            url = QiniuUtils.uploadFile(file.getBytes(), uploadKey);
-        } catch (IOException e) {
-            throw new KnownException(ExceptionEnum.FILE_IO_EXCEPTION);
-        }
+        String newAvatarUrl;
+        newAvatarUrl = QiniuUtils.uploadFile(file.getBytes(), uploadKey);
         RoleEnum role = UserUtils.getCurrentRole();
         switch (role) {
             case ADMINISTRATOR:
                 administratorService.update(new UpdateWrapper<Administrator>()
                         .eq("username", username)
-                        .set("avatar_url", url));
+                        .set("avatar_url", newAvatarUrl));
                 break;
             case TEACHER:
                 teacherService.update(new UpdateWrapper<Teacher>()
                         .eq("username", username)
-                        .set("avatar_url", url));
+                        .set("avatar_url", newAvatarUrl));
                 break;
             case STUDENT:
                 studentService.update(new UpdateWrapper<Student>()
                         .eq("username", username)
-                        .set("avatar_url", url));
+                        .set("avatar_url", newAvatarUrl));
                 break;
             default:
                 break;
         }
-        return url;
+        return newAvatarUrl;
     }
 
 

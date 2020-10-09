@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.hubu.aspirin.common.KnownException;
+import com.hubu.aspirin.common.AspirinConstant;
 import com.hubu.aspirin.converter.CourseConverter;
 import com.hubu.aspirin.enums.CourseTypeEnum;
 import com.hubu.aspirin.enums.ExceptionEnum;
@@ -13,8 +14,11 @@ import com.hubu.aspirin.model.dto.CourseDTO;
 import com.hubu.aspirin.model.dto.ModifiableCourseDTO;
 import com.hubu.aspirin.model.entity.Course;
 import com.hubu.aspirin.service.CourseService;
+import com.hubu.aspirin.util.QiniuUtils;
+import lombok.SneakyThrows;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 @Service
 public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> implements CourseService {
@@ -76,10 +80,29 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
         return true;
     }
 
+    @SneakyThrows
     @Override
-    // TODO: 等待完成
-    public String modifyIconByNumber(String number) {
-        return null;
+    public String modifyIconByNumber(String number, MultipartFile file) {
+        Course course = getByNumber(number);
+        if (course == null) {
+            throw new KnownException(ExceptionEnum.NUMBER_NOT_EXIST);
+        }
+        String fileName = file.getOriginalFilename();
+        String uploadKey = "course/" + number + "/icon/" + fileName;
+
+        String defaultIconUrl = AspirinConstant.DEFAULT_COURSE_ICON_URL.getValue();
+        String oldIconUrl = course.getIconUrl();
+        // 原来的图标不是默认图标时才删除之前的图标
+        if (!defaultIconUrl.equals(oldIconUrl)) {
+            String oldUploadKey = QiniuUtils.getKeyFromUrl(oldIconUrl);
+            QiniuUtils.deleteFile(oldUploadKey);
+        }
+
+        String newIconUrl;
+        newIconUrl = QiniuUtils.uploadFile(file.getBytes(), uploadKey);
+        course.setIconUrl(newIconUrl);
+        updateById(course);
+        return newIconUrl;
     }
 
     private Course getByNumber(String number) {

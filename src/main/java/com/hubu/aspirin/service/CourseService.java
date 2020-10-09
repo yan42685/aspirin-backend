@@ -6,6 +6,7 @@ import com.hubu.aspirin.enums.CourseTypeEnum;
 import com.hubu.aspirin.model.dto.CourseDTO;
 import com.hubu.aspirin.model.dto.ModifiableCourseDTO;
 import com.hubu.aspirin.model.entity.Course;
+import org.springframework.web.multipart.MultipartFile;
 
 public interface CourseService extends IService<Course> {
     /**
@@ -41,5 +42,5 @@ public interface CourseService extends IService<Course> {
     /**
      * 修改课程图标
      */
-    String modifyIconByNumber(String number);
+    String modifyIconByNumber(String number, MultipartFile file);
 }

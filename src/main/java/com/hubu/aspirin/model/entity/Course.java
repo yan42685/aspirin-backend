@@ -1,9 +1,9 @@
 package com.hubu.aspirin.model.entity;
 
-import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.io.Serializable;
 
+import com.hubu.aspirin.common.AspirinConstant;
 import com.hubu.aspirin.enums.CourseTypeEnum;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -29,7 +29,7 @@ public class Course implements Serializable {
     private LocalDateTime updateTime;
 
     @ApiModelProperty(value = "课程图标URL")
-    private String iconUrl;
+    private String iconUrl = AspirinConstant.DEFAULT_COURSE_ICON_URL.getValue();
 
     @ApiModelProperty(value = "课程名")
     private String name;

@@ -11,6 +11,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 @Api(tags = "课程")
 @RequestMapping("api/course")
@@ -57,7 +58,7 @@ public class CourseController {
 
     @ApiOperation("修改课程图标")
     @PutMapping("icon")
-    JsonWrapper<String> modifyIconByNumber(String number) {
-        return new JsonWrapper<>(courseService.modifyIconByNumber(number));
+    JsonWrapper<String> modifyIconByNumber(String number, MultipartFile image) {
+        return new JsonWrapper<>(courseService.modifyIconByNumber(number, image));
     }
 }
