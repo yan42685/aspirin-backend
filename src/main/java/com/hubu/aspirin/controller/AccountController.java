@@ -1,6 +1,7 @@
 package com.hubu.aspirin.controller;
 
 import com.hubu.aspirin.common.JsonWrapper;
+import com.hubu.aspirin.model.dto.UserDTO;
 import com.hubu.aspirin.service.UserService;
 import com.hubu.aspirin.util.VerificationCodeUtils;
 import io.swagger.annotations.Api;
@@ -30,7 +31,7 @@ public class AccountController {
             @ApiImplicitParam(name = "role", paramType = "header", value = "角色，取值为student或teacher", dataType = "string")
     })
     @GetMapping("user-login")
-    public JsonWrapper<Boolean> userLogin(String username, String password, Boolean rememberMe) {
+    public JsonWrapper<UserDTO> userLogin(String username, String password, Boolean rememberMe) {
         return new JsonWrapper<>(userService.login(username, password, rememberMe));
     }
 
@@ -43,7 +44,7 @@ public class AccountController {
             @ApiImplicitParam(name = "verificationCode", paramType = "header", value = "验证码", dataType = "string")
     })
     @GetMapping("admin-login")
-    public JsonWrapper<Boolean> adminLogin(String username, String password, Boolean rememberMe) {
+    public JsonWrapper<UserDTO> adminLogin(String username, String password, Boolean rememberMe) {
         return new JsonWrapper<>(userService.login(username, password, rememberMe));
     }
 

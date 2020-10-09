@@ -7,9 +7,11 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.hubu.aspirin.common.KnownException;
 import com.hubu.aspirin.common.AspirinConstant;
 import com.hubu.aspirin.converter.BulletinConverter;
+import com.hubu.aspirin.converter.UserConverter;
 import com.hubu.aspirin.enums.ExceptionEnum;
 import com.hubu.aspirin.enums.RoleEnum;
 import com.hubu.aspirin.model.dto.BulletinDTO;
+import com.hubu.aspirin.model.dto.UserDTO;
 import com.hubu.aspirin.model.entity.*;
 import com.hubu.aspirin.service.*;
 import com.hubu.aspirin.util.QiniuUtils;
@@ -35,7 +37,7 @@ public class UserServiceImpl implements UserService {
     private BulletinService bulletinService;
 
     @Override
-    public boolean login(String username, String password, Boolean rememberMe) {
+    public UserDTO login(String username, String password, Boolean rememberMe) {
         // TODO: 上线后开放验证码检查
 //        RoleEnum role = UserUtils.getCurrentRole();
 //        // 对管理员检查验证码
@@ -45,7 +47,8 @@ public class UserServiceImpl implements UserService {
         Subject subject = SecurityUtils.getSubject();
         UsernamePasswordToken token = new UsernamePasswordToken(username, password, rememberMe);
         subject.login(token);
-        return true;
+        User user = UserUtils.getCurrentUser();
+        return UserConverter.INSTANCE.entity2Dto(user);
     }
 
     @Override
