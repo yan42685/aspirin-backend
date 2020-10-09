@@ -16,7 +16,7 @@ public interface CourseDetailService extends IService<CourseDetail> {
     /**
      * 分配课程前的检查
      */
-    boolean checkBeforeAssign(CourseAssignDTO courseAssignDTO);
+    boolean checkBeforeAssign(String classroomNumber, String teacherNumber, Integer dayOfTheWeek, Integer schedulingTime);
 
     /**
      * 获取授课表

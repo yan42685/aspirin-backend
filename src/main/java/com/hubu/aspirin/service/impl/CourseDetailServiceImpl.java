@@ -45,11 +45,7 @@ public class CourseDetailServiceImpl extends ServiceImpl<CourseDetailMapper, Cou
     }
 
     @Override
-    public boolean checkBeforeAssign(CourseAssignDTO dto) {
-        String classroomNumber = dto.getClassroomNumber();
-        String teacherNumber = dto.getTeacherNumber();
-        Integer dayOfTheWeek = dto.getDayOfTheWeek();
-        Integer schedulingTime = dto.getSchedulingTime();
+    public boolean checkBeforeAssign(String classroomNumber, String teacherNumber, Integer dayOfTheWeek, Integer schedulingTime) {
         CourseDetail courseDetail;
 
         // 检查教室是否可用

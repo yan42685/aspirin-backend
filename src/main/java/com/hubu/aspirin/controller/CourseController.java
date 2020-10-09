@@ -76,10 +76,10 @@ public class CourseController {
         return new JsonWrapper<>(courseDetailService.assignCourseForTeacher(courseAssignDTO));
     }
 
-    @ApiOperation("分配课程前的检查")
+    @ApiOperation(value = "分配课程前的检查", notes = "检查教室是否被占用以及教师是否有时间")
     @GetMapping("before-assign")
-    JsonWrapper<Boolean> checkBeforeAssign(CourseAssignDTO courseAssignDTO){
-        return new JsonWrapper<>(courseDetailService.checkBeforeAssign(courseAssignDTO));
+    JsonWrapper<Boolean> checkBeforeAssign(String classroomNumber, String teacherNumber, Integer dayOfTheWeek, Integer schedulingTime){
+        return new JsonWrapper<>(courseDetailService.checkBeforeAssign(classroomNumber, teacherNumber, dayOfTheWeek, schedulingTime));
     }
 
     @ApiOperation("获取授课表")
