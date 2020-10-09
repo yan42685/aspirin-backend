@@ -59,6 +59,6 @@ public class CourseController {
     @ApiOperation("修改课程图标")
     @PutMapping("icon")
     JsonWrapper<String> modifyIconByNumber(String number, MultipartFile image) {
-        return new JsonWrapper<>(courseService.modifyIconByNumber(number, image));
+        return new JsonWrapper<>(courseService.updateIconByNumber(number, image));
     }
 }

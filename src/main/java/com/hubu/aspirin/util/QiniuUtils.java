@@ -1,10 +1,8 @@
 package com.hubu.aspirin.util;
 
-import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.hubu.aspirin.common.KnownException;
 import com.hubu.aspirin.enums.ExceptionEnum;
 import com.qiniu.common.QiniuException;
-import com.qiniu.common.Zone;
 import com.qiniu.http.Response;
 import com.qiniu.storage.BucketManager;
 import com.qiniu.storage.Configuration;
@@ -13,58 +11,48 @@ import com.qiniu.storage.UploadManager;
 import com.qiniu.util.Auth;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.util.CollectionUtils;
+import org.springframework.web.multipart.MultipartFile;
 
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.InputStream;
-import java.net.URL;
 import java.util.Arrays;
 
 /**
  * 七牛云工具类
+ *
  * @author alex
  */
 @Slf4j
 public class QiniuUtils {
     public static String BASE_URL = "http://qiniu-cdn.alexyan.cn/";
-
     private static String ACCESS_KEY = "JjdzmIiQdIMab9opiMa5qr_Jcp11U9VQQGvCYbav";
-
     private static String SECRET_KEY = "ixDpPaUVRgbSr7OknyCEhRx_RW9r-cyFBX43INft";
-
+    /**
+     * 存储空间名
+     */
     private static String BUCKET_NAME = "hubu-aspirin";
-
-
     /**
      * 上传凭证有效期 10min
      */
-    private static long expireSeconds = 600;
-
-    /**
-     * 默认下载路径
-     */
-    private static String DEFAULT_DOWNLOAD_PATH = "D:/photos/";
+    private static long EXPIRE_SECONDS = 600;
 
     private static Auth auth;
-    private static UploadManager uploadManager;
     private static Configuration config;
+    private static UploadManager uploadManager;
 
     static {
-        auth = Auth.create(ACCESS_KEY,SECRET_KEY);
-        // Region.region2是指华南
+        auth = Auth.create(ACCESS_KEY, SECRET_KEY);
+        // 自动配置服务器地区
         config = new Configuration(Region.autoRegion());
         uploadManager = new UploadManager(config);
     }
 
 
-
-    /**
-     * 上传文件
-     *
-     * @param file 文件
-     * @return 图片存储的url
-     */
+//    /**
+//     * 上传文件
+//     *
+//     * @param file 文件
+//     * @return 图片存储的url
+//     */
 //    public static String uploadFile(File file) {
 //        String fileName = file.getName();
 //        try {
@@ -82,15 +70,19 @@ public class QiniuUtils {
 //    }
 
     /**
-     *  字节数组上传文件时调用该方法
+     * 字节数组上传文件时调用该方法
+     *
      * @param uploadKey: 文件在七牛云中的存储索引
      */
-    public static String uploadFile(byte[] bytes, String uploadKey) {
+    public static String uploadFile(MultipartFile file, String uploadKey) {
         try {
-            String upToken = auth.uploadToken(BUCKET_NAME, uploadKey, expireSeconds, null);
-            Response response = uploadManager.put(bytes, uploadKey, upToken);
-        }catch (QiniuException e) {
+            String upToken = auth.uploadToken(BUCKET_NAME, uploadKey, EXPIRE_SECONDS, null);
+            Response response = uploadManager.put(file.getBytes(), uploadKey, upToken);
+        } catch (QiniuException e) {
             log.error(e.response.toString());
+            throw new KnownException(ExceptionEnum.FILE_IO_EXCEPTION);
+        } catch (IOException e) {
+            log.error(Arrays.toString(e.getStackTrace()));
             throw new KnownException(ExceptionEnum.FILE_IO_EXCEPTION);
         }
         return BASE_URL + uploadKey;

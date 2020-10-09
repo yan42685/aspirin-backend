@@ -80,9 +80,8 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
         return true;
     }
 
-    @SneakyThrows
     @Override
-    public String modifyIconByNumber(String number, MultipartFile file) {
+    public String updateIconByNumber(String number, MultipartFile file) {
         Course course = getByNumber(number);
         if (course == null) {
             throw new KnownException(ExceptionEnum.NUMBER_NOT_EXIST);
@@ -99,7 +98,7 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
         }
 
         String newIconUrl;
-        newIconUrl = QiniuUtils.uploadFile(file.getBytes(), uploadKey);
+        newIconUrl = QiniuUtils.uploadFile(file, uploadKey);
         course.setIconUrl(newIconUrl);
         updateById(course);
         return newIconUrl;

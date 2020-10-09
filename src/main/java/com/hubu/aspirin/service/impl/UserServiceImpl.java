@@ -106,7 +106,6 @@ public class UserServiceImpl implements UserService {
         return BulletinConverter.INSTANCE.entityToDtoPage(bulletinIPage);
     }
 
-    @SneakyThrows
     @Override
     public String updateAvatar(MultipartFile file) {
         String username = UserUtils.getCurrentUsername();
@@ -123,7 +122,7 @@ public class UserServiceImpl implements UserService {
         }
 
         String newAvatarUrl;
-        newAvatarUrl = QiniuUtils.uploadFile(file.getBytes(), uploadKey);
+        newAvatarUrl = QiniuUtils.uploadFile(file, uploadKey);
         RoleEnum role = UserUtils.getCurrentRole();
         switch (role) {
             case ADMINISTRATOR:
