@@ -17,6 +17,7 @@ import com.hubu.aspirin.model.entity.*;
 import com.hubu.aspirin.service.*;
 import com.hubu.aspirin.util.UserUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.kafka.KafkaProperties;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -31,6 +32,14 @@ public class AdministratorServiceImpl extends ServiceImpl<AdministratorMapper, A
     BulletinService bulletinService;
     @Autowired
     CourseDetailService courseDetailService;
+
+    @Override
+    public AdministratorDTO getAdministratorDtoByNumber(String number) {
+        QueryWrapper<Administrator> queryWrapper = new QueryWrapper<Administrator>()
+                .eq("number", number);
+        Administrator administrator = getOne(queryWrapper);
+        return AdministratorConverter.INSTANCE.entityToDto(administrator);
+    }
 
     @Override
     public AdministratorDTO getAdministratorInformation() {

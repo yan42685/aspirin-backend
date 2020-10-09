@@ -11,6 +11,11 @@ import java.util.List;
 
 public interface AdministratorService extends IService<Administrator> {
     /**
+     * 根据工号获取管理员信息
+     */
+    AdministratorDTO getAdministratorDtoByNumber(String number);
+
+    /**
      * 获取管理员个人信息
      */
     AdministratorDTO getAdministratorInformation();

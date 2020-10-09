@@ -19,21 +19,27 @@ public class AdministratorController {
     @Autowired
     AdministratorService administratorService;
 
+    @ApiOperation(value = "根据工号获取管理员信息")
+    @GetMapping("info-by-number")
+    JsonWrapper<AdministratorDTO> getAdministratorDtoByNumber(String number) {
+        return new JsonWrapper<>(administratorService.getAdministratorDtoByNumber(number));
+    }
+
     @ApiOperation("获取个人信息")
     @GetMapping("information")
-    public JsonWrapper<AdministratorDTO> getAccountInfo() {
+    JsonWrapper<AdministratorDTO> getAccountInfo() {
         return new JsonWrapper<>(administratorService.getAdministratorInformation());
     }
 
     @ApiOperation("修改个人信息")
     @PutMapping("information")
-    public JsonWrapper<AdministratorDTO> updateAdministratorInformation(ModifiableAdministratorDTO newInformation) {
+    JsonWrapper<AdministratorDTO> updateAdministratorInformation(ModifiableAdministratorDTO newInformation) {
         return new JsonWrapper<>(administratorService.updateAdministratorInformation(newInformation));
     }
 
     @ApiOperation(value = "添加教师", notes = "默认用户名为教师编号， 默认密码为123456")
     @PostMapping("information/teacher")
-    public JsonWrapper<TeacherDTO> addTeacher(TeacherManagementDTO teacherManagementDTO) {
+    JsonWrapper<TeacherDTO> addTeacher(TeacherManagementDTO teacherManagementDTO) {
         return new JsonWrapper<>(administratorService.addTeacher(teacherManagementDTO));
     }
 
@@ -44,7 +50,7 @@ public class AdministratorController {
             @ApiImplicitParam(name = "numberOrRealName", value = "编号或真名", dataType = "string")
     })
     @GetMapping("information/teacher-page")
-    public JsonWrapper<IPage<TeacherDTO>> getTeacherPage(Integer current, Integer size, String numberOrRealName) {
+    JsonWrapper<IPage<TeacherDTO>> getTeacherPage(Integer current, Integer size, String numberOrRealName) {
         return new JsonWrapper<>(administratorService.pageTeacher(current, size, numberOrRealName));
     }
 
@@ -52,59 +58,59 @@ public class AdministratorController {
     @ApiOperation(value = "修改教师信息")
     @ApiImplicitParam(name = "originalNumber", value = "原来的教师编号", dataType = "string")
     @PutMapping("information/teacher")
-    public JsonWrapper<TeacherDTO> updateTeacher(String originalNumber, TeacherManagementDTO teacherManagementDTO) {
+    JsonWrapper<TeacherDTO> updateTeacher(String originalNumber, TeacherManagementDTO teacherManagementDTO) {
         return new JsonWrapper<>(administratorService.updateTeacher(originalNumber, teacherManagementDTO));
     }
 
     @ApiOperation(value = "删除教师")
     @ApiImplicitParam(name = "number", value = "教师编号", dataType = "string")
     @DeleteMapping("information/teacher")
-    public JsonWrapper<Boolean> updateTeacher(String number) {
+    JsonWrapper<Boolean> updateTeacher(String number) {
         return new JsonWrapper<>(administratorService.deleteTeacher(number));
     }
 
     @ApiOperation(value = "添加学生", notes = "默认用户名为学号， 默认密码为123456")
     @PostMapping("information/student")
-    public JsonWrapper<StudentDTO> addStudent(StudentManagementDTO studentManagementDTO) {
+    JsonWrapper<StudentDTO> addStudent(StudentManagementDTO studentManagementDTO) {
         return new JsonWrapper<>(administratorService.addStudent(studentManagementDTO));
     }
 
 
     @ApiOperation(value = "分页搜索学生")
     @GetMapping("information/student-page")
-    public JsonWrapper<IPage<StudentDTO>> getStudentPage(Integer current, Integer size, StudentQueryDTO studentQueryDTO) {
+    JsonWrapper<IPage<StudentDTO>> getStudentPage(Integer current, Integer size, StudentQueryDTO studentQueryDTO) {
         return new JsonWrapper<>(administratorService.pageStudent(current, size, studentQueryDTO));
     }
 
     @ApiOperation(value = "修改学生信息")
     @ApiImplicitParam(name = "originalNumber", value = "原来的学号", dataType = "string")
     @PutMapping("information/student")
-    public JsonWrapper<StudentDTO> updateStudent(String originalNumber, StudentManagementDTO studentManagementDTO) {
+    JsonWrapper<StudentDTO> updateStudent(String originalNumber, StudentManagementDTO studentManagementDTO) {
         return new JsonWrapper<>(administratorService.updateStudent(originalNumber, studentManagementDTO));
     }
 
     @ApiOperation(value = "删除学生")
     @ApiImplicitParam(name = "number", value = "学号", dataType = "string")
     @DeleteMapping("information/student")
-    public JsonWrapper<Boolean> updateStudent(String number) {
+    JsonWrapper<Boolean> updateStudent(String number) {
         return new JsonWrapper<>(administratorService.deleteStudent(number));
     }
 
     @ApiOperation(value = "发布公告")
     @PostMapping("bulletin")
-    public JsonWrapper<Boolean> sendBulletin(String title, String content) {
+    JsonWrapper<Boolean> sendBulletin(String title, String content) {
         return new JsonWrapper<>(administratorService.sendBulletin(title, content));
     }
 
     @ApiOperation(value = "更新公告")
     @PutMapping("bulletin")
-    public JsonWrapper<BulletinDTO> updateBulletin(Long id, String title, String content) {
+    JsonWrapper<BulletinDTO> updateBulletin(Long id, String title, String content) {
         return new JsonWrapper<>(administratorService.updateBulletin(id, title, content));
     }
 
     @ApiOperation(value = "删除公告")
     @DeleteMapping("bulletin")
-    public JsonWrapper<Boolean> deleteBulletin(Long id) {
+    JsonWrapper<Boolean> deleteBulletin(Long id) {
         return new JsonWrapper<>(administratorService.deleteBulletin(id));
     }
 }
