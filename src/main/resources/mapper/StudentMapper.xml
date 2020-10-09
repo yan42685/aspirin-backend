@@ -2,36 +2,22 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.hubu.aspirin.mapper.StudentMapper">
     <sql id="getDTO">
-
-
-
-
-
-
-
-                                                                select username,
-                                                                       real_name,
-                                                                       gender,
-                                                                       student.phone_number,
-                                                                       student.contact_information,
-                                                                       nickname,
-                                                                       student.avatar_url,
-                                                                       faculty.name   as faculty,
-                                                                       specialty.name as specialty,
-                                                                       student.number,
-                                                                       admission_year,
-                                                                       semester
-                                                                from student
-                                                                             left join faculty on student.faculty_number = faculty.number
-                                                                             left join specialty on
-                                                                        student.specialty_number = specialty.number
-
-
-
-
-
-
-
+        select username,
+               real_name,
+               gender,
+               student.phone_number,
+               student.contact_information,
+               nickname,
+               student.avatar_url,
+               faculty.name   as faculty,
+               specialty.name as specialty,
+               student.number,
+               admission_year,
+               semester
+        from student
+                     left join faculty on student.faculty_number = faculty.number
+                     left join specialty on
+                student.specialty_number = specialty.number
     </sql>
 
     <select id="getDtoByNumber" resultType="com.hubu.aspirin.model.dto.StudentDTO">

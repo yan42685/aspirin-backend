@@ -135,16 +135,16 @@ CREATE TABLE specialty_course
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4;
 
-CREATE TABLE student_course
+CREATE TABLE student_course_detail
 (
     `id`             bigint(20) not null COMMENT '主键',
     `create_time`    datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
     `update_time`    datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
     `student_number` varchar(255) comment '学生编号',
-    `course_number`  varchar(255) unique comment '课程编号',
+    course_detail_id  bigint(20) unique comment '具体课程id',
     PRIMARY KEY (`id`),
     foreign key (student_number) references student (number) on update cascade on delete cascade,
-    foreign key (course_number) references course (number) on update cascade on delete cascade
+    foreign key (course_detail_id) references course_detail (id) on update cascade on delete cascade
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4;
 

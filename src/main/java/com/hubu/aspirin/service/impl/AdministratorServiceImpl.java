@@ -7,23 +7,19 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.hubu.aspirin.common.KnownException;
 import com.hubu.aspirin.common.AspirinConstant;
-import com.hubu.aspirin.converter.AdministratorConverter;
-import com.hubu.aspirin.converter.BulletinConverter;
-import com.hubu.aspirin.converter.StudentConverter;
-import com.hubu.aspirin.converter.TeacherConverter;
+import com.hubu.aspirin.converter.*;
 import com.hubu.aspirin.enums.ExceptionEnum;
 import com.hubu.aspirin.enums.RoleEnum;
 import com.hubu.aspirin.mapper.AdministratorMapper;
 import com.hubu.aspirin.model.dto.StudentDTO;
 import com.hubu.aspirin.model.dto.*;
 import com.hubu.aspirin.model.entity.*;
-import com.hubu.aspirin.service.AdministratorService;
-import com.hubu.aspirin.service.BulletinService;
-import com.hubu.aspirin.service.StudentService;
-import com.hubu.aspirin.service.TeacherService;
+import com.hubu.aspirin.service.*;
 import com.hubu.aspirin.util.UserUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class AdministratorServiceImpl extends ServiceImpl<AdministratorMapper, Administrator> implements AdministratorService {
@@ -33,6 +29,8 @@ public class AdministratorServiceImpl extends ServiceImpl<AdministratorMapper, A
     StudentService studentService;
     @Autowired
     BulletinService bulletinService;
+    @Autowired
+    CourseDetailService courseDetailService;
 
     @Override
     public AdministratorDTO getAdministratorInformation() {
@@ -191,6 +189,7 @@ public class AdministratorServiceImpl extends ServiceImpl<AdministratorMapper, A
         bulletinService.removeById(id);
         return true;
     }
+
 
     public Administrator getCurrentAdministrator() {
         String username = UserUtils.getCurrentUsername();

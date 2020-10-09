@@ -4,8 +4,12 @@ package com.hubu.aspirin.controller;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.hubu.aspirin.common.JsonWrapper;
 import com.hubu.aspirin.enums.CourseTypeEnum;
+import com.hubu.aspirin.model.dto.CourseAssignDTO;
 import com.hubu.aspirin.model.dto.CourseDTO;
+import com.hubu.aspirin.model.dto.CourseScheduleDTO;
 import com.hubu.aspirin.model.dto.ModifiableCourseDTO;
+import com.hubu.aspirin.model.entity.CourseDetail;
+import com.hubu.aspirin.service.CourseDetailService;
 import com.hubu.aspirin.service.CourseService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -13,12 +17,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.List;
+
 @Api(tags = "课程")
 @RequestMapping("api/course")
 @RestController
 public class CourseController {
     @Autowired
     CourseService courseService;
+    @Autowired
+    CourseDetailService courseDetailService;
 
     @ApiOperation(value = "查看全部课程")
     @GetMapping("page")
@@ -60,5 +68,29 @@ public class CourseController {
     @PutMapping("icon")
     JsonWrapper<String> modifyIconByNumber(String number, MultipartFile image) {
         return new JsonWrapper<>(courseService.updateIconByNumber(number, image));
+    }
+
+    @ApiOperation("给教师分配课程")
+    @PutMapping("assign")
+    JsonWrapper<List<CourseScheduleDTO>> assignCourseForTeacher(CourseAssignDTO courseAssignDTO) {
+        return new JsonWrapper<>(courseDetailService.assignCourseForTeacher(courseAssignDTO));
+    }
+
+    @ApiOperation("分配课程前的检查")
+    @GetMapping("before-assign")
+    JsonWrapper<Boolean> checkBeforeAssign(CourseAssignDTO courseAssignDTO){
+        return new JsonWrapper<>(courseDetailService.checkBeforeAssign(courseAssignDTO));
+    }
+
+    @ApiOperation("获取授课表")
+    @GetMapping("teacher/schedule")
+    JsonWrapper<List<CourseScheduleDTO>> getCourseScheduleByTeacherNumber(String teacherNumber) {
+        return new JsonWrapper<>(courseDetailService.getCourseScheduleByTeacherNumber(teacherNumber));
+    }
+
+    @ApiOperation("获取教室课表")
+    @GetMapping("classroom/schedule")
+    JsonWrapper<List<CourseScheduleDTO>> getCourseScheduleByClassroomNumber(String classroomNumber) {
+        return new JsonWrapper<>(courseDetailService.getCourseScheduleByClassroomNumber(classroomNumber));
     }
 }

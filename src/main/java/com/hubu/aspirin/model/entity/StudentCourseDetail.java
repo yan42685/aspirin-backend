@@ -11,8 +11,8 @@ import lombok.experimental.Accessors;
 @Data
 @EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
-@ApiModel(value="StudentCourse对象", description="")
-public class StudentCourse implements Serializable {
+@ApiModel(value="StudentCourseDetail对象", description="")
+public class StudentCourseDetail implements Serializable {
 
     private static final long serialVersionUID=1L;
 
@@ -28,8 +28,8 @@ public class StudentCourse implements Serializable {
     @ApiModelProperty(value = "学生编号")
     private String studentNumber;
 
-    @ApiModelProperty(value = "课程编号")
-    private String courseNumber;
+    @ApiModelProperty(value = "具体课程id")
+    private Long courseDetailId;
 
 
 }

@@ -13,9 +13,9 @@ import com.hubu.aspirin.mapper.CourseMapper;
 import com.hubu.aspirin.model.dto.CourseDTO;
 import com.hubu.aspirin.model.dto.ModifiableCourseDTO;
 import com.hubu.aspirin.model.entity.Course;
+import com.hubu.aspirin.service.CourseDetailService;
 import com.hubu.aspirin.service.CourseService;
 import com.hubu.aspirin.util.QiniuUtils;
-import lombok.SneakyThrows;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -24,6 +24,8 @@ import org.springframework.web.multipart.MultipartFile;
 public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> implements CourseService {
     @Autowired
     CourseMapper courseMapper;
+    @Autowired
+    CourseDetailService courseDetailService;
 
     @Override
     public IPage<CourseDTO> getAllPage(Integer current, Integer size) {
@@ -103,6 +105,8 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
         updateById(course);
         return newIconUrl;
     }
+
+
 
     private Course getByNumber(String number) {
         QueryWrapper<Course> queryWrapper = new QueryWrapper<Course>()

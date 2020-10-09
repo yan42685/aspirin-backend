@@ -23,17 +23,17 @@ import java.util.Arrays;
  */
 @Slf4j
 public class QiniuUtils {
-    public static String BASE_URL = "http://qiniu-cdn.alexyan.cn/";
-    private static String ACCESS_KEY = "JjdzmIiQdIMab9opiMa5qr_Jcp11U9VQQGvCYbav";
-    private static String SECRET_KEY = "ixDpPaUVRgbSr7OknyCEhRx_RW9r-cyFBX43INft";
+    private static final String BASE_URL = "http://qiniu-cdn.alexyan.cn/";
+    private static final String ACCESS_KEY = "JjdzmIiQdIMab9opiMa5qr_Jcp11U9VQQGvCYbav";
+    private static final String SECRET_KEY = "ixDpPaUVRgbSr7OknyCEhRx_RW9r-cyFBX43INft";
     /**
      * 存储空间名
      */
-    private static String BUCKET_NAME = "hubu-aspirin";
+    private static final String BUCKET_NAME = "hubu-aspirin";
     /**
      * 上传凭证有效期 10min
      */
-    private static long EXPIRE_SECONDS = 600;
+    private static final long EXPIRE_SECONDS = 600;
 
     private static Auth auth;
     private static Configuration config;
@@ -125,7 +125,7 @@ public class QiniuUtils {
     }
 
     public static String getKeyFromUrl(String url) {
-        String[] urlParts = url.split(BASE_URL);
-        return urlParts.length > 1 ? urlParts[1] : null;
+        String[] parts = url.split(BASE_URL);
+        return parts.length > 1 ? parts[1] : null;
     }
 }

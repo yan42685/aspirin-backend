@@ -43,4 +43,7 @@ public interface CourseService extends IService<Course> {
      * 修改课程图标
      */
     String updateIconByNumber(String number, MultipartFile file);
+
+
+
 }

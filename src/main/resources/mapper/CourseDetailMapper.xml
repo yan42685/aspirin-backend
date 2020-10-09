@@ -1,5 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.hubu.aspirin.mapper.CourseDetailMapper">
+    <sql id="getCourseScheduleDTO">
+        select teacher_number,
+               teacher.real_name  as teacherName,
+               course_number,
+               course.name        as courseName,
+               classroom_number,
+               classroom.location as classroomName,
+               day_of_the_week,
+               scheduling_time
 
+        from course_detail
+                     left join teacher on course_detail.teacher_number = teacher.number
+                     left join classroom on course_detail.classroom_number = classroom.number
+                     left join course on course_detail.course_number = course.number
+    </sql>
+
+    <select id="getCourseScheduleByClassroomNumber" resultType="com.hubu.aspirin.model.dto.CourseScheduleDTO">
+        <include refid="getCourseScheduleDTO">
+        </include>
+        where classroom_number = #{classroomNumber};
+    </select>
+
+    <select id="getCourseScheduleByTeacherNumber" resultType="com.hubu.aspirin.model.dto.CourseScheduleDTO">
+        <include refid="getCourseScheduleDTO">
+        </include>
+        where teacher_number = #{teacherNumber};
+    </select>
 </mapper>
