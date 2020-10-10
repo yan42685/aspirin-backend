@@ -7,17 +7,17 @@ app_name='aspirin'
 app_version='0.0.1-SNAPSHOT'
 # 定义应用环境
 profile_active='dev'
-echo '----copy jar----'
+echo '----stopping container----'
 docker stop ${app_name}
-echo '----stop container----'
+echo '----removing container----'
 docker rm ${app_name}
-echo '----rm container----'
-docker rmi ${group_name}/${app_name}:${app_version}
-echo '----rm image----'
+# docker rmi ${group_name}/${app_name}:${app_version}
+# echo '----rm image----'
 # 打包编译docker镜像
-docker build -t ${group_name}/${app_name}:${app_version} .
-echo '----build image----'
-docker run -p 8088:8088 --name ${app_name} \
+# docker build -t ${group_name}/${app_name}:${app_version} .
+# echo '----build image----'
+# echo '----running image----'
+docker run -p 8090:8090 --name ${app_name} \
 --link mysql:db \
 -e 'spring.profiles.active'=${profile_active} \
 -e TZ="Asia/Shanghai" \
