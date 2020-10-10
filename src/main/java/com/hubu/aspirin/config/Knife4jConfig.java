@@ -28,7 +28,6 @@ public class Knife4jConfig {
                 .apis(RequestHandlerSelectors.basePackage("com.hubu.aspirin"))
                 .paths(PathSelectors.any())
                 .build();
-
     }
 
     private ApiInfo apiInfo() {
