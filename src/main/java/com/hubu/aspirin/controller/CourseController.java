@@ -8,7 +8,6 @@ import com.hubu.aspirin.model.dto.CourseAssignDTO;
 import com.hubu.aspirin.model.dto.CourseDTO;
 import com.hubu.aspirin.model.dto.CourseScheduleDTO;
 import com.hubu.aspirin.model.dto.ModifiableCourseDTO;
-import com.hubu.aspirin.model.entity.CourseDetail;
 import com.hubu.aspirin.service.CourseDetailService;
 import com.hubu.aspirin.service.CourseService;
 import io.swagger.annotations.Api;
@@ -28,22 +27,10 @@ public class CourseController {
     @Autowired
     CourseDetailService courseDetailService;
 
-    @ApiOperation(value = "查看全部课程")
+    @ApiOperation(value = "查询课程")
     @GetMapping("page")
-    JsonWrapper<IPage<CourseDTO>> getAllPage(Integer current, Integer size) {
-        return new JsonWrapper<>(courseService.getAllPage(current, size));
-    }
-
-    @ApiOperation(value = "根据专业编号查看课程")
-    @GetMapping("page-by-specialty-number")
-    JsonWrapper<IPage<CourseDTO>> getAllPageBySpecialtyNumber(Integer current, Integer size, String specialtyNumber) {
-        return new JsonWrapper<>(courseService.getAllPageBySpecialtyNumber(current, size, specialtyNumber));
-    }
-
-    @ApiOperation(value = "根据专业编号和课程分类查看课程")
-    @GetMapping("page-by-specialty-number-and-course-type")
-    JsonWrapper<IPage<CourseDTO>> getAllPageBySpecialtyNumberAndCourseType(Integer current, Integer size, String specialtyNumber, CourseTypeEnum courseType) {
-        return new JsonWrapper<>(courseService.getAllPageBySpecialtyNumberAndCourseType(current, size, specialtyNumber, courseType));
+    JsonWrapper<IPage<CourseDTO>> queryCoursePage(Integer current, Integer size, String specialtyNumber, CourseTypeEnum courseType, String nameOrNumber) {
+        return new JsonWrapper<>(courseService.queryPage(current, size, specialtyNumber, courseType, nameOrNumber));
     }
 
     @ApiOperation("创建课程")

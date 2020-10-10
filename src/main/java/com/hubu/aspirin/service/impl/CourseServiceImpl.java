@@ -27,24 +27,11 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
     @Autowired
     CourseDetailService courseDetailService;
 
-    @Override
-    public IPage<CourseDTO> getAllPage(Integer current, Integer size) {
-        Page<Course> page = new Page<>(current, size);
-        IPage<Course> coursePage = page(page);
-        return CourseConverter.INSTANCE.entityToDtoPage(coursePage);
-    }
 
     @Override
-    public IPage<CourseDTO> getAllPageBySpecialtyNumber(Integer current, Integer size, String specialtyNumber) {
+    public IPage<CourseDTO> queryPage(Integer current, Integer size, String specialtyNumber, CourseTypeEnum courseType, String courseNameOrNumber) {
         Page<Course> page = new Page<>(current, size);
-        IPage<Course> coursePage = courseMapper.getAllPageBySpecialtyNumber(page, specialtyNumber);
-        return CourseConverter.INSTANCE.entityToDtoPage(coursePage);
-    }
-
-    @Override
-    public IPage<CourseDTO> getAllPageBySpecialtyNumberAndCourseType(Integer current, Integer size, String specialtyNumber, CourseTypeEnum courseType) {
-        Page<Course> page = new Page<>(current, size);
-        IPage<Course> coursePage = courseMapper.getAllPageBySpecialtyNumberAndCourseType(page, specialtyNumber, courseType);
+        IPage<Course> coursePage = courseMapper.queryPage(page, specialtyNumber, courseType.getValue(), courseNameOrNumber);
         return CourseConverter.INSTANCE.entityToDtoPage(coursePage);
     }
 

@@ -9,20 +9,11 @@ import com.hubu.aspirin.model.entity.Course;
 import org.springframework.web.multipart.MultipartFile;
 
 public interface CourseService extends IService<Course> {
-    /**
-     * 查看全部课程
-     */
-    IPage<CourseDTO> getAllPage(Integer current, Integer size);
-
-    /**
-     * 根据专业编号查看课程
-     */
-    IPage<CourseDTO> getAllPageBySpecialtyNumber(Integer current, Integer size, String specialtyNumber);
 
     /**
      * 根据专业编号和课程分类查看课程
      */
-    IPage<CourseDTO> getAllPageBySpecialtyNumberAndCourseType(Integer current, Integer size, String specialtyNumber, CourseTypeEnum courseType);
+    IPage<CourseDTO> queryPage(Integer current, Integer size, String specialtyNumber, CourseTypeEnum courseType, String nameOrNumber);
 
     /**
      * 添加课程

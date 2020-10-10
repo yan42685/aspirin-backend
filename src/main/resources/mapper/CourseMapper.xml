@@ -5,18 +5,24 @@
         select course.*
         from course
                      left join specialty_course on course.number = specialty_course.course_number
-                     left join specialty s on specialty_course.specialty_number = s.number
+                     left join specialty on specialty_course.specialty_number = specialty.number
     </sql>
-
-    <select id="getAllPageBySpecialtyNumber" resultType="com.hubu.aspirin.model.entity.Course">
+    <select id="queryPage" resultType="com.hubu.aspirin.model.entity.Course">
         <include refid="getBySpecialtyNumber">
         </include>
-        where s.number = #{specialtyNumber}
-    </select>
-
-    <select id="getAllPageBySpecialtyNumberAndCourseType" resultType="com.hubu.aspirin.model.entity.Course">
-        <include refid="getBySpecialtyNumber">
-        </include>
-        where s.number = #{specialtyNumber} and course.type = #{courseType}
+        <where>
+            <if test="specialtyNumber != null and specialtyNumber != ''">
+                specialty.number = #{specialtyNumber}
+            </if>
+<!--            mybatis会把传入的0当做空串，所以不必判断空串-->
+<!--            mybatis不能比较枚举类型，所以在Mapper接口的参数需要写Integer之类的而不是枚举类型-->
+            <if test="courseType != null">
+                and course.type = #{courseType}
+            </if>
+            <if test="courseNameOrNumber != null and courseNameOrNumber != ''">
+                and (course.name like concat('%', #{courseNameOrNumber}, '%')
+                or course.number like concat('%', #{courseNameOrNumber}, '%'))
+            </if>
+        </where>
     </select>
 </mapper>

@@ -8,8 +8,7 @@ import com.hubu.aspirin.model.entity.Course;
 import org.apache.ibatis.annotations.Param;
 
 public interface CourseMapper extends BaseMapper<Course> {
-    IPage<Course> getAllPageBySpecialtyNumber(Page<Course> page, @Param("specialtyNumber") String specialtyNumber);
 
-    IPage<Course> getAllPageBySpecialtyNumberAndCourseType(Page<Course> page, @Param("specialtyNumber") String specialtyNumber, @Param("courseType") CourseTypeEnum courseType);
+    IPage<Course> queryPage(Page<Course> page, @Param("specialtyNumber") String specialtyNumber, @Param("courseType") Integer courseType, @Param("courseNameOrNumber") String courseNameOrNumber);
 
 }
