@@ -1,15 +1,15 @@
 #!/bin/bash
 
 # 修改APP_NAME为云效上的应用名
-APP_NAME=application
+APP_NAME=aspirin-0.0.1-SNAPSHOT
 
 
 PROG_NAME=$0
 ACTION=$1
 APP_START_TIMEOUT=20    # 等待应用启动的时间
-APP_PORT=8080          # 应用端口
+APP_PORT=8090          # 应用端口
 HEALTH_CHECK_URL=http://127.0.0.1:${APP_PORT}  # 应用健康检查URL
-APP_HOME=/home/admin/${APP_NAME} # 从package.tgz中解压出来的jar包放到这个目录下
+APP_HOME=/home/apps/${APP_NAME} # 从package.tgz中解压出来的jar包放到这个目录下
 JAR_NAME=${APP_HOME}/target/${APP_NAME}.jar # jar包的名字
 JAVA_OUT=${APP_HOME}/logs/start.log  #应用的启动日志
 
