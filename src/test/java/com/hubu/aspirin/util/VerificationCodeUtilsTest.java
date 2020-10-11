@@ -16,7 +16,7 @@ class VerificationCodeUtilsTest {
 
     @Test
     void getRandomCodeImage() {
-        new VerificationCodeUtils().getRandomCodeImage();
+
     }
 }
     
