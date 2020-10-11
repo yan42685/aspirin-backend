@@ -4,11 +4,11 @@
 APP_NAME=aspirin-0.0.1-SNAPSHOT
 
 
-PROG_NAME=$0
-ACTION=$1
 APP_START_TIMEOUT=50    # 等待应用启动的时间
 APP_PORT=8090          # 应用端口
-HEALTH_CHECK_URL=http://127.0.0.1:${APP_PORT}/doc.html  # 应用健康检查URL
+HEALTH_CHECK_URL=http://127.0.0.1:${APP_PORT}  # 应用健康检查URL
+PROG_NAME=$0
+ACTION=$1
 APP_HOME=/home/apps/${APP_NAME} # 从package.tgz中解压出来的jar包放到这个目录下
 JAR_NAME=${APP_HOME}/target/${APP_NAME}.jar # jar包的绝对路径
 JAVA_OUT=${APP_HOME}/logs/start.log  #应用的启动日志
@@ -22,30 +22,31 @@ usage() {
 }
 
 health_check() {
-    exptime=0
-    echo "checking ${HEALTH_CHECK_URL}"
-    while true
-        do
-            status_code=`/usr/bin/curl -L -o /dev/null --connect-timeout 5 -s -w %{http_code}  ${HEALTH_CHECK_URL}`
-            if [ "$?" != "0" ]; then
-               echo -n -e "\rapplication not started"
-            else
-                echo "code is $status_code"
-                if [ "$status_code" == "200" ];then
-                    break
-                fi
-            fi
-            sleep 1
-            ((exptime++))
-
-            echo -e "\rWait app to pass health check: $exptime..."
-
-            if [ $exptime -gt ${APP_START_TIMEOUT} ]; then
-                echo 'app start failed'
-               exit 1
-            fi
-        done
-    echo "check ${HEALTH_CHECK_URL} success"
+#    exptime=0
+#    echo "checking ${HEALTH_CHECK_URL}"
+#    while true
+#        do
+#            status_code=`/usr/bin/curl -L -o /dev/null --connect-timeout 5 -s -w %{http_code}  ${HEALTH_CHECK_URL}`
+#            if [ "$?" != "0" ]; then
+#               echo -n -e "\rapplication not started"
+#            else
+#                echo "code is $status_code"
+#                if [ "$status_code" == "200" ];then
+#                    break
+#                fi
+#            fi
+#            sleep 1
+#            ((exptime++))
+#
+#            echo -e "\rWait app to pass health check: $exptime..."
+#
+#            if [ $exptime -gt ${APP_START_TIMEOUT} ]; then
+#                echo 'app start failed'
+#               exit 1
+#            fi
+#        done
+#    echo "check ${HEALTH_CHECK_URL} success"
+    echo "health check skipped!"
 }
 start_application() {
     echo "starting java process"
