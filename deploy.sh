@@ -1,20 +1,20 @@
 #!/bin/bash
 
 # 修改APP_NAME为云效上的应用名
-APP_NAME=aspirin-0.0.1-SNAPSHOT
+APP_NAME=aspirin
+APP_VERSION=-0.0.1-SNAPSHOT
 APP_PORT=8090          # 应用端口
 HEALTH_CHECK_URL=http://127.0.0.1:${APP_PORT}  # 应用健康检查URL
-APP_START_TIMEOUT=50    # 等待应用启动的时间
+APP_START_TIMEOUT=30    # 等待应用启动的时间
 
 PROG_NAME=$0
 ACTION=$1
 APP_HOME=/home/apps/${APP_NAME} # 从package.tgz中解压出来的jar包放到这个目录下
-JAR_NAME=${APP_HOME}/target/${APP_NAME}.jar # jar包的绝对路径
-JAVA_OUT=${APP_HOME}/logs/start.log  #应用的启动日志
+JAR_NAME=${APP_HOME}/target/${APP_NAME}${APP_VERSION}.jar # jar包的绝对路径
+JAVA_OUT=${APP_HOME}/start.log  #应用的启动日志
 
 # 创建出相关目录
 mkdir -p ${APP_HOME}
-mkdir -p ${APP_HOME}/logs
 usage() {
     echo "Usage: $PROG_NAME {start|stop|restart}"
     exit 2
