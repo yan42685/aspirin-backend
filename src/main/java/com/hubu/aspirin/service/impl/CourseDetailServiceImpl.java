@@ -3,9 +3,10 @@ package com.hubu.aspirin.service.impl;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.hubu.aspirin.common.KnownException;
 import com.hubu.aspirin.converter.CourseDetailConverter;
+import com.hubu.aspirin.enums.CourseTypeEnum;
 import com.hubu.aspirin.enums.ExceptionEnum;
 import com.hubu.aspirin.model.dto.CourseAssignDTO;
-import com.hubu.aspirin.model.dto.CourseScheduleDTO;
+import com.hubu.aspirin.model.dto.CourseDetailDTO;
 import com.hubu.aspirin.model.entity.CourseDetail;
 import com.hubu.aspirin.mapper.CourseDetailMapper;
 import com.hubu.aspirin.service.CourseDetailService;
@@ -21,7 +22,7 @@ public class CourseDetailServiceImpl extends ServiceImpl<CourseDetailMapper, Cou
     CourseDetailMapper courseDetailMapper;
 
     @Override
-    public List<CourseScheduleDTO> assignCourseForTeacher(CourseAssignDTO dto) {
+    public List<CourseDetailDTO> assignCourseForTeacher(CourseAssignDTO dto) {
         String classroomNumber = dto.getClassroomNumber();
         String teacherNumber = dto.getTeacherNumber();
         Integer dayOfTheWeek = dto.getDayOfTheWeek();
@@ -41,7 +42,7 @@ public class CourseDetailServiceImpl extends ServiceImpl<CourseDetailMapper, Cou
 
         courseDetail = CourseDetailConverter.INSTANCE.assignDto2Entity(dto);
         save(courseDetail);
-        return getCourseScheduleByTeacherNumber(teacherNumber);
+        return listByTeacherNumber(teacherNumber);
     }
 
     @Override
@@ -63,13 +64,18 @@ public class CourseDetailServiceImpl extends ServiceImpl<CourseDetailMapper, Cou
     }
 
     @Override
-    public List<CourseScheduleDTO> getCourseScheduleByTeacherNumber(String teacherNumber) {
-        return courseDetailMapper.getCourseScheduleByTeacherNumber(teacherNumber);
+    public List<CourseDetailDTO> listByTeacherNumber(String teacherNumber) {
+        return courseDetailMapper.listByTeacherNumber(teacherNumber);
     }
 
     @Override
-    public List<CourseScheduleDTO> getCourseScheduleByClassroomNumber(String classroomNumber) {
-        return courseDetailMapper.getCourseScheduleByClassroomNumber(classroomNumber);
+    public List<CourseDetailDTO> listByClassroomNumber(String classroomNumber) {
+        return courseDetailMapper.listByClassroomNumber(classroomNumber);
+    }
+
+    @Override
+    public List<CourseDetailDTO> listBySpecialtyNumberAndCourseType(String specialtyNumber, CourseTypeEnum courseType) {
+        return courseDetailMapper.listBySpecialtyNumberAndCourseType(specialtyNumber, courseType.getValue());
     }
 
     private CourseDetail getAboutTeacher(String teacherNumber, Integer dayOfTheWeek, Integer schedulingTime) {

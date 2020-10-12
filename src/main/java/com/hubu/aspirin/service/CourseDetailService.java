@@ -1,7 +1,9 @@
 package com.hubu.aspirin.service;
 
+import com.hubu.aspirin.enums.CourseTypeEnum;
+import com.hubu.aspirin.enums.ElectiveStatusEnum;
 import com.hubu.aspirin.model.dto.CourseAssignDTO;
-import com.hubu.aspirin.model.dto.CourseScheduleDTO;
+import com.hubu.aspirin.model.dto.CourseDetailDTO;
 import com.hubu.aspirin.model.entity.CourseDetail;
 import com.baomidou.mybatisplus.extension.service.IService;
 
@@ -11,7 +13,7 @@ public interface CourseDetailService extends IService<CourseDetail> {
     /**
      * 给教师分配课程
      */
-    List<CourseScheduleDTO> assignCourseForTeacher(CourseAssignDTO courseAssignDTO);
+    List<CourseDetailDTO> assignCourseForTeacher(CourseAssignDTO courseAssignDTO);
 
     /**
      * 分配课程前的检查
@@ -21,11 +23,17 @@ public interface CourseDetailService extends IService<CourseDetail> {
     /**
      * 获取授课表
      */
-    List<CourseScheduleDTO> getCourseScheduleByTeacherNumber(String teacherNumber);
+    List<CourseDetailDTO> listByTeacherNumber(String teacherNumber);
 
 
     /**
      * 获取教室课表
      */
-    List<CourseScheduleDTO> getCourseScheduleByClassroomNumber(String classroomNumber);
+    List<CourseDetailDTO> listByClassroomNumber(String classroomNumber);
+
+    /**
+     * 获取学生可选课表
+     */
+    List<CourseDetailDTO> listBySpecialtyNumberAndCourseType(String specialtyNumber, CourseTypeEnum courseType);
+
 }

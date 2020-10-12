@@ -142,6 +142,7 @@ CREATE TABLE student_course_detail
     `update_time`    datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
     `student_number` varchar(255) comment '学生编号',
     course_detail_id  bigint(20) unique comment '具体课程id',
+    status tinyint(4) comment '选课状态',
     PRIMARY KEY (`id`),
     foreign key (student_number) references student (number) on update cascade on delete cascade,
     foreign key (course_detail_id) references course_detail (id) on update cascade on delete cascade

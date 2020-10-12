@@ -6,7 +6,7 @@ import lombok.Data;
 
 @ApiModel("课程表DTO")
 @Data
-public class CourseScheduleDTO {
+public class CourseDetailDTO {
     @ApiModelProperty(value = "教师编号")
     private String teacherNumber;
 

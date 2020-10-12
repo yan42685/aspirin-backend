@@ -6,7 +6,7 @@ import com.hubu.aspirin.common.JsonWrapper;
 import com.hubu.aspirin.enums.CourseTypeEnum;
 import com.hubu.aspirin.model.dto.CourseAssignDTO;
 import com.hubu.aspirin.model.dto.CourseDTO;
-import com.hubu.aspirin.model.dto.CourseScheduleDTO;
+import com.hubu.aspirin.model.dto.CourseDetailDTO;
 import com.hubu.aspirin.model.dto.ModifiableCourseDTO;
 import com.hubu.aspirin.service.CourseDetailService;
 import com.hubu.aspirin.service.CourseService;
@@ -59,7 +59,7 @@ public class CourseController {
 
     @ApiOperation("给教师分配课程")
     @PutMapping("assign")
-    JsonWrapper<List<CourseScheduleDTO>> assignCourseForTeacher(CourseAssignDTO courseAssignDTO) {
+    JsonWrapper<List<CourseDetailDTO>> assignCourseForTeacher(CourseAssignDTO courseAssignDTO) {
         return new JsonWrapper<>(courseDetailService.assignCourseForTeacher(courseAssignDTO));
     }
 
@@ -71,13 +71,13 @@ public class CourseController {
 
     @ApiOperation("获取授课表")
     @GetMapping("teacher/schedule")
-    JsonWrapper<List<CourseScheduleDTO>> getCourseScheduleByTeacherNumber(String teacherNumber) {
-        return new JsonWrapper<>(courseDetailService.getCourseScheduleByTeacherNumber(teacherNumber));
+    JsonWrapper<List<CourseDetailDTO>> getCourseScheduleByTeacherNumber(String teacherNumber) {
+        return new JsonWrapper<>(courseDetailService.listByTeacherNumber(teacherNumber));
     }
 
     @ApiOperation("获取教室课表")
     @GetMapping("classroom/schedule")
-    JsonWrapper<List<CourseScheduleDTO>> getCourseScheduleByClassroomNumber(String classroomNumber) {
-        return new JsonWrapper<>(courseDetailService.getCourseScheduleByClassroomNumber(classroomNumber));
+    JsonWrapper<List<CourseDetailDTO>> getCourseScheduleByClassroomNumber(String classroomNumber) {
+        return new JsonWrapper<>(courseDetailService.listByClassroomNumber(classroomNumber));
     }
 }

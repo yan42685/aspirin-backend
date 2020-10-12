@@ -2,6 +2,8 @@ package com.hubu.aspirin.model.entity;
 
 import java.time.LocalDateTime;
 import java.io.Serializable;
+
+import com.hubu.aspirin.enums.ElectiveStatusEnum;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -31,5 +33,7 @@ public class StudentCourseDetail implements Serializable {
     @ApiModelProperty(value = "具体课程id")
     private Long courseDetailId;
 
+    @ApiModelProperty("选课状态")
+    private ElectiveStatusEnum status;
 
 }
