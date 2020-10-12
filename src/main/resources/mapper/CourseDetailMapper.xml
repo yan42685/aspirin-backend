@@ -45,7 +45,6 @@
                      left join course_detail on course.number = course_detail.course_number
                      left join teacher on course_detail.teacher_number = teacher.number
                      left join classroom on course_detail.classroom_number = classroom.number
-                     left join course on course_detail.course_number = course.number
         where specialty.number = #{specialtyNumber} and course.type = #{courseType}
     </select>
 </mapper>
