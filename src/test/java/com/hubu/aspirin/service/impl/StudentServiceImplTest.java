@@ -1,10 +1,17 @@
 package com.hubu.aspirin.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.hubu.aspirin.common.KnownException;
 import com.hubu.aspirin.enums.CourseTypeEnum;
+import com.hubu.aspirin.enums.ElectiveStatusEnum;
+import com.hubu.aspirin.enums.ExceptionEnum;
 import com.hubu.aspirin.mapper.StudentMapper;
 import com.hubu.aspirin.model.dto.CourseDTO;
 import com.hubu.aspirin.model.dto.CourseDetailDTO;
+import com.hubu.aspirin.model.entity.Student;
+import com.hubu.aspirin.model.entity.StudentCourseDetail;
 import com.hubu.aspirin.service.CourseDetailService;
+import com.hubu.aspirin.service.StudentCourseDetailService;
 import com.hubu.aspirin.service.StudentService;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -26,12 +33,13 @@ class StudentServiceImplTest {
     StudentMapper studentMapper;
     @Autowired
     CourseDetailService courseDetailService;
+    @Autowired
+    StudentCourseDetailService studentCourseDetailService;
 
 
     @Test
-    void getBoByNumber() {
-        List<CourseDetailDTO> courseDetailDTOS = courseDetailService.listBySpecialtyNumberAndCourseType("0000", CourseTypeEnum.COMMON_COMPULSORY);
-        System.out.println(courseDetailDTOS.size());
+    void dropCourseTest() {
+
     }
 }
     

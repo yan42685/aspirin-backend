@@ -23,17 +23,16 @@ public interface CourseDetailService extends IService<CourseDetail> {
     /**
      * 获取授课表
      */
-    List<CourseDetailDTO> listByTeacherNumber(String teacherNumber);
-
+    List<CourseDetailDTO> teacherCourseSchedule(String teacherNumber);
 
     /**
      * 获取教室课表
      */
-    List<CourseDetailDTO> listByClassroomNumber(String classroomNumber);
+    List<CourseDetailDTO> classroomCourseSchedule(String classroomNumber);
 
     /**
      * 获取学生可选课表
      */
-    List<CourseDetailDTO> listBySpecialtyNumberAndCourseType(String specialtyNumber, CourseTypeEnum courseType);
+    List<CourseDetailDTO> studentAvailableCourseList(String specialtyNumber, Integer semester, CourseTypeEnum courseType);
 
 }

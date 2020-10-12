@@ -31,8 +31,6 @@ public class SpecialtyCourse implements Serializable {
     @ApiModelProperty(value = "课程编号")
     private String courseNumber;
 
-    @ApiModelProperty(value = "开课的学期")
-    private Integer semester;
 
 
 }

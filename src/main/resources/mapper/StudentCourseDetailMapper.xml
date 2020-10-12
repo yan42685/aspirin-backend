@@ -1,5 +1,62 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.hubu.aspirin.mapper.StudentCourseDetailMapper">
+    <select id="pageCourseDropRecourd"
+            resultType="com.hubu.aspirin.model.dto.CourseDropDTO">
+        select course_detail.id,
+               course_detail.semester,
+               course_detail.id   as courseDetailId,
+               student_course_detail.create_time,
+               teacher.real_name  as teacherName,
+               course.name        as courseName,
+               course.type,
+               course.icon_url,
+               course.description,
+               course.period,
+               course.credit,
+               classroom.location as classroomName,
+               day_of_the_week,
+               scheduling_time
+        from specialty
+                     left join specialty_course on specialty.number = specialty_course.specialty_number
+                     left join course on specialty_course.course_number = course.number
+                     left join course_detail on course.number = course_detail.course_number
+                     left join teacher on course_detail.teacher_number = teacher.number
+                     left join classroom on course_detail.classroom_number = classroom.number
+                     left join student on specialty.number = student.specialty_number
+                     left join student_course_detail on course_detail.id = student_course_detail.course_detail_id
+        where student.number = #{studentNumber}
+          and student.semester = #{semester}
+          and student_course_detail.status = #{dropped}
+    </select>
 
+    <select id="listCourseDetailDtoByStudentNumberAndSemester" resultType="com.hubu.aspirin.model.dto.CourseDetailDTO">
+        select course_detail.id,
+               course_detail.semester,
+               teacher_number,
+               teacher.real_name  as teacherName,
+               course.number      as courseNumber,
+               course.name        as courseName,
+               course.type,
+               course.icon_url,
+               course.description,
+               course.period,
+               course.credit,
+               classroom_number,
+               classroom.location as classroomName,
+               day_of_the_week,
+               scheduling_time
+
+        from specialty
+                     left join specialty_course on specialty.number = specialty_course.specialty_number
+                     left join course on specialty_course.course_number = course.number
+                     left join course_detail on course.number = course_detail.course_number
+                     left join teacher on course_detail.teacher_number = teacher.number
+                     left join classroom on course_detail.classroom_number = classroom.number
+                     left join student on specialty.number = student.specialty_number
+                     left join student_course_detail on course_detail.id = student_course_detail.course_detail_id
+        where student.number = #{studentNumber}
+          and student.semester = #{semester}
+          and student_course_detail.status = #{chosen}
+    </select>
 </mapper>

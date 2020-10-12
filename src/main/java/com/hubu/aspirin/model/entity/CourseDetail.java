@@ -40,5 +40,7 @@ public class CourseDetail implements Serializable {
     @ApiModelProperty(value = "教室编号")
     private String classroomNumber;
 
+    @ApiModelProperty(value = "开课的学期")
+    private Integer semester;
 
 }

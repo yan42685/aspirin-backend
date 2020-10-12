@@ -71,13 +71,13 @@ public class CourseController {
 
     @ApiOperation("获取授课表")
     @GetMapping("teacher/schedule")
-    JsonWrapper<List<CourseDetailDTO>> getCourseScheduleByTeacherNumber(String teacherNumber) {
-        return new JsonWrapper<>(courseDetailService.listByTeacherNumber(teacherNumber));
+    JsonWrapper<List<CourseDetailDTO>> teacherCourseSchedule(String teacherNumber) {
+        return new JsonWrapper<>(courseDetailService.teacherCourseSchedule(teacherNumber));
     }
 
     @ApiOperation("获取教室课表")
     @GetMapping("classroom/schedule")
-    JsonWrapper<List<CourseDetailDTO>> getCourseScheduleByClassroomNumber(String classroomNumber) {
-        return new JsonWrapper<>(courseDetailService.listByClassroomNumber(classroomNumber));
+    JsonWrapper<List<CourseDetailDTO>> classroomCourseSchedule(String classroomNumber) {
+        return new JsonWrapper<>(courseDetailService.classroomCourseSchedule(classroomNumber));
     }
 }

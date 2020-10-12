@@ -4,10 +4,10 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.hubu.aspirin.enums.CourseTypeEnum;
 import com.hubu.aspirin.model.dto.CourseDetailDTO;
+import com.hubu.aspirin.model.dto.CourseDropDTO;
 import com.hubu.aspirin.model.dto.StudentDTO;
 import com.hubu.aspirin.model.dto.StudentQueryDTO;
 import com.hubu.aspirin.model.entity.Student;
-import com.hubu.aspirin.util.UserUtils;
 
 import java.util.List;
 
@@ -36,5 +36,27 @@ public interface StudentService extends IService<Student> {
     /**
      * 分类查看可选课程
      */
-    List<CourseDetailDTO> availableCourseDetailList(CourseTypeEnum courseType);
+    List<CourseDetailDTO> availableCourseDetailList(Integer semester, CourseTypeEnum courseType);
+
+    /**
+     * 获取课程表
+     */
+    List<CourseDetailDTO> getCourseSchedule(Integer semester);
+
+    /**
+     * 选课
+     */
+    List<CourseDetailDTO> electCourse(Long courseDetailId);
+
+    /**
+     * 退课
+     */
+    List<CourseDetailDTO> dropCourse(Long courseDetailId);
+
+    /**
+     * 查看退课记录
+     */
+    IPage<CourseDropDTO> pageCourseDropRecord(Integer current, Integer size);
+
+
 }

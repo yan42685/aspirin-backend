@@ -36,7 +36,10 @@ public enum ExceptionEnum {
     NUMBER_NOT_EXIST(-13, "编号不存在"),
     ROLE_HEADER_MISSING(-14, "header中缺少role参数"),
     CLASSROOM_NOT_AVAILABLE(-15, "教室该时间段被占用"),
-    TEACHER_NOT_AVAILABLE(-16, "教师该时间段已分配课程");
+    TEACHER_NOT_AVAILABLE(-16, "教师该时间段已分配课程"),
+    DROP_COURSE_NOT_FOUND(-17, "没有选该课程，无法退课"),
+    STUDENT_NOT_AVAILABLE(-18, "学生该时间段已有课"),
+    COURSE_HAS_BEEN_CHOSEN(-19, "课程已选择，不可重复选择");
 
 
 

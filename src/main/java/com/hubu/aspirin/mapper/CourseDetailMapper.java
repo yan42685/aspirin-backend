@@ -9,8 +9,10 @@ import java.util.List;
 
 public interface CourseDetailMapper extends BaseMapper<CourseDetail> {
     List<CourseDetailDTO> listByTeacherNumber(String teacherNumber);
-    List<CourseDetailDTO> listByClassroomNumber(String classroomNumber);
-    List<CourseDetailDTO> listBySpecialtyNumberAndCourseType(@Param("specialtyNumber") String specialtyNumber,
-                                                             @Param("courseType") Integer courseType);
 
+    List<CourseDetailDTO> listByClassroomNumber(String classroomNumber);
+
+    List<CourseDetailDTO> listBySpecialtyNumberAndSemesterAndCourseType(@Param("specialtyNumber") String specialtyNumber,
+                                                                        @Param("semseter") Integer semester,
+                                                                        @Param("courseType") Integer courseType);
 }

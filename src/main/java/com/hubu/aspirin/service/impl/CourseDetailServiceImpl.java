@@ -42,7 +42,7 @@ public class CourseDetailServiceImpl extends ServiceImpl<CourseDetailMapper, Cou
 
         courseDetail = CourseDetailConverter.INSTANCE.assignDto2Entity(dto);
         save(courseDetail);
-        return listByTeacherNumber(teacherNumber);
+        return teacherCourseSchedule(teacherNumber);
     }
 
     @Override
@@ -64,19 +64,20 @@ public class CourseDetailServiceImpl extends ServiceImpl<CourseDetailMapper, Cou
     }
 
     @Override
-    public List<CourseDetailDTO> listByTeacherNumber(String teacherNumber) {
+    public List<CourseDetailDTO> teacherCourseSchedule(String teacherNumber) {
         return courseDetailMapper.listByTeacherNumber(teacherNumber);
     }
 
     @Override
-    public List<CourseDetailDTO> listByClassroomNumber(String classroomNumber) {
+    public List<CourseDetailDTO> classroomCourseSchedule(String classroomNumber) {
         return courseDetailMapper.listByClassroomNumber(classroomNumber);
     }
 
     @Override
-    public List<CourseDetailDTO> listBySpecialtyNumberAndCourseType(String specialtyNumber, CourseTypeEnum courseType) {
-        return courseDetailMapper.listBySpecialtyNumberAndCourseType(specialtyNumber, courseType.getValue());
+    public List<CourseDetailDTO> studentAvailableCourseList(String specialtyNumber, Integer semester, CourseTypeEnum courseType) {
+        return courseDetailMapper.listBySpecialtyNumberAndSemesterAndCourseType(specialtyNumber,semester, courseType.getValue());
     }
+
 
     private CourseDetail getAboutTeacher(String teacherNumber, Integer dayOfTheWeek, Integer schedulingTime) {
         QueryWrapper<CourseDetail> queryWrapper = new QueryWrapper<CourseDetail>()

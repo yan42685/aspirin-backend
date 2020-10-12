@@ -2,10 +2,17 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.hubu.aspirin.mapper.CourseDetailMapper">
     <sql id="getCourseDetailDTO">
-        select teacher_number,
+        select course_detail.id,
+               course_detail.semester,
+               teacher_number,
                teacher.real_name  as teacherName,
                course_number,
                course.name        as courseName,
+               course.type,
+               course.icon_url,
+               course.description,
+               course.period,
+               course.credit,
                classroom_number,
                classroom.location as classroomName,
                day_of_the_week,
@@ -29,11 +36,19 @@
         where teacher_number = #{teacherNumber};
     </select>
 
-    <select id="listBySpecialtyNumberAndCourseType" resultType="com.hubu.aspirin.model.dto.CourseDetailDTO">
-        select teacher_number,
+
+    <select id="listBySpecialtyNumberAndSemesterAndCourseType" resultType="com.hubu.aspirin.model.dto.CourseDetailDTO">
+        select course_detail.id,
+               course_detail.semester,
+               teacher_number,
                teacher.real_name  as teacherName,
                course_detail.course_number,
                course.name        as courseName,
+               course.type,
+               course.icon_url,
+               course.description,
+               course.period,
+               course.credit,
                classroom_number,
                classroom.location as classroomName,
                day_of_the_week,
@@ -45,6 +60,8 @@
                      left join course_detail on course.number = course_detail.course_number
                      left join teacher on course_detail.teacher_number = teacher.number
                      left join classroom on course_detail.classroom_number = classroom.number
-        where specialty.number = #{specialtyNumber} and course.type = #{courseType}
+        where specialty.number = #{specialtyNumber}
+          and course_detail.semester = #{semseter}
+          and course.type = #{courseType}
     </select>
 </mapper>

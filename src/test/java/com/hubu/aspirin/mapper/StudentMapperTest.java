@@ -23,11 +23,11 @@ class StudentMapperTest {
 
     @Test
     void page() {
-        StudentQueryDTO dto = new StudentQueryDTO();
-//        dto.setAdmissionYear(2018);
-        dto.setFacultyNumber("jixin");
-        IPage<StudentDTO> page = studentMapper.page(new Page<>(1, 4), dto);
-        System.out.println(page.getRecords().size());
+//        StudentQueryDTO dto = new StudentQueryDTO();
+////        dto.setAdmissionYear(2018);
+//        dto.setFacultyNumber("jixin");
+//        IPage<StudentDTO> page = studentMapper.page(new Page<>(1, 4), dto);
+//        System.out.println(page.getRecords().size());
 
     }
 }
