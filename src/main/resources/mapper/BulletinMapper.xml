@@ -1,5 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.hubu.aspirin.mapper.BulletinMapper">
+    <select id="page" resultType="com.hubu.aspirin.model.entity.Bulletin">
+        select bulletin.*
+        from bulletin
+        <where>
+            <if test="titleOrContent != null and titleOrContent != ''">
+                bulletin.title like concat('%', #{titleOrContent}, '%')
+                or
+                bulletin.content like concat('%', #{titleOrContent}, '%')
+            </if>
+        </where>
+    </select>
 
 </mapper>

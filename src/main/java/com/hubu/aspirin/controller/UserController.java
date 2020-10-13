@@ -20,16 +20,10 @@ public class UserController {
     @Autowired
     UserService userService;
 
-    @ApiOperation(value = "分页查看所有公告")
-    @GetMapping("bulletin-page")
-    public JsonWrapper<IPage<BulletinDTO>> getBulletinPage(Integer current, Integer size) {
-        return new JsonWrapper<>(userService.getBulletinPage(current, size));
-    }
-
-    @ApiOperation(value = "根据标题或内容查询公告")
+    @ApiOperation(value = "查询公告")
     @GetMapping("bulletin-page-query")
-    public JsonWrapper<IPage<BulletinDTO>> getBulletinPageByTitleOrContent(Integer current, Integer size, String queryString) {
-        return new JsonWrapper<>(userService.getBulletinPageByTitleOrContent(current, size, queryString));
+    public JsonWrapper<IPage<BulletinDTO>> queryBulletinDto(Integer current, Integer size, String titleOrContent) {
+        return new JsonWrapper<>(userService.pageBulletin(current, size, titleOrContent));
     }
 
     @ApiOperation("修改头像")

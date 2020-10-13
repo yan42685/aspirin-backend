@@ -1,9 +1,9 @@
 package com.hubu.aspirin.common;
 
 /**
- * 应用变量，用于开关
+ * 应用开关
  */
-public class ApplicationVariable {
+public class ApplicationSwtich {
 
     /**
      * 是否开启选课系统

@@ -24,14 +24,9 @@ public interface UserService {
     boolean modifyPassword(String oldPassword, String newPassword);
 
     /**
-     * 分页查看公告
-     */
-    IPage<BulletinDTO> getBulletinPage(Integer current, Integer size);
-
-    /**
      * 根据标题或内容分页查找公告
      */
-    IPage<BulletinDTO> getBulletinPageByTitleOrContent(Integer current, Integer size, String queryString);
+    IPage<BulletinDTO> pageBulletin(Integer current, Integer size, String queryString);
 
     /**
      * 修改头像

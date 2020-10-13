@@ -10,6 +10,7 @@ import com.hubu.aspirin.converter.BulletinConverter;
 import com.hubu.aspirin.converter.UserConverter;
 import com.hubu.aspirin.enums.ExceptionEnum;
 import com.hubu.aspirin.enums.RoleEnum;
+import com.hubu.aspirin.mapper.BulletinMapper;
 import com.hubu.aspirin.model.dto.BulletinDTO;
 import com.hubu.aspirin.model.dto.UserDTO;
 import com.hubu.aspirin.model.entity.*;
@@ -34,7 +35,7 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private TeacherService teacherService;
     @Autowired
-    private BulletinService bulletinService;
+    private BulletinMapper bulletinMapper;
 
     @Override
     public UserDTO login(String username, String password, Boolean rememberMe) {
@@ -92,21 +93,10 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public IPage<BulletinDTO> getBulletinPage(Integer current, Integer size) {
+    public IPage<BulletinDTO> pageBulletin(Integer current, Integer size, String titleOrContent) {
         Page<Bulletin> page = new Page<>(current, size);
-        IPage<Bulletin> bulletinPage = bulletinService.page(page);
+        IPage<Bulletin> bulletinPage = bulletinMapper.page(page, titleOrContent);
         return BulletinConverter.INSTANCE.entityToDtoPage(bulletinPage);
-    }
-
-    @Override
-    public IPage<BulletinDTO> getBulletinPageByTitleOrContent(Integer current, Integer size, String queryString) {
-        Page<Bulletin> page = new Page<>(current, size);
-        QueryWrapper<Bulletin> queryWrapper = new QueryWrapper<Bulletin>()
-                .like("title", queryString)
-                .or()
-                .like("content", queryString);
-        IPage<Bulletin> bulletinIPage = bulletinService.page(page, queryWrapper);
-        return BulletinConverter.INSTANCE.entityToDtoPage(bulletinIPage);
     }
 
     @Override

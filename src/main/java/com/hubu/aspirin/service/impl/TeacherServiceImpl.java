@@ -1,14 +1,11 @@
 package com.hubu.aspirin.service.impl;
 
-import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
-import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.baomidou.mybatisplus.extension.service.additional.query.impl.QueryChainWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.hubu.aspirin.common.ApplicationVariable;
+import com.hubu.aspirin.common.ApplicationSwtich;
 import com.hubu.aspirin.common.KnownException;
 import com.hubu.aspirin.converter.GradeConverter;
 import com.hubu.aspirin.converter.TeacherConverter;
@@ -28,10 +25,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 @Service
 public class TeacherServiceImpl extends ServiceImpl<TeacherMapper, Teacher> implements TeacherService {
@@ -68,7 +62,7 @@ public class TeacherServiceImpl extends ServiceImpl<TeacherMapper, Teacher> impl
 
     @Override
     public IPage<MarkOutputDTO> getMarkStudentPage(Integer current, Integer size, Long courseDetailId) {
-        if (!ApplicationVariable.enableMark) {
+        if (!ApplicationSwtich.enableMark) {
             throw new KnownException(ExceptionEnum.FUNCTION_DISABLED);
         }
         Page<MarkOutputDTO> page = new Page<>(current, size);

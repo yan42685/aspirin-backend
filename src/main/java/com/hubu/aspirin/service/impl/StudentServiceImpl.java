@@ -4,7 +4,7 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.hubu.aspirin.common.ApplicationVariable;
+import com.hubu.aspirin.common.ApplicationSwtich;
 import com.hubu.aspirin.common.KnownException;
 import com.hubu.aspirin.converter.StudentConverter;
 import com.hubu.aspirin.enums.CourseTypeEnum;
@@ -14,14 +14,12 @@ import com.hubu.aspirin.mapper.GradeMapper;
 import com.hubu.aspirin.mapper.StudentCourseDetailMapper;
 import com.hubu.aspirin.mapper.StudentMapper;
 import com.hubu.aspirin.model.dto.*;
-import com.hubu.aspirin.model.entity.CourseDetail;
 import com.hubu.aspirin.model.entity.Student;
 import com.hubu.aspirin.model.entity.StudentCourseDetail;
 import com.hubu.aspirin.service.CourseDetailService;
 import com.hubu.aspirin.service.StudentCourseDetailService;
 import com.hubu.aspirin.service.StudentService;
 import com.hubu.aspirin.util.UserUtils;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -68,7 +66,7 @@ public class StudentServiceImpl extends ServiceImpl<StudentMapper, Student> impl
 
     @Override
     public List<CourseDetailDTO> availableCourseDetailList(Integer semester, CourseTypeEnum courseType) {
-        if (!ApplicationVariable.enableElect) {
+        if (!ApplicationSwtich.enableElect) {
             throw new KnownException(ExceptionEnum.FUNCTION_DISABLED);
         }
         Student student = getCurrentStudent();

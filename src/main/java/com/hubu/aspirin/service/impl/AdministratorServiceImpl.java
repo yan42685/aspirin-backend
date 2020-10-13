@@ -5,7 +5,7 @@ import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.hubu.aspirin.common.ApplicationVariable;
+import com.hubu.aspirin.common.ApplicationSwtich;
 import com.hubu.aspirin.common.KnownException;
 import com.hubu.aspirin.common.AspirinConstant;
 import com.hubu.aspirin.converter.*;
@@ -205,12 +205,12 @@ public class AdministratorServiceImpl extends ServiceImpl<AdministratorMapper, A
         Boolean status = null;
         switch (switchEnum){
             case ELECT_SWITCH:
-                status = !ApplicationVariable.enableElect;
-                ApplicationVariable.enableElect = status;
+                status = !ApplicationSwtich.enableElect;
+                ApplicationSwtich.enableElect = status;
                 break;
             case MARK_SWITCH:
-                status = !ApplicationVariable.enableMark;
-                ApplicationVariable.enableMark = status;
+                status = !ApplicationSwtich.enableMark;
+                ApplicationSwtich.enableMark = status;
                 break;
             default:
                 break;
@@ -224,10 +224,10 @@ public class AdministratorServiceImpl extends ServiceImpl<AdministratorMapper, A
         Boolean status = null;
         switch (switchEnum){
             case ELECT_SWITCH:
-                status = ApplicationVariable.enableElect;
+                status = ApplicationSwtich.enableElect;
                 break;
             case MARK_SWITCH:
-                status = ApplicationVariable.enableMark;
+                status = ApplicationSwtich.enableMark;
                 break;
             default:
                 break;
