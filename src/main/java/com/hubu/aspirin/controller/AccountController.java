@@ -12,7 +12,6 @@ import org.apache.shiro.authz.annotation.RequiresUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -55,12 +54,6 @@ public class AccountController {
         return new JsonWrapper<>(userService.logout());
     }
 
-    @RequiresUser
-    @ApiOperation(value = "修改密码")
-    @PutMapping("password")
-    public JsonWrapper<Boolean> modifyPassword(String oldPassword, String newPassword) {
-        return new JsonWrapper<>(userService.modifyPassword(oldPassword, newPassword));
-    }
 
     @ApiOperation(value = "获取验证码图片")
     // @GetMapping里的produces属性会提示 Swagger显示图片而不是乱码

@@ -31,4 +31,10 @@ public class UserController {
     public JsonWrapper<String> updateAvatar(MultipartFile multipartFile) {
         return new JsonWrapper<>(userService.updateAvatar(multipartFile));
     }
+
+    @ApiOperation(value = "修改密码")
+    @PutMapping("password")
+    public JsonWrapper<Boolean> modifyPassword(String oldPassword, String newPassword) {
+        return new JsonWrapper<>(userService.modifyPassword(oldPassword, newPassword));
+    }
 }
