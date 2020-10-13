@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.hubu.aspirin.model.dto.TeacherDTO;
 import com.hubu.aspirin.model.dto.TeacherManagementDTO;
+import com.hubu.aspirin.model.dto.TeacherModifiableDTO;
 import com.hubu.aspirin.model.entity.Teacher;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
@@ -21,5 +22,7 @@ public interface TeacherConverter  {
 
     Teacher managementDtoToEntity(TeacherManagementDTO teacherManagementDTO);
 
-    void updateEntityFromManagementDto(TeacherManagementDTO teacherManagementDTO, @MappingTarget Teacher entity);
+    void updateEntityFromManagementDto(TeacherManagementDTO teacherManagementDTO, @MappingTarget Teacher teacher);
+
+    void updateEntityFromModifiableDto(TeacherModifiableDTO teacherModifiableDTO, @MappingTarget Teacher teacher);
 }

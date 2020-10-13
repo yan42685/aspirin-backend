@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.hubu.aspirin.mapper.GradeMapper">
-    <sql id="getGradeDtoByStudentNumber">
+    <sql id="getGradeDto">
         select teacher.real_name                                    as teacherName,
                course_detail.course_number,
                course.name                                          as courseName,
@@ -22,11 +22,40 @@
     </sql>
 
     <select id="pageDtoByStudentNumberAndSemester" resultType="com.hubu.aspirin.model.dto.GradeDTO">
-        <include refid="getGradeDtoByStudentNumber">
+        <include refid="getGradeDto">
         </include>
         where student.number = #{studentNumber}
         and course_detail.semester = #{courseSemester}
         and student_course_detail.status = #{chosen}
     </select>
 
+    <sql id="getMarkOutputDTO">
+        select
+               grade.id as gradeId,
+               grade.submitted,
+               specialty.name as specialtyName,
+               grade.student_number,
+               student.real_name as studentName,
+               grade.course_detail_id,
+               course_detail.course_number,
+               course.name                                          as courseName,
+               course.type,
+               course.period,
+               course.credit,
+               course_detail.semester,
+               grade.regular_scores,
+               grade.exam_scores,
+               0.6 * grade.regular_scores + 0.4 * grade.exam_scores as finalScores
+        from student
+                left join grade on student.number = student_number
+                left join specialty on student.specialty_number = specialty.number
+                left join course_detail on grade.course_detail_id = course_detail.id
+                left join course on course_detail.course_number = course.number
+    </sql>
+
+    <select id="pageMarkOutputDtoByCourseDetailId" resultType="com.hubu.aspirin.model.dto.MarkOutputDTO">
+        <include refid="getMarkOutputDTO">
+        </include>
+        where course_detail.id = #{courseDetailId}
+    </select>
 </mapper>
