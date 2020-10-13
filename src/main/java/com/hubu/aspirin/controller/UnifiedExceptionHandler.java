@@ -4,6 +4,7 @@ import com.hubu.aspirin.common.JsonWrapper;
 import com.hubu.aspirin.common.KnownException;
 import com.hubu.aspirin.enums.ExceptionEnum;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authz.AuthorizationException;
 import org.springframework.context.support.DefaultMessageSourceResolvable;
 import org.springframework.http.HttpStatus;
@@ -36,7 +37,7 @@ public class UnifiedExceptionHandler {
         int errorCode = ExceptionEnum.UNKNOWN_EXCEPTION.getErrorCode();
         String errorMessage = ExceptionEnum.UNKNOWN_EXCEPTION.getErrorMsg();
         String stackTrack = Arrays.toString(e.getStackTrace());
-        log.error("url: {}    msg: {}", request.getRequestURL(), stackTrack);
+        log.error("url: {} | exceptionClass: {} | msg: {}", request.getRequestURL(), e.getClass(), stackTrack);
         return new JsonWrapper<>(errorCode, errorMessage + stackTrack);
     }
 
@@ -85,11 +86,24 @@ public class UnifiedExceptionHandler {
     }
 
     /**
+     * 处理Shiro的未认证异常
+     */
+    @ResponseStatus(HttpStatus.UNAUTHORIZED)  // 401状态码
+    @ExceptionHandler(AuthenticationException.class)
+    public JsonWrapper<String> handleUnAuthenticationException(Exception e, HttpServletRequest request) {
+        int errorCode = ExceptionEnum.WRONG_CREDENTIALS.getErrorCode();
+        String errorMessage = ExceptionEnum.WRONG_CREDENTIALS.getErrorMsg();
+        String stackTrack = Arrays.toString(e.getStackTrace());
+        log.error("url: {}    msg: {}", request.getRequestURL(), stackTrack);
+        return new JsonWrapper<>(errorCode, errorMessage);
+    }
+
+    /**
      * 处理Shiro的未授权异常
      */
     @ResponseStatus(HttpStatus.UNAUTHORIZED)  // 401状态码
     @ExceptionHandler(AuthorizationException.class)
-    public JsonWrapper<String> handleUnauthorizedException(Exception e, HttpServletRequest request) {
+    public JsonWrapper<String> handleUnAuthorizationException(Exception e, HttpServletRequest request) {
         int errorCode = ExceptionEnum.NO_PERMISSION.getErrorCode();
         String errorMessage = ExceptionEnum.NO_PERMISSION.getErrorMsg();
         String stackTrack = Arrays.toString(e.getStackTrace());

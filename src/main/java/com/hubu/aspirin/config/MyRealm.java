@@ -36,6 +36,8 @@ public class MyRealm extends AuthorizingRealm {
 
         User principle = UserUtils.getByUsernameAndRole(username, role);
         if (principle == null) {
+            // NOTE: 其实这里无论抛什么异常都会被 shiro 改成UnAuthenticationException并改写msg,
+            // 所以只用全局捕获UnAuthenticationException 就行
             throw new KnownException(ExceptionEnum.WRONG_CREDENTIALS);
         }
 
