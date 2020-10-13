@@ -56,5 +56,9 @@ public interface StudentService extends IService<Student> {
      */
     IPage<CourseDropDTO> pageCourseDropRecord(Integer current, Integer size);
 
+    /**
+     * 查看成绩
+     */
+    IPage<GradeDTO> pageGrade(Integer current, Integer size, Integer semester);
 
 }

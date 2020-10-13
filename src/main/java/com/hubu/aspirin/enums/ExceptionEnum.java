@@ -31,8 +31,10 @@ public enum ExceptionEnum {
     // 修改密码时异常
     WRONG_PASSWORD(-9, "密码错误"),
     USER_NOT_EXISTS(-10, "用户不存在"),
-    NUMBER_EXISTS(-11, "编号已存在"),
-    VERIFICATION_CODE_MISMATCH(-12, "验证码错误"),
+    VERIFICATION_CODE_MISMATCH(-11, "验证码错误"),
+
+
+    NUMBER_EXISTS(-12, "编号已存在"),
     NUMBER_NOT_EXIST(-13, "编号不存在"),
     ROLE_HEADER_MISSING(-14, "header中缺少role参数"),
     CLASSROOM_NOT_AVAILABLE(-15, "教室该时间段被占用"),
@@ -41,8 +43,6 @@ public enum ExceptionEnum {
     STUDENT_NOT_AVAILABLE(-18, "学生该时间段已有课"),
     COURSE_HAS_BEEN_CHOSEN(-19, "课程已选择，不可重复选择"),
     COURSE_STUDENT_SEMESTER_MISMATCH(-20, "课程不在所选学期");
-
-
 
 
     private int errorCode;

@@ -1,5 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.hubu.aspirin.mapper.GradeMapper">
+    <sql id="getGradeDtoByStudentNumber">
+        select teacher.real_name                                    as teacherName,
+               course_detail.course_number,
+               course.name                                          as courseName,
+               course.type,
+               course.period,
+               course.credit,
+               course_detail.semester,
+               grade.regular_scores,
+               grade.exam_scores,
+               0.6 * grade.regular_scores + 0.4 * grade.exam_scores as finalScores
+
+        from student
+                     left join student_course_detail on student.number = student_course_detail.student_number
+                     left join course_detail on student_course_detail.course_detail_id = course_detail.id
+                     left join course on course_detail.course_number = course.number
+                     left join teacher on course_detail.teacher_number = teacher.number
+                     left join grade on student_course_detail.course_detail_id = grade.course_detail_id
+    </sql>
+
+    <select id="pageDtoByStudentNumberAndSemester" resultType="com.hubu.aspirin.model.dto.GradeDTO">
+        <include refid="getGradeDtoByStudentNumber">
+        </include>
+        where student.number = #{studentNumber}
+        and course_detail.semester = #{courseSemester}
+        and student_course_detail.status = #{chosen}
+    </select>
 
 </mapper>

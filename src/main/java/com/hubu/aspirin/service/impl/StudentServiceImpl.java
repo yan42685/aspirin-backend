@@ -9,6 +9,7 @@ import com.hubu.aspirin.converter.StudentConverter;
 import com.hubu.aspirin.enums.CourseTypeEnum;
 import com.hubu.aspirin.enums.ElectiveStatusEnum;
 import com.hubu.aspirin.enums.ExceptionEnum;
+import com.hubu.aspirin.mapper.GradeMapper;
 import com.hubu.aspirin.mapper.StudentCourseDetailMapper;
 import com.hubu.aspirin.mapper.StudentMapper;
 import com.hubu.aspirin.model.dto.*;
@@ -35,6 +36,8 @@ public class StudentServiceImpl extends ServiceImpl<StudentMapper, Student> impl
     StudentCourseDetailService studentCourseDetailService;
     @Autowired
     StudentCourseDetailMapper studentCourseDetailMapper;
+    @Autowired
+    GradeMapper gradeMapper;
 
     @Override
     public StudentDTO getInformation() {
@@ -145,6 +148,13 @@ public class StudentServiceImpl extends ServiceImpl<StudentMapper, Student> impl
         String number = student.getNumber();
         Integer semester = student.getSemester();
         return studentCourseDetailService.pageCourseDropRecord(current, size, number, semester);
+    }
+
+    @Override
+    public IPage<GradeDTO> pageGrade(Integer current, Integer size, Integer semester) {
+        Page<GradeDTO> page = new Page<>(current, size);
+        String number = getCurrentStudent().getNumber();
+        return gradeMapper.pageDtoByStudentNumberAndSemester(page, number, semester, ElectiveStatusEnum.CHOSEN.getValue());
     }
 
     private Student getCurrentStudent() {

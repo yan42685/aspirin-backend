@@ -66,4 +66,9 @@ public class StudentController {
         return new JsonWrapper<>(studentService.pageCourseDropRecord(current, size));
     }
 
+    @ApiOperation("查看成绩")
+    @GetMapping("grade")
+    JsonWrapper<IPage<GradeDTO>> pageGrade(Integer current, Integer size, Integer semester) {
+        return new JsonWrapper<>(studentService.pageGrade(current, size, semester));
+    }
 }

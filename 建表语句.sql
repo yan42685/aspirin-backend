@@ -154,13 +154,13 @@ CREATE TABLE grade
     `create_time`    datetime     DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
     `update_time`    datetime     DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
     `student_number` varchar(255) default '' comment '学生编号',
-    `course_number`  varchar(255) default '' comment '课程编号',
+    course_detail_id  bigint(20)  comment '课程详情ID',
     regular_scores   float(10, 2) default 0 comment '平时分',
     exam_scores      float(10, 2) default 0 comment '考试分',
     submitted        boolean      default false comment '打分是否提交',
     PRIMARY KEY (`id`),
     foreign key (student_number) references student (number) on update cascade on delete cascade,
-    foreign key (course_number) references course (number) on update cascade on delete cascade
+    foreign key (course_detail_id) references course_detail (id) on update cascade on delete cascade
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4;
 
