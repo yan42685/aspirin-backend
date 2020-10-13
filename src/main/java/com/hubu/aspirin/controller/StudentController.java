@@ -3,10 +3,7 @@ package com.hubu.aspirin.controller;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.hubu.aspirin.common.JsonWrapper;
 import com.hubu.aspirin.enums.CourseTypeEnum;
-import com.hubu.aspirin.model.dto.CourseDTO;
-import com.hubu.aspirin.model.dto.CourseDetailDTO;
-import com.hubu.aspirin.model.dto.CourseDropDTO;
-import com.hubu.aspirin.model.dto.ModifiableCourseDTO;
+import com.hubu.aspirin.model.dto.*;
 import com.hubu.aspirin.model.entity.Course;
 import com.hubu.aspirin.service.CourseDetailService;
 import com.hubu.aspirin.service.StudentService;
@@ -27,6 +24,17 @@ public class StudentController {
     @Autowired
     StudentService studentService;
 
+    @ApiOperation("获取个人信息")
+    @GetMapping("information")
+    JsonWrapper<StudentDTO> getInformation() {
+        return new JsonWrapper<>(studentService.getInformation());
+    }
+
+    @ApiOperation("修改个人信息")
+    @PutMapping("information")
+    JsonWrapper<StudentDTO> updateInformation(StudentModifiableDTO dto) {
+        return new JsonWrapper<>(studentService.updateInformation(dto));
+    }
 
     @ApiOperation("分类查看可上课程")
     @GetMapping("available-course-list")
@@ -40,7 +48,7 @@ public class StudentController {
         return new JsonWrapper<>(studentService.getCourseSchedule(semester));
     }
 
-    @ApiOperation("选课")
+    @ApiOperation(value = "选课", notes = "返回课程表")
     @PostMapping("elective")
     JsonWrapper<List<CourseDetailDTO>> electCourse(Long courseDetailId) {
         return new JsonWrapper<>(studentService.electCourse(courseDetailId));

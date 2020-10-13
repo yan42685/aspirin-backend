@@ -16,7 +16,12 @@ public interface StudentCourseDetailMapper extends BaseMapper<StudentCourseDetai
                                                @Param("studentNumber") String studentNumber,
                                                @Param("semester") Integer semester,
                                                @Param("dropped") Integer droppedStatus);
+
     List<CourseDetailDTO> listCourseDetailDtoByStudentNumberAndSemester(@Param("studentNumber") String studentNumber,
                                                                         @Param("semester") Integer semester,
                                                                         @Param("chosen") Integer chosen);
+
+    CourseDetailDTO OneByStudentNumberAndDayOfTheWeekAndSchedulingTime(@Param("studentNumber") String studentNumber,
+                                                                       @Param("dayOfTheWeek") Integer dayOfTheWeek,
+                                                                       @Param("schedulingTime") Integer schedulingTime);
 }

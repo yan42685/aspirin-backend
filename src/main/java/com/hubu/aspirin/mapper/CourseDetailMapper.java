@@ -15,4 +15,6 @@ public interface CourseDetailMapper extends BaseMapper<CourseDetail> {
     List<CourseDetailDTO> listBySpecialtyNumberAndSemesterAndCourseType(@Param("specialtyNumber") String specialtyNumber,
                                                                         @Param("semseter") Integer semester,
                                                                         @Param("courseType") Integer courseType);
+
+    CourseDetailDTO getDtoById(Long id);
 }

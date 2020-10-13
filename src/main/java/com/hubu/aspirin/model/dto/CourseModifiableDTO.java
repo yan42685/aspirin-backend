@@ -8,7 +8,7 @@ import lombok.Data;
  * @author alex
  */
 @Data
-public class ModifiableCourseDTO {
+public class CourseModifiableDTO {
     @ApiModelProperty(value = "课程名")
     private String name;
 

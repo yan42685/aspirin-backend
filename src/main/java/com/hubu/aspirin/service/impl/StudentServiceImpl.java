@@ -5,15 +5,13 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.hubu.aspirin.common.KnownException;
+import com.hubu.aspirin.converter.StudentConverter;
 import com.hubu.aspirin.enums.CourseTypeEnum;
 import com.hubu.aspirin.enums.ElectiveStatusEnum;
 import com.hubu.aspirin.enums.ExceptionEnum;
 import com.hubu.aspirin.mapper.StudentCourseDetailMapper;
 import com.hubu.aspirin.mapper.StudentMapper;
-import com.hubu.aspirin.model.dto.CourseDetailDTO;
-import com.hubu.aspirin.model.dto.CourseDropDTO;
-import com.hubu.aspirin.model.dto.StudentDTO;
-import com.hubu.aspirin.model.dto.StudentQueryDTO;
+import com.hubu.aspirin.model.dto.*;
 import com.hubu.aspirin.model.entity.CourseDetail;
 import com.hubu.aspirin.model.entity.Student;
 import com.hubu.aspirin.model.entity.StudentCourseDetail;
@@ -35,6 +33,8 @@ public class StudentServiceImpl extends ServiceImpl<StudentMapper, Student> impl
     CourseDetailService courseDetailService;
     @Autowired
     StudentCourseDetailService studentCourseDetailService;
+    @Autowired
+    StudentCourseDetailMapper studentCourseDetailMapper;
 
     @Override
     public StudentDTO getInformation() {
@@ -44,13 +44,16 @@ public class StudentServiceImpl extends ServiceImpl<StudentMapper, Student> impl
     }
 
     @Override
-    public StudentDTO getDtoByNumber(String number) {
-        return studentMapper.getDtoByNumber(number);
+    public StudentDTO updateInformation(StudentModifiableDTO dto) {
+        Student currentStudent = getCurrentStudent();
+        StudentConverter.INSTANCE.updateEntityFromModifiableDto(dto, currentStudent);
+        updateById(currentStudent);
+        return getDtoByNumber(currentStudent.getNumber());
     }
 
     @Override
-    public StudentDTO getDtoById(Long id) {
-        return studentMapper.getDtoById(id);
+    public StudentDTO getDtoByNumber(String number) {
+        return studentMapper.getDtoByNumber(number);
     }
 
     @Override
@@ -73,28 +76,41 @@ public class StudentServiceImpl extends ServiceImpl<StudentMapper, Student> impl
         return studentCourseDetailService.studentCourseSchedule(number, semester);
     }
 
-    // TODO: 选课前检测冲突，避免时间冲突
     @Override
     public List<CourseDetailDTO> electCourse(Long courseDetailId) {
         Student student = getCurrentStudent();
-        String number = student.getNumber();
-        Integer semester = student.getSemester();
+        String studentNumber = student.getNumber();
+        Integer studentSemester = student.getSemester();
         QueryWrapper<StudentCourseDetail> queryWrapper = new QueryWrapper<StudentCourseDetail>()
                 .eq("course_detail_id", courseDetailId)
-                .eq("student_number", number)
+                .eq("student_number", studentNumber)
                 .eq("status", ElectiveStatusEnum.CHOSEN);
         StudentCourseDetail previous = studentCourseDetailService.getOne(queryWrapper);
+        // 检查是否已选该课程
         if (previous != null) {
             throw new KnownException(ExceptionEnum.COURSE_HAS_BEEN_CHOSEN);
         }
+        CourseDetailDTO courseDetailDTO = courseDetailService.getDtoById(courseDetailId);
+        Integer courseSemester = courseDetailDTO.getSemester();
+        // 检查学期是否匹配
+        if (!studentSemester.equals(courseSemester)) {
+            throw new KnownException(ExceptionEnum.COURSE_STUDENT_SEMESTER_MISMATCH);
+        }
+        // 检查时间是否没有冲突
+        Integer dayOfTheWeek = courseDetailDTO.getDayOfTheWeek();
+        Integer schedulingTime = courseDetailDTO.getSchedulingTime();
+        CourseDetailDTO sameTimeElective = studentCourseDetailMapper.OneByStudentNumberAndDayOfTheWeekAndSchedulingTime(studentNumber, dayOfTheWeek, schedulingTime);
+        if (sameTimeElective != null) {
+            throw new KnownException(ExceptionEnum.STUDENT_NOT_AVAILABLE);
+        }
 
-        StudentCourseDetail studentCourseDetail = new StudentCourseDetail();
-        studentCourseDetail
+        StudentCourseDetail electiveRecord = new StudentCourseDetail();
+        electiveRecord
                 .setStatus(ElectiveStatusEnum.CHOSEN)
                 .setCourseDetailId(courseDetailId)
-                .setStudentNumber(number);
-        studentCourseDetailService.save(studentCourseDetail);
-        return getCourseSchedule(semester);
+                .setStudentNumber(studentNumber);
+        studentCourseDetailService.save(electiveRecord);
+        return getCourseSchedule(studentSemester);
     }
 
     @Override

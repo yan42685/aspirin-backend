@@ -1,10 +1,9 @@
 package com.hubu.aspirin.converter;
 
 import com.hubu.aspirin.model.dto.AdministratorDTO;
-import com.hubu.aspirin.model.dto.ModifiableAdministratorDTO;
+import com.hubu.aspirin.model.dto.AdministratorModifiableDTO;
 import com.hubu.aspirin.model.entity.Administrator;
 import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;
 import org.mapstruct.NullValuePropertyMappingStrategy;
 import org.mapstruct.factory.Mappers;
@@ -16,5 +15,5 @@ public interface AdministratorConverter  {
 
     AdministratorDTO entityToDto(Administrator administrator);
 
-    void updateEntityFromDto(ModifiableAdministratorDTO dto, @MappingTarget Administrator entity);
+    void updateEntityFromDto(AdministratorModifiableDTO dto, @MappingTarget Administrator entity);
 }

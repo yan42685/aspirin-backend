@@ -30,7 +30,7 @@
           and student_course_detail.status = #{dropped}
     </select>
 
-    <select id="listCourseDetailDtoByStudentNumberAndSemester" resultType="com.hubu.aspirin.model.dto.CourseDetailDTO">
+    <sql id="getCourseDetailDtoByStudentNumber">
         select course_detail.id,
                course_detail.semester,
                teacher_number,
@@ -55,8 +55,22 @@
                      left join classroom on course_detail.classroom_number = classroom.number
                      left join student on specialty.number = student.specialty_number
                      left join student_course_detail on course_detail.id = student_course_detail.course_detail_id
+
+    </sql>
+
+    <select id="listCourseDetailDtoByStudentNumberAndSemester" resultType="com.hubu.aspirin.model.dto.CourseDetailDTO">
+        <include refid="getCourseDetailDtoByStudentNumber">
+        </include>
         where student.number = #{studentNumber}
           and student.semester = #{semester}
           and student_course_detail.status = #{chosen}
+    </select>
+
+    <select id="OneByStudentNumberAndDayOfTheWeekAndSchedulingTime" resultType="com.hubu.aspirin.model.dto.CourseDetailDTO">
+        <include refid="getCourseDetailDtoByStudentNumber">
+        </include>
+        where student.number = #{studentNumber}
+        and course_detail.day_of_the_week = #{dayOfTheWeek}
+        and course_detail.scheduling_time = #{schedulingTime}
     </select>
 </mapper>

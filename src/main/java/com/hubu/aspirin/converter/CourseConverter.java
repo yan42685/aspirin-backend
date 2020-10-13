@@ -3,7 +3,7 @@ package com.hubu.aspirin.converter;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.hubu.aspirin.model.dto.CourseDTO;
-import com.hubu.aspirin.model.dto.ModifiableCourseDTO;
+import com.hubu.aspirin.model.dto.CourseModifiableDTO;
 import com.hubu.aspirin.model.entity.Course;
 import org.mapstruct.Mapper;
 import org.mapstruct.MappingTarget;
@@ -19,9 +19,9 @@ public interface CourseConverter {
     // NOTE: 这里返回值不能是IPage, 否则会报编译错误
     Page<CourseDTO> entityToDtoPage(IPage<Course> course);
 
-    Course modifiableDtoToEntity(ModifiableCourseDTO modifiableCourseDTOPage);
+    Course modifiableDtoToEntity(CourseModifiableDTO courseModifiableDTOPage);
 
-    Page<Course> modifiableDtoToEntityPage(IPage<ModifiableCourseDTO> modifiableCourseDTOPage);
+    Page<Course> modifiableDtoToEntityPage(IPage<CourseModifiableDTO> modifiableCourseDTOPage);
 
-    Course updateEntityFromModifiableDto(ModifiableCourseDTO modifiableCourseDTO, @MappingTarget Course course);
+    Course updateEntityFromModifiableDto(CourseModifiableDTO courseModifiableDTO, @MappingTarget Course course);
 }

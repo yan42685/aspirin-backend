@@ -3,10 +3,7 @@ package com.hubu.aspirin.service;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.hubu.aspirin.enums.CourseTypeEnum;
-import com.hubu.aspirin.model.dto.CourseDetailDTO;
-import com.hubu.aspirin.model.dto.CourseDropDTO;
-import com.hubu.aspirin.model.dto.StudentDTO;
-import com.hubu.aspirin.model.dto.StudentQueryDTO;
+import com.hubu.aspirin.model.dto.*;
 import com.hubu.aspirin.model.entity.Student;
 
 import java.util.List;
@@ -19,14 +16,15 @@ public interface StudentService extends IService<Student> {
     StudentDTO getInformation();
 
     /**
+     * 修改个人信息
+     */
+    StudentDTO updateInformation(StudentModifiableDTO dto);
+
+    /**
      * 根据编号获取获取DTO
      */
     StudentDTO getDtoByNumber(String number);
 
-    /**
-     * 根据id获取DTO
-     */
-    StudentDTO getDtoById(Long id);
 
     /**
      * 根据真名和学号搜索

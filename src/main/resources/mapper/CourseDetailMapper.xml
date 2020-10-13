@@ -64,4 +64,10 @@
           and course_detail.semester = #{semseter}
           and course.type = #{courseType}
     </select>
+
+    <select id="getDtoById" resultType="com.hubu.aspirin.model.dto.CourseDetailDTO">
+        <include refid="getCourseDetailDTO">
+        </include>
+        where courseDetailId = #{id}
+    </select>
 </mapper>

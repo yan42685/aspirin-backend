@@ -4,10 +4,6 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.hubu.aspirin.model.dto.*;
 import com.hubu.aspirin.model.entity.Administrator;
-import com.hubu.aspirin.model.entity.CourseDetail;
-import io.swagger.models.auth.In;
-
-import java.util.List;
 
 public interface AdministratorService extends IService<Administrator> {
     /**
@@ -23,7 +19,7 @@ public interface AdministratorService extends IService<Administrator> {
     /**
      * 修改管理员个人信息
      */
-    AdministratorDTO updateAdministratorInformation(ModifiableAdministratorDTO newInformation);
+    AdministratorDTO updateAdministratorInformation(AdministratorModifiableDTO newInformation);
 
     /**
      * 根据编号或真名搜索教师

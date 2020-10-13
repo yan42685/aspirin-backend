@@ -39,7 +39,8 @@ public enum ExceptionEnum {
     TEACHER_NOT_AVAILABLE(-16, "教师该时间段已分配课程"),
     DROP_COURSE_NOT_FOUND(-17, "没有选该课程，无法退课"),
     STUDENT_NOT_AVAILABLE(-18, "学生该时间段已有课"),
-    COURSE_HAS_BEEN_CHOSEN(-19, "课程已选择，不可重复选择");
+    COURSE_HAS_BEEN_CHOSEN(-19, "课程已选择，不可重复选择"),
+    COURSE_STUDENT_SEMESTER_MISMATCH(-20, "课程不在所选学期");
 
 
 

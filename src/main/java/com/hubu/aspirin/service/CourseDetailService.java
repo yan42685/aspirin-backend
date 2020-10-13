@@ -35,4 +35,8 @@ public interface CourseDetailService extends IService<CourseDetail> {
      */
     List<CourseDetailDTO> studentAvailableCourseList(String specialtyNumber, Integer semester, CourseTypeEnum courseType);
 
+    /**
+     * 获取特定课程信息
+     */
+    CourseDetailDTO getDtoById(Long id);
 }

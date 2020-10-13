@@ -78,6 +78,11 @@ public class CourseDetailServiceImpl extends ServiceImpl<CourseDetailMapper, Cou
         return courseDetailMapper.listBySpecialtyNumberAndSemesterAndCourseType(specialtyNumber,semester, courseType.getValue());
     }
 
+    @Override
+    public CourseDetailDTO getDtoById(Long id) {
+        return courseDetailMapper.getDtoById(id);
+    }
+
 
     private CourseDetail getAboutTeacher(String teacherNumber, Integer dayOfTheWeek, Integer schedulingTime) {
         QueryWrapper<CourseDetail> queryWrapper = new QueryWrapper<CourseDetail>()

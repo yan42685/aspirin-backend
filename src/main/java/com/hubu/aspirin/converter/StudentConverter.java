@@ -4,13 +4,14 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.hubu.aspirin.model.dto.StudentDTO;
 import com.hubu.aspirin.model.dto.StudentManagementDTO;
+import com.hubu.aspirin.model.dto.StudentModifiableDTO;
 import com.hubu.aspirin.model.entity.Student;
 import com.hubu.aspirin.util.ConvertUtils;
 import org.mapstruct.*;
 import org.mapstruct.factory.Mappers;
 
 @Mapper(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
-public interface StudentConverter  {
+public interface StudentConverter {
     StudentConverter INSTANCE = Mappers.getMapper(StudentConverter.class);
 
     @Mapping(target = "facultyNumber", qualifiedByName = "facultyNameToNumber", source = "faculty")
@@ -21,6 +22,8 @@ public interface StudentConverter  {
     @Mapping(target = "specialtyNumber", qualifiedByName = "specialtyNameToNumber", source = "specialty")
     void updateEntityFromManagementDto(StudentManagementDTO managementDTO, @MappingTarget Student student);
 
+    void updateEntityFromModifiableDto(StudentModifiableDTO modifiableDTO, @MappingTarget Student student);
+
     @Named("facultyNameToNumber")
     default String facultyNameToNumber(String name) {
         return ConvertUtils.facultyGetNumberByName(name);
@@ -30,4 +33,5 @@ public interface StudentConverter  {
     default String specialtyNameToNumber(String name) {
         return ConvertUtils.specialtyGetNumberByName(name);
     }
+
 }

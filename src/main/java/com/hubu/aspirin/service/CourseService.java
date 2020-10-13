@@ -4,7 +4,7 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.hubu.aspirin.enums.CourseTypeEnum;
 import com.hubu.aspirin.model.dto.CourseDTO;
-import com.hubu.aspirin.model.dto.ModifiableCourseDTO;
+import com.hubu.aspirin.model.dto.CourseModifiableDTO;
 import com.hubu.aspirin.model.entity.Course;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -18,12 +18,12 @@ public interface CourseService extends IService<Course> {
     /**
      * 添加课程
      */
-    CourseDTO createOne(ModifiableCourseDTO modifiableCourseDTO);
+    CourseDTO createOne(CourseModifiableDTO courseModifiableDTO);
 
     /**
      * 修改课程
      */
-    CourseDTO updateByNumber(String originalNumber, ModifiableCourseDTO modifiableCourseDTO);
+    CourseDTO updateByNumber(String originalNumber, CourseModifiableDTO courseModifiableDTO);
 
     /**
      * 删除课程

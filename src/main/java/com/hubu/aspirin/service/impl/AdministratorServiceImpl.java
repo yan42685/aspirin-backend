@@ -17,10 +17,7 @@ import com.hubu.aspirin.model.entity.*;
 import com.hubu.aspirin.service.*;
 import com.hubu.aspirin.util.UserUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.kafka.KafkaProperties;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 @Service
 public class AdministratorServiceImpl extends ServiceImpl<AdministratorMapper, Administrator> implements AdministratorService {
@@ -48,7 +45,7 @@ public class AdministratorServiceImpl extends ServiceImpl<AdministratorMapper, A
     }
 
     @Override
-    public AdministratorDTO updateAdministratorInformation(ModifiableAdministratorDTO newInformation) {
+    public AdministratorDTO updateAdministratorInformation(AdministratorModifiableDTO newInformation) {
         Administrator administrator = getCurrentAdministrator();
         AdministratorConverter.INSTANCE.updateEntityFromDto(newInformation, administrator);
         updateById(administrator);

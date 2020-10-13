@@ -1,16 +1,11 @@
 package com.hubu.aspirin.model.dto;
 
 import com.hubu.aspirin.enums.GenderEnum;
-import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
-/**
- * @author alex
- */
 @Data
-@ApiModel(value = "可修改的管理员个人信息")
-public class ModifiableAdministratorDTO {
+public class StudentModifiableDTO {
     @ApiModelProperty(value = "姓名")
     private String realName;
 
@@ -25,11 +20,4 @@ public class ModifiableAdministratorDTO {
 
     @ApiModelProperty(value = "昵称")
     private String nickname;
-
-    @ApiModelProperty(value = "头像URL")
-    private String avatarUrl;
-
-    @ApiModelProperty(value = "工号")
-    private String number;
-
 }

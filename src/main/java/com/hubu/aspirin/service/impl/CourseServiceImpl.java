@@ -11,7 +11,7 @@ import com.hubu.aspirin.enums.CourseTypeEnum;
 import com.hubu.aspirin.enums.ExceptionEnum;
 import com.hubu.aspirin.mapper.CourseMapper;
 import com.hubu.aspirin.model.dto.CourseDTO;
-import com.hubu.aspirin.model.dto.ModifiableCourseDTO;
+import com.hubu.aspirin.model.dto.CourseModifiableDTO;
 import com.hubu.aspirin.model.entity.Course;
 import com.hubu.aspirin.service.CourseDetailService;
 import com.hubu.aspirin.service.CourseService;
@@ -36,25 +36,25 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
     }
 
     @Override
-    public CourseDTO createOne(ModifiableCourseDTO modifiableCourseDTO) {
-        Course course = getByNumber(modifiableCourseDTO.getNumber());
+    public CourseDTO createOne(CourseModifiableDTO courseModifiableDTO) {
+        Course course = getByNumber(courseModifiableDTO.getNumber());
         if (course != null) {
             throw new KnownException(ExceptionEnum.NUMBER_EXISTS);
         }
-        course = CourseConverter.INSTANCE.modifiableDtoToEntity(modifiableCourseDTO);
+        course = CourseConverter.INSTANCE.modifiableDtoToEntity(courseModifiableDTO);
         save(course);
         Course newCourse = getByNumber(course.getNumber());
         return CourseConverter.INSTANCE.entityToDto(newCourse);
     }
 
     @Override
-    public CourseDTO updateByNumber(String originalNumber, ModifiableCourseDTO modifiableCourseDTO) {
-        String newNumber = modifiableCourseDTO.getNumber();
+    public CourseDTO updateByNumber(String originalNumber, CourseModifiableDTO courseModifiableDTO) {
+        String newNumber = courseModifiableDTO.getNumber();
         Course course = getByNumber(originalNumber);
         if (!originalNumber.equals(newNumber) && course == null) {
             throw new KnownException(ExceptionEnum.NUMBER_NOT_EXIST);
         }
-        course = CourseConverter.INSTANCE.updateEntityFromModifiableDto(modifiableCourseDTO, course);
+        course = CourseConverter.INSTANCE.updateEntityFromModifiableDto(courseModifiableDTO, course);
         updateById(course);
         return CourseConverter.INSTANCE.entityToDto(course);
     }

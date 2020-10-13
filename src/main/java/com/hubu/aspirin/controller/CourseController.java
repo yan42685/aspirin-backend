@@ -7,7 +7,7 @@ import com.hubu.aspirin.enums.CourseTypeEnum;
 import com.hubu.aspirin.model.dto.CourseAssignDTO;
 import com.hubu.aspirin.model.dto.CourseDTO;
 import com.hubu.aspirin.model.dto.CourseDetailDTO;
-import com.hubu.aspirin.model.dto.ModifiableCourseDTO;
+import com.hubu.aspirin.model.dto.CourseModifiableDTO;
 import com.hubu.aspirin.service.CourseDetailService;
 import com.hubu.aspirin.service.CourseService;
 import io.swagger.annotations.Api;
@@ -35,14 +35,14 @@ public class CourseController {
 
     @ApiOperation("创建课程")
     @PostMapping
-    JsonWrapper<CourseDTO> createOne(ModifiableCourseDTO modifiableCourseDTO) {
-        return new JsonWrapper<>(courseService.createOne(modifiableCourseDTO));
+    JsonWrapper<CourseDTO> createOne(CourseModifiableDTO courseModifiableDTO) {
+        return new JsonWrapper<>(courseService.createOne(courseModifiableDTO));
     }
 
     @ApiOperation("修改课程")
     @PutMapping
-    JsonWrapper<CourseDTO> updateByNumber(String originalNumber, ModifiableCourseDTO modifiableCourseDTO) {
-        return new JsonWrapper<>(courseService.updateByNumber(originalNumber, modifiableCourseDTO));
+    JsonWrapper<CourseDTO> updateByNumber(String originalNumber, CourseModifiableDTO courseModifiableDTO) {
+        return new JsonWrapper<>(courseService.updateByNumber(originalNumber, courseModifiableDTO));
     }
 
     @ApiOperation("删除课程")

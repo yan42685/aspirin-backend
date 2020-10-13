@@ -33,7 +33,7 @@ public class AdministratorController {
 
     @ApiOperation("修改个人信息")
     @PutMapping("information")
-    JsonWrapper<AdministratorDTO> updateAdministratorInformation(ModifiableAdministratorDTO newInformation) {
+    JsonWrapper<AdministratorDTO> updateAdministratorInformation(AdministratorModifiableDTO newInformation) {
         return new JsonWrapper<>(administratorService.updateAdministratorInformation(newInformation));
     }
 
