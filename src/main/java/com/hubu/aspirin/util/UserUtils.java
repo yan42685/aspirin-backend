@@ -31,16 +31,37 @@ public class UserUtils {
 
     public static User getCurrentUser() {
         User user = (User) SecurityUtils.getSubject().getPrincipal();
-        String username = user.getUsername();
-        RoleEnum role = user.getRole();
-        return getByUsernameAndRole(username, role);
+        if (user == null) {
+            throw new KnownException(ExceptionEnum.NOT_LOGIN);
+        }
+        return user;
     }
 
     public static String getCurrentUsername() {
-        User user = (User) SecurityUtils.getSubject().getPrincipal();
-        return user.getUsername();
+        return getCurrentUser().getUsername();
     }
 
+    public static RoleEnum getCurrentRole() {
+        return getCurrentUser().getRole();
+    }
+
+
+    public static RoleEnum getRoleFromHeader() {
+        // 获取用户角色
+        HttpServletRequest request = ServletUtils.getRequest();
+        String role = request.getHeader("role");
+        if (StringUtils.isEmpty(role)) {
+            throw new KnownException(ExceptionEnum.ROLE_HEADER_MISSING);
+        }
+        return RoleEnum.valueOf(role.toUpperCase());
+    }
+
+    /**
+     * 根据用户名和密码生成新密码
+     */
+    public static String generatePassword(String username, String rawPassword) {
+        return new Sha256Hash(rawPassword, username, ShiroConfig.HASH_ITERATIONS).toHex();
+    }
 
     public static User getByUsernameAndRole(String username, RoleEnum role) {
         return getByColumnAndRole("username", username, role);
@@ -56,28 +77,6 @@ public class UserUtils {
 
     public static User getByNumberAndRole(String number, RoleEnum role) {
         return getByColumnAndRole("number", number, role);
-    }
-
-    public static RoleEnum getRoleFromHeader() {
-        // 获取用户角色
-        HttpServletRequest request = ServletUtils.getRequest();
-        String role = request.getHeader("role");
-        if (StringUtils.isEmpty(role)) {
-            throw new KnownException(ExceptionEnum.ROLE_HEADER_MISSING);
-        }
-        return RoleEnum.valueOf(role.toUpperCase());
-    }
-
-    public static RoleEnum getCurrentRole() {
-        User user = (User) SecurityUtils.getSubject().getPrincipal();
-        return user.getRole();
-    }
-
-    /**
-     * 根据用户名和密码生成新密码
-     */
-    public static String generatePassword(String username, String rawPassword) {
-        return new Sha256Hash(rawPassword, username, ShiroConfig.HASH_ITERATIONS).toHex();
     }
 
     private static User getByColumnAndRole(String column, Object property, RoleEnum role) {
