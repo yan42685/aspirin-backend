@@ -3,6 +3,7 @@ package com.hubu.aspirin.config;
 import com.hubu.aspirin.common.KnownException;
 import com.hubu.aspirin.enums.ExceptionEnum;
 import com.hubu.aspirin.enums.RoleEnum;
+import com.hubu.aspirin.model.entity.LoginToken;
 import com.hubu.aspirin.model.entity.User;
 import com.hubu.aspirin.util.EnumUtils;
 import com.hubu.aspirin.util.UserUtils;
@@ -21,6 +22,14 @@ import java.util.HashSet;
  */
 public class MyRealm extends AuthorizingRealm {
     /**
+     * 此方法必须重写，只有重写了才可以使用自己的token
+     */
+    @Override
+    public boolean supports(AuthenticationToken token) {
+        return token instanceof UsernamePasswordToken;
+    }
+
+    /**
      * 执行认证逻辑
      *
      * @param token 用户输入的令牌，即用户名，密码
@@ -30,9 +39,9 @@ public class MyRealm extends AuthorizingRealm {
     @Override
     protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken token) throws AuthenticationException {
         // 获取用户信息
-        UsernamePasswordToken userToken = (UsernamePasswordToken) token;
+        LoginToken userToken = (LoginToken) token;
         String username = userToken.getUsername();
-        RoleEnum role = UserUtils.getRoleFromHeader();
+        RoleEnum role = userToken.getRole();
 
         User principle = UserUtils.getByUsernameAndRole(username, role);
         if (principle == null) {

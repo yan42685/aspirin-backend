@@ -2,6 +2,7 @@ package com.hubu.aspirin.service;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.hubu.aspirin.model.dto.BulletinDTO;
+import com.hubu.aspirin.model.dto.LoginTokenDTO;
 import com.hubu.aspirin.model.dto.UserDTO;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -10,7 +11,7 @@ public interface UserService {
     /**
      * 登录
      */
-    UserDTO login(String username, String password, Boolean rememberMe);
+    UserDTO login(LoginTokenDTO tokenDTO);
 
     /**
      * 登出

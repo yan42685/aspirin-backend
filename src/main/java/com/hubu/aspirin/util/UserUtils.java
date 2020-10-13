@@ -12,12 +12,8 @@ import com.hubu.aspirin.model.entity.User;
 import com.hubu.aspirin.service.AdministratorService;
 import com.hubu.aspirin.service.StudentService;
 import com.hubu.aspirin.service.TeacherService;
-import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.crypto.hash.Sha256Hash;
-import org.apache.shiro.subject.Subject;
-
-import javax.servlet.http.HttpServletRequest;
 
 /**
  * 获取当前用户相关信息
@@ -43,17 +39,6 @@ public class UserUtils {
 
     public static RoleEnum getCurrentRole() {
         return getCurrentUser().getRole();
-    }
-
-
-    public static RoleEnum getRoleFromHeader() {
-        // 获取用户角色
-        HttpServletRequest request = ServletUtils.getRequest();
-        String role = request.getHeader("role");
-        if (StringUtils.isEmpty(role)) {
-            throw new KnownException(ExceptionEnum.ROLE_HEADER_MISSING);
-        }
-        return RoleEnum.valueOf(role.toUpperCase());
     }
 
     /**
