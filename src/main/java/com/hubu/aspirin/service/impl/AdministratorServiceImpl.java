@@ -5,9 +5,11 @@ import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.hubu.aspirin.common.ApplicationVariable;
 import com.hubu.aspirin.common.KnownException;
 import com.hubu.aspirin.common.AspirinConstant;
 import com.hubu.aspirin.converter.*;
+import com.hubu.aspirin.enums.ApplicationSwitchEnum;
 import com.hubu.aspirin.enums.ExceptionEnum;
 import com.hubu.aspirin.enums.RoleEnum;
 import com.hubu.aspirin.mapper.AdministratorMapper;
@@ -194,6 +196,43 @@ public class AdministratorServiceImpl extends ServiceImpl<AdministratorMapper, A
     public boolean deleteBulletin(Long id) {
         bulletinService.removeById(id);
         return true;
+    }
+
+    @Override
+    public ApplicationSwitchDTO flipApplicationVariable(ApplicationSwitchEnum switchEnum) {
+        ApplicationSwitchDTO switchDTO = new ApplicationSwitchDTO();
+        switchDTO.setSwitchEnum(switchEnum);
+        Boolean status = null;
+        switch (switchEnum){
+            case ELECT_SWITCH:
+                status = !ApplicationVariable.enableElect;
+                ApplicationVariable.enableElect = status;
+                break;
+            case MARK_SWITCH:
+                status = !ApplicationVariable.enableMark;
+                ApplicationVariable.enableMark = status;
+                break;
+            default:
+                break;
+        }
+        switchDTO.setStatus(status);
+        return switchDTO;
+    }
+
+    @Override
+    public Boolean getApplicationSwitchStatus(ApplicationSwitchEnum switchEnum) {
+        Boolean status = null;
+        switch (switchEnum){
+            case ELECT_SWITCH:
+                status = ApplicationVariable.enableElect;
+                break;
+            case MARK_SWITCH:
+                status = ApplicationVariable.enableMark;
+                break;
+            default:
+                break;
+        }
+        return status;
     }
 
 

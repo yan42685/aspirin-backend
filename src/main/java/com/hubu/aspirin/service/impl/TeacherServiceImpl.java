@@ -8,6 +8,7 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.additional.query.impl.QueryChainWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.hubu.aspirin.common.ApplicationVariable;
 import com.hubu.aspirin.common.KnownException;
 import com.hubu.aspirin.converter.GradeConverter;
 import com.hubu.aspirin.converter.TeacherConverter;
@@ -67,6 +68,9 @@ public class TeacherServiceImpl extends ServiceImpl<TeacherMapper, Teacher> impl
 
     @Override
     public IPage<MarkOutputDTO> getMarkStudentPage(Integer current, Integer size, Long courseDetailId) {
+        if (!ApplicationVariable.enableMark) {
+            throw new KnownException(ExceptionEnum.FUNCTION_DISABLED);
+        }
         Page<MarkOutputDTO> page = new Page<>(current, size);
         return gradeMapper.pageMarkOutputDtoByCourseDetailId(page, courseDetailId);
     }

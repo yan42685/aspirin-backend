@@ -2,6 +2,7 @@ package com.hubu.aspirin.controller;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.hubu.aspirin.common.JsonWrapper;
+import com.hubu.aspirin.enums.ApplicationSwitchEnum;
 import com.hubu.aspirin.model.dto.*;
 import com.hubu.aspirin.service.AdministratorService;
 import io.swagger.annotations.Api;
@@ -112,5 +113,17 @@ public class AdministratorController {
     @DeleteMapping("bulletin")
     JsonWrapper<Boolean> deleteBulletin(Long id) {
         return new JsonWrapper<>(administratorService.deleteBulletin(id));
+    }
+
+    @ApiOperation("翻转应用开关")
+    @PutMapping("app-switch")
+    JsonWrapper<ApplicationSwitchDTO> flipApplicationVariable(ApplicationSwitchEnum switchEnum) {
+        return new JsonWrapper<>(administratorService.flipApplicationVariable(switchEnum));
+    }
+
+    @ApiOperation("查看应用开关状态")
+    @GetMapping("app-switch")
+    JsonWrapper<Boolean> getApplicationSwitchStatus(ApplicationSwitchEnum switchEnum) {
+        return new JsonWrapper<>(administratorService.getApplicationSwitchStatus(switchEnum));
     }
 }
