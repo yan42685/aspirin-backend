@@ -2,7 +2,10 @@ package com.hubu.aspirin.controller;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.hubu.aspirin.common.JsonWrapper;
-import com.hubu.aspirin.model.dto.*;
+import com.hubu.aspirin.model.dto.MarkInputDTO;
+import com.hubu.aspirin.model.dto.MarkOutputDTO;
+import com.hubu.aspirin.model.dto.TeacherDTO;
+import com.hubu.aspirin.model.dto.TeacherModifiableDTO;
 import com.hubu.aspirin.service.TeacherService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -44,7 +47,7 @@ public class TeacherController {
 
     @ApiOperation("修改打分")
     @PutMapping("mark")
-    JsonWrapper<Boolean> updateMarkCourseList(MarkUpdateDTO input) {
+    JsonWrapper<Boolean> updateMarkCourseList(MarkInputDTO input) {
         return new JsonWrapper<>(teacherService.updateMarkCourse(input));
     }
 

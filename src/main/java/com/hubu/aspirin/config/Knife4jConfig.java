@@ -33,7 +33,7 @@ public class Knife4jConfig {
 
     private ApiInfo defaultApiInfo() {
         return new ApiInfoBuilder()
-                .title("接口文档1.X 版本")
+                .title("接口文档 1.0 版本")
                 .description("")
                 .version("1.0")
                 .build();

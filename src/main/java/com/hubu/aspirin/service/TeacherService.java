@@ -2,7 +2,10 @@ package com.hubu.aspirin.service;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.hubu.aspirin.model.dto.*;
+import com.hubu.aspirin.model.dto.MarkInputDTO;
+import com.hubu.aspirin.model.dto.MarkOutputDTO;
+import com.hubu.aspirin.model.dto.TeacherDTO;
+import com.hubu.aspirin.model.dto.TeacherModifiableDTO;
 import com.hubu.aspirin.model.entity.Teacher;
 
 public interface TeacherService extends IService<Teacher> {
@@ -34,7 +37,7 @@ public interface TeacherService extends IService<Teacher> {
     /**
      * 修改打分
      */
-    boolean updateMarkCourse(MarkUpdateDTO input);
+    boolean updateMarkCourse(MarkInputDTO input);
 
     /**
      * 提交打分

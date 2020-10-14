@@ -7,13 +7,15 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.hubu.aspirin.common.ApplicationSwtich;
 import com.hubu.aspirin.common.KnownException;
-import com.hubu.aspirin.converter.GradeConverter;
 import com.hubu.aspirin.converter.TeacherConverter;
 import com.hubu.aspirin.enums.ExceptionEnum;
 import com.hubu.aspirin.enums.RoleEnum;
 import com.hubu.aspirin.mapper.GradeMapper;
 import com.hubu.aspirin.mapper.TeacherMapper;
-import com.hubu.aspirin.model.dto.*;
+import com.hubu.aspirin.model.dto.MarkInputDTO;
+import com.hubu.aspirin.model.dto.MarkOutputDTO;
+import com.hubu.aspirin.model.dto.TeacherDTO;
+import com.hubu.aspirin.model.dto.TeacherModifiableDTO;
 import com.hubu.aspirin.model.entity.Grade;
 import com.hubu.aspirin.model.entity.Teacher;
 import com.hubu.aspirin.model.entity.User;
@@ -68,13 +70,11 @@ public class TeacherServiceImpl extends ServiceImpl<TeacherMapper, Teacher> impl
 
     @Override
     public boolean markCourse(MarkInputDTO input) {
-        Grade grade = GradeConverter.INSTANCE.markInputDTO2Grade(input);
-        grade.setSubmitted(false);
-        return gradeService.save(grade);
+        return updateMarkCourse(input);
     }
 
     @Override
-    public boolean updateMarkCourse(MarkUpdateDTO input) {
+    public boolean updateMarkCourse(MarkInputDTO input) {
         LambdaUpdateWrapper<Grade> updateWrapper = new LambdaUpdateWrapper<Grade>()
                 .eq(Grade::getId, input.getGradeId())
                 // 只用未提交才能更新

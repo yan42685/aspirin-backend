@@ -4,14 +4,11 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
-@ApiModel("打分输入信息")
 @Data
+@ApiModel("打分更新信息")
 public class MarkInputDTO {
-    @ApiModelProperty("具体课程ID")
-    private Long courseDetailId;
-
-    @ApiModelProperty("学生学号")
-    private String studentNumber;
+    @ApiModelProperty("成绩Id")
+    private Long gradeId;
 
     @ApiModelProperty(value = "平时分")
     private Float regularScores;
