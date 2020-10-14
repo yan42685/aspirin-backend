@@ -18,7 +18,7 @@ public class MarkOutputDTO {
     private String specialtyName;
 
     @ApiModelProperty("学生学号")
-    private Number studentNumber;
+    private String studentNumber;
 
     @ApiModelProperty("学生姓名")
     private String studentName;
