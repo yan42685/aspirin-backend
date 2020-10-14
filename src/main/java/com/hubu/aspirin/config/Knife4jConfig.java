@@ -21,18 +21,19 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 public class Knife4jConfig {
     @Bean
     public Docket userApi() {
+        // 默认分组
         return new Docket(DocumentationType.SWAGGER_2)
-                .apiInfo(apiInfo())
-                .groupName("Restful接口")
+                .apiInfo(defaultApiInfo())
+                .groupName("默认接口分组")
                 .select()
-                .apis(RequestHandlerSelectors.basePackage("com.hubu.aspirin"))
+                .apis(RequestHandlerSelectors.basePackage("com.hubu.aspirin.controller"))
                 .paths(PathSelectors.any())
                 .build();
     }
 
-    private ApiInfo apiInfo() {
+    private ApiInfo defaultApiInfo() {
         return new ApiInfoBuilder()
-                .title("Knife4j构建API文档")
+                .title("1.X 版本")
                 .description("")
                 .version("1.0")
                 .build();

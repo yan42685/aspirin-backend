@@ -1,11 +1,12 @@
 package com.hubu.aspirin.model.dto;
 
 import com.hubu.aspirin.enums.CourseTypeEnum;
-import com.hubu.aspirin.model.entity.Specialty;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import lombok.Data;
 
 @ApiModel("待打分学生信息")
+@Data
 public class MarkOutputDTO {
     @ApiModelProperty("成绩ID")
     private Long gradeId;

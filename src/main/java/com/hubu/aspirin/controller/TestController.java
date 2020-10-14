@@ -1,5 +1,6 @@
 package com.hubu.aspirin.controller;
 
+import com.github.xiaoymin.knife4j.annotations.ApiSupport;
 import com.hubu.aspirin.common.JsonWrapper;
 import com.hubu.aspirin.util.UserUtils;
 import io.swagger.annotations.Api;
@@ -20,6 +21,7 @@ import javax.validation.constraints.NotBlank;
  */
 @Api(tags = "测试API")
 @RequestMapping("api/test")
+@ApiSupport(author = "alexyan")
 @RestController
 @Validated
 public class TestController {

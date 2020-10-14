@@ -35,7 +35,7 @@ public class TeacherController {
     @ApiOperation("打分页面")
     @GetMapping("mark-page")
     JsonWrapper<IPage<MarkOutputDTO>> getMarkStudentPage(Integer current, Integer size, Long courseDetailId) {
-        return new JsonWrapper<>(teacherService.getMarkStudentPage(current,size, courseDetailId));
+        return new JsonWrapper<>(teacherService.getMarkStudentPage(current, size, courseDetailId));
     }
 
     @ApiOperation("打分")
