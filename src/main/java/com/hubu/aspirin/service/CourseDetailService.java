@@ -1,11 +1,10 @@
 package com.hubu.aspirin.service;
 
+import com.baomidou.mybatisplus.extension.service.IService;
 import com.hubu.aspirin.enums.CourseTypeEnum;
-import com.hubu.aspirin.enums.ElectiveStatusEnum;
 import com.hubu.aspirin.model.dto.CourseAssignDTO;
 import com.hubu.aspirin.model.dto.CourseDetailDTO;
 import com.hubu.aspirin.model.entity.CourseDetail;
-import com.baomidou.mybatisplus.extension.service.IService;
 
 import java.util.List;
 
@@ -39,4 +38,9 @@ public interface CourseDetailService extends IService<CourseDetail> {
      * 获取指定课程信息
      */
     CourseDetailDTO getDtoById(Long id);
+
+    /**
+     * 根据Id获取课程编号
+     */
+    String getCourseNumberById(Long id);
 }

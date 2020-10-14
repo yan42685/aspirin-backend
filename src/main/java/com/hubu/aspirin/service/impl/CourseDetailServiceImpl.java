@@ -1,16 +1,16 @@
 package com.hubu.aspirin.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.hubu.aspirin.common.KnownException;
 import com.hubu.aspirin.converter.CourseDetailConverter;
 import com.hubu.aspirin.enums.CourseTypeEnum;
 import com.hubu.aspirin.enums.ExceptionEnum;
+import com.hubu.aspirin.mapper.CourseDetailMapper;
 import com.hubu.aspirin.model.dto.CourseAssignDTO;
 import com.hubu.aspirin.model.dto.CourseDetailDTO;
 import com.hubu.aspirin.model.entity.CourseDetail;
-import com.hubu.aspirin.mapper.CourseDetailMapper;
 import com.hubu.aspirin.service.CourseDetailService;
-import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -75,12 +75,18 @@ public class CourseDetailServiceImpl extends ServiceImpl<CourseDetailMapper, Cou
 
     @Override
     public List<CourseDetailDTO> studentAvailableCourseList(String specialtyNumber, Integer semester, CourseTypeEnum courseType) {
-        return courseDetailMapper.listBySpecialtyNumberAndSemesterAndCourseType(specialtyNumber,semester, courseType.getValue());
+        return courseDetailMapper.listBySpecialtyNumberAndSemesterAndCourseType(specialtyNumber, semester, courseType.getValue());
     }
 
     @Override
     public CourseDetailDTO getDtoById(Long id) {
         return courseDetailMapper.getDtoById(id);
+    }
+
+    @Override
+    public String getCourseNumberById(Long id) {
+        CourseDetail courseDetail = getById(id);
+        return courseDetail.getCourseNumber();
     }
 
 

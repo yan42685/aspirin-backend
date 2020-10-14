@@ -9,8 +9,6 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
 @Api(tags = "教师")
 //@RequiresRoles("teacher")
 @RequestMapping("api/teacher")
@@ -40,20 +38,20 @@ public class TeacherController {
 
     @ApiOperation("打分")
     @PostMapping("mark")
-    JsonWrapper<Boolean> markCourseList(List<MarkInputDTO> markList) {
-        return new JsonWrapper<>(teacherService.markCourseList(markList));
+    JsonWrapper<Boolean> markCourseList(MarkInputDTO input) {
+        return new JsonWrapper<>(teacherService.markCourse(input));
     }
 
     @ApiOperation("修改打分")
     @PutMapping("mark")
-    JsonWrapper<Boolean> updateMarkCourseList(List<MarkUpdateDTO> markList) {
-        return new JsonWrapper<>(teacherService.updateMarkCourseList(markList));
+    JsonWrapper<Boolean> updateMarkCourseList(MarkUpdateDTO input) {
+        return new JsonWrapper<>(teacherService.updateMarkCourse(input));
     }
 
     @ApiOperation("提交打分")
     @PutMapping("submit-mark")
-    JsonWrapper<Boolean> submitMarkList(List<Long> gradeIdList) {
-        return new JsonWrapper<>(teacherService.submitMarkList(gradeIdList));
+    JsonWrapper<Boolean> submitMarkList(Long gradeId) {
+        return new JsonWrapper<>(teacherService.submitMark(gradeId));
     }
 
 }

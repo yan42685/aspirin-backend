@@ -5,8 +5,6 @@ import com.baomidou.mybatisplus.extension.service.IService;
 import com.hubu.aspirin.model.dto.*;
 import com.hubu.aspirin.model.entity.Teacher;
 
-import java.util.List;
-
 public interface TeacherService extends IService<Teacher> {
     /**
      * 根据编号获取个人信息
@@ -31,17 +29,17 @@ public interface TeacherService extends IService<Teacher> {
     /**
      * 打分
      */
-    boolean markCourseList(List<MarkInputDTO> dtoList);
+    boolean markCourse(MarkInputDTO input);
 
     /**
      * 修改打分
      */
-    boolean updateMarkCourseList(List<MarkUpdateDTO> dtoList);
+    boolean updateMarkCourse(MarkUpdateDTO input);
 
     /**
      * 提交打分
      */
-    boolean submitMarkList(List<Long> dtoList);
+    boolean submitMark(Long gradeId);
 
 
 }

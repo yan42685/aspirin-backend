@@ -1,5 +1,6 @@
 package com.hubu.aspirin.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
@@ -14,9 +15,11 @@ import com.hubu.aspirin.mapper.GradeMapper;
 import com.hubu.aspirin.mapper.StudentCourseDetailMapper;
 import com.hubu.aspirin.mapper.StudentMapper;
 import com.hubu.aspirin.model.dto.*;
+import com.hubu.aspirin.model.entity.Grade;
 import com.hubu.aspirin.model.entity.Student;
 import com.hubu.aspirin.model.entity.StudentCourseDetail;
 import com.hubu.aspirin.service.CourseDetailService;
+import com.hubu.aspirin.service.GradeService;
 import com.hubu.aspirin.service.StudentCourseDetailService;
 import com.hubu.aspirin.service.StudentService;
 import com.hubu.aspirin.util.UserUtils;
@@ -37,6 +40,8 @@ public class StudentServiceImpl extends ServiceImpl<StudentMapper, Student> impl
     StudentCourseDetailMapper studentCourseDetailMapper;
     @Autowired
     GradeMapper gradeMapper;
+    @Autowired
+    GradeService gradeService;
 
     @Override
     public StudentDTO getInformation() {
@@ -85,14 +90,15 @@ public class StudentServiceImpl extends ServiceImpl<StudentMapper, Student> impl
     public List<CourseDetailDTO> electCourse(Long courseDetailId) {
         Student student = getCurrentStudent();
         String studentNumber = student.getNumber();
+        String courseNumber = courseDetailService.getCourseNumberById(courseDetailId);
         Integer studentSemester = student.getSemester();
-        QueryWrapper<StudentCourseDetail> queryWrapper = new QueryWrapper<StudentCourseDetail>()
-                .eq("course_detail_id", courseDetailId)
-                .eq("student_number", studentNumber)
-                .eq("status", ElectiveStatusEnum.CHOSEN);
-        StudentCourseDetail previous = studentCourseDetailService.getOne(queryWrapper);
+
+        LambdaQueryWrapper<Grade> queryWrapper = new LambdaQueryWrapper<Grade>()
+                .eq(Grade::getStudentNumber, studentNumber)
+                .eq(Grade::getCourseNumber, courseNumber);
+        Grade gradeRecord = gradeService.getOne(queryWrapper);
         // 检查是否已选该课程
-        if (previous != null) {
+        if (gradeRecord != null) {
             throw new KnownException(ExceptionEnum.COURSE_HAS_BEEN_CHOSEN);
         }
         CourseDetailDTO courseDetailDTO = courseDetailService.getDtoById(courseDetailId);
@@ -109,12 +115,18 @@ public class StudentServiceImpl extends ServiceImpl<StudentMapper, Student> impl
             throw new KnownException(ExceptionEnum.STUDENT_NOT_AVAILABLE);
         }
 
-        StudentCourseDetail electiveRecord = new StudentCourseDetail();
-        electiveRecord
+        // 添加选课记录
+        StudentCourseDetail electiveRecord = new StudentCourseDetail()
                 .setStatus(ElectiveStatusEnum.CHOSEN)
                 .setCourseDetailId(courseDetailId)
                 .setStudentNumber(studentNumber);
         studentCourseDetailService.save(electiveRecord);
+
+        // 添加空成绩记录
+        Grade grade = new Grade()
+                .setStudentNumber(studentNumber)
+                .setCourseNumber(courseNumber);
+        gradeService.save(grade);
         return getCourseSchedule(studentSemester);
     }
 
@@ -140,6 +152,13 @@ public class StudentServiceImpl extends ServiceImpl<StudentMapper, Student> impl
                 .setStatus(ElectiveStatusEnum.DROPPED);
         // 用保存是为了出现多条退课记录
         studentCourseDetailService.save(current);
+
+        // 删除成绩记录
+        String courseNumber = courseDetailService.getCourseNumberById(courseDetailId);
+        LambdaQueryWrapper<Grade> lambdaQueryWrapper = new LambdaQueryWrapper<Grade>()
+                .eq(Grade::getStudentNumber, student.getNumber())
+                .eq(Grade::getCourseNumber, courseNumber);
+        gradeService.remove(lambdaQueryWrapper);
 
         return getCourseSchedule(semester);
     }

@@ -24,9 +24,6 @@ import org.apache.shiro.SecurityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
-
 @Service
 public class TeacherServiceImpl extends ServiceImpl<TeacherMapper, Teacher> implements TeacherService {
     @Autowired
@@ -70,38 +67,29 @@ public class TeacherServiceImpl extends ServiceImpl<TeacherMapper, Teacher> impl
     }
 
     @Override
-    public boolean markCourseList(List<MarkInputDTO> dtoList) {
-        List<Grade> gradeList = GradeConverter.INSTANCE.markInputDTO2GradeList(dtoList);
-        gradeList.forEach((grade -> grade.setSubmitted(false)));
-        gradeService.saveBatch(gradeList);
-        return true;
+    public boolean markCourse(MarkInputDTO input) {
+        Grade grade = GradeConverter.INSTANCE.markInputDTO2Grade(input);
+        grade.setSubmitted(false);
+        return gradeService.save(grade);
     }
 
     @Override
-    public boolean updateMarkCourseList(List<MarkUpdateDTO> dtoList) {
-        dtoList.forEach((dto -> {
-            LambdaUpdateWrapper<Grade> updateWrapper = new LambdaUpdateWrapper<Grade>()
-                    .eq(Grade::getId, dto.getGradeId())
-                    // 只用未提交才能更新
-                    .eq(Grade::getSubmitted, false)
-                    .set(Grade::getRegularScores, dto.getRegularScores())
-                    .set(Grade::getExamScores, dto.getExamScores());
-            gradeService.update(updateWrapper);
-        }));
-        return true;
+    public boolean updateMarkCourse(MarkUpdateDTO input) {
+        LambdaUpdateWrapper<Grade> updateWrapper = new LambdaUpdateWrapper<Grade>()
+                .eq(Grade::getId, input.getGradeId())
+                // 只用未提交才能更新
+                .eq(Grade::getSubmitted, false)
+                .set(Grade::getRegularScores, input.getRegularScores())
+                .set(Grade::getExamScores, input.getExamScores());
+        return gradeService.update(updateWrapper);
     }
 
     @Override
-    public boolean submitMarkList(List<Long> gradeIdList) {
-        List<Grade> gradeList = new ArrayList<>();
-        for (Long id : gradeIdList) {
-            Grade grade = new Grade();
-            grade.setId(id)
-                    .setSubmitted(true);
-            gradeList.add(grade);
-        }
-        gradeService.updateBatchById(gradeList);
-        return true;
+    public boolean submitMark(Long gradeId) {
+        Grade grade = new Grade()
+                .setId(gradeId)
+                .setSubmitted(true);
+        return gradeService.updateById(grade);
     }
 
     private Teacher getCurrentTeacher() {
