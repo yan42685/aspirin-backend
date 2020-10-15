@@ -6,7 +6,7 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.hubu.aspirin.common.KnownException;
-import com.hubu.aspirin.common.annotation.CheckMarkEnabled;
+import com.hubu.aspirin.common.annotation.CheckMarkSwitch;
 import com.hubu.aspirin.converter.TeacherConverter;
 import com.hubu.aspirin.enums.ExceptionEnum;
 import com.hubu.aspirin.enums.RoleEnum;
@@ -59,20 +59,20 @@ public class TeacherServiceImpl extends ServiceImpl<TeacherMapper, Teacher> impl
         return getDtoByNumber(currentTeacher.getNumber());
     }
 
-    @CheckMarkEnabled
+    @CheckMarkSwitch
     @Override
     public IPage<MarkOutputDTO> getMarkStudentPage(Integer current, Integer size, Long courseDetailId) {
         Page<MarkOutputDTO> page = new Page<>(current, size);
         return gradeMapper.pageMarkOutputDtoByCourseDetailId(page, courseDetailId);
     }
 
-    @CheckMarkEnabled
+    @CheckMarkSwitch
     @Override
     public boolean markCourse(MarkInputDTO input) {
         return updateMarkCourse(input);
     }
 
-    @CheckMarkEnabled
+    @CheckMarkSwitch
     @Override
     public boolean updateMarkCourse(MarkInputDTO input) {
         LambdaUpdateWrapper<Grade> updateWrapper = new LambdaUpdateWrapper<Grade>()
@@ -84,7 +84,7 @@ public class TeacherServiceImpl extends ServiceImpl<TeacherMapper, Teacher> impl
         return gradeService.update(updateWrapper);
     }
 
-    @CheckMarkEnabled
+    @CheckMarkSwitch
     @Override
     public boolean submitMark(Long gradeId) {
         Grade grade = new Grade()
