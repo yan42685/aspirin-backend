@@ -5,7 +5,6 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.hubu.aspirin.common.ApplicationSwtich;
 import com.hubu.aspirin.common.KnownException;
 import com.hubu.aspirin.common.annotation.CheckElectSwitch;
 import com.hubu.aspirin.converter.StudentConverter;
@@ -80,9 +79,6 @@ public class StudentServiceImpl extends ServiceImpl<StudentMapper, Student> impl
     @CheckElectSwitch
     @Override
     public List<CourseDetailDTO> availableCourseDetailList(Integer semester, CourseTypeEnum courseType) {
-        if (!ApplicationSwtich.electEnabled) {
-            throw new KnownException(ExceptionEnum.FUNCTION_DISABLED);
-        }
         Student student = getCurrentStudent();
         String specialtyNumber = student.getSpecialtyNumber();
         return courseDetailService.studentAvailableCourseList(specialtyNumber, semester, courseType);

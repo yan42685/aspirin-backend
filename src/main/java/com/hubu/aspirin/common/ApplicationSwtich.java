@@ -1,12 +1,13 @@
 package com.hubu.aspirin.common;
 
 import com.hubu.aspirin.enums.ExceptionEnum;
+import lombok.Getter;
 
 /**
  * 应用开关
  */
+@Getter
 public class ApplicationSwtich {
-
     /**
      * 是否开启选课系统
      */
@@ -27,10 +28,27 @@ public class ApplicationSwtich {
         }
     }
 
+    public static boolean flipElectEnabled() {
+        electEnabled = !electEnabled;
+        return electEnabled;
+    }
+
     public static void checkMarkEnabled() {
         if (!markEnabled) {
             throw new KnownException(ExceptionEnum.FUNCTION_DISABLED);
         }
     }
 
+    public static boolean flipMarkEnabled() {
+        markEnabled = !markEnabled;
+        return markEnabled;
+    }
+
+    public static boolean isElectEnabled() {
+        return electEnabled;
+    }
+
+    public static boolean isMarkEnabled() {
+        return markEnabled;
+    }
 }

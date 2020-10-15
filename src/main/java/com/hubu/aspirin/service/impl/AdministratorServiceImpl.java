@@ -207,12 +207,10 @@ public class AdministratorServiceImpl extends ServiceImpl<AdministratorMapper, A
         Boolean status = null;
         switch (switchEnum) {
             case ELECT_SWITCH:
-                status = !ApplicationSwtich.electEnabled;
-                ApplicationSwtich.electEnabled = status;
+                status = ApplicationSwtich.flipElectEnabled();
                 break;
             case MARK_SWITCH:
-                status = !ApplicationSwtich.markEnabled;
-                ApplicationSwtich.markEnabled = status;
+                status = ApplicationSwtich.flipMarkEnabled();
                 break;
             default:
                 break;
@@ -226,10 +224,10 @@ public class AdministratorServiceImpl extends ServiceImpl<AdministratorMapper, A
         Boolean status = null;
         switch (switchEnum){
             case ELECT_SWITCH:
-                status = ApplicationSwtich.electEnabled;
+                status = ApplicationSwtich.isElectEnabled();
                 break;
             case MARK_SWITCH:
-                status = ApplicationSwtich.markEnabled;
+                status = ApplicationSwtich.isMarkEnabled();
                 break;
             default:
                 break;
