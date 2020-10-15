@@ -6,14 +6,16 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.hubu.aspirin.common.ApplicationSwtich;
-import com.hubu.aspirin.common.KnownException;
 import com.hubu.aspirin.common.AspirinConstant;
-import com.hubu.aspirin.converter.*;
+import com.hubu.aspirin.common.KnownException;
+import com.hubu.aspirin.converter.AdministratorConverter;
+import com.hubu.aspirin.converter.BulletinConverter;
+import com.hubu.aspirin.converter.StudentConverter;
+import com.hubu.aspirin.converter.TeacherConverter;
 import com.hubu.aspirin.enums.ApplicationSwitchEnum;
 import com.hubu.aspirin.enums.ExceptionEnum;
 import com.hubu.aspirin.enums.RoleEnum;
 import com.hubu.aspirin.mapper.AdministratorMapper;
-import com.hubu.aspirin.model.dto.StudentDTO;
 import com.hubu.aspirin.model.dto.*;
 import com.hubu.aspirin.model.entity.*;
 import com.hubu.aspirin.service.*;
@@ -203,14 +205,14 @@ public class AdministratorServiceImpl extends ServiceImpl<AdministratorMapper, A
         ApplicationSwitchDTO switchDTO = new ApplicationSwitchDTO();
         switchDTO.setSwitchEnum(switchEnum);
         Boolean status = null;
-        switch (switchEnum){
+        switch (switchEnum) {
             case ELECT_SWITCH:
-                status = !ApplicationSwtich.enableElect;
-                ApplicationSwtich.enableElect = status;
+                status = !ApplicationSwtich.electEnabled;
+                ApplicationSwtich.electEnabled = status;
                 break;
             case MARK_SWITCH:
-                status = !ApplicationSwtich.enableMark;
-                ApplicationSwtich.enableMark = status;
+                status = !ApplicationSwtich.markEnabled;
+                ApplicationSwtich.markEnabled = status;
                 break;
             default:
                 break;
@@ -224,10 +226,10 @@ public class AdministratorServiceImpl extends ServiceImpl<AdministratorMapper, A
         Boolean status = null;
         switch (switchEnum){
             case ELECT_SWITCH:
-                status = ApplicationSwtich.enableElect;
+                status = ApplicationSwtich.electEnabled;
                 break;
             case MARK_SWITCH:
-                status = ApplicationSwtich.enableMark;
+                status = ApplicationSwtich.markEnabled;
                 break;
             default:
                 break;

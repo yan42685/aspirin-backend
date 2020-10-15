@@ -71,7 +71,7 @@ public class StudentServiceImpl extends ServiceImpl<StudentMapper, Student> impl
 
     @Override
     public List<CourseDetailDTO> availableCourseDetailList(Integer semester, CourseTypeEnum courseType) {
-        if (!ApplicationSwtich.enableElect) {
+        if (!ApplicationSwtich.electEnabled) {
             throw new KnownException(ExceptionEnum.FUNCTION_DISABLED);
         }
         Student student = getCurrentStudent();

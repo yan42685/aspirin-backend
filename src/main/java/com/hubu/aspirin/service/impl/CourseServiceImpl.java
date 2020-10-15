@@ -4,8 +4,8 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.hubu.aspirin.common.KnownException;
 import com.hubu.aspirin.common.AspirinConstant;
+import com.hubu.aspirin.common.KnownException;
 import com.hubu.aspirin.converter.CourseConverter;
 import com.hubu.aspirin.enums.CourseTypeEnum;
 import com.hubu.aspirin.enums.ExceptionEnum;
@@ -31,7 +31,8 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
     @Override
     public IPage<CourseDTO> queryPage(Integer current, Integer size, String specialtyNumber, CourseTypeEnum courseType, String courseNameOrNumber) {
         Page<Course> page = new Page<>(current, size);
-        IPage<Course> coursePage = courseMapper.queryPage(page, specialtyNumber, courseType.getValue(), courseNameOrNumber);
+        Integer type = courseType == null ? null : courseType.getValue();
+        IPage<Course> coursePage = courseMapper.queryPage(page, specialtyNumber, type, courseNameOrNumber);
         return CourseConverter.INSTANCE.entityToDtoPage(coursePage);
     }
 
