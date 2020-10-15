@@ -7,6 +7,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.hubu.aspirin.common.ApplicationSwtich;
 import com.hubu.aspirin.common.KnownException;
+import com.hubu.aspirin.common.annotation.CheckElectEnabled;
 import com.hubu.aspirin.converter.StudentConverter;
 import com.hubu.aspirin.enums.CourseTypeEnum;
 import com.hubu.aspirin.enums.ElectiveStatusEnum;
@@ -70,6 +71,14 @@ public class StudentServiceImpl extends ServiceImpl<StudentMapper, Student> impl
     }
 
     @Override
+    public List<CourseDetailDTO> getCourseSchedule(Integer semester) {
+        Student student = getCurrentStudent();
+        String number = student.getNumber();
+        return studentCourseDetailService.studentCourseSchedule(number, semester);
+    }
+
+    @CheckElectEnabled
+    @Override
     public List<CourseDetailDTO> availableCourseDetailList(Integer semester, CourseTypeEnum courseType) {
         if (!ApplicationSwtich.electEnabled) {
             throw new KnownException(ExceptionEnum.FUNCTION_DISABLED);
@@ -79,13 +88,7 @@ public class StudentServiceImpl extends ServiceImpl<StudentMapper, Student> impl
         return courseDetailService.studentAvailableCourseList(specialtyNumber, semester, courseType);
     }
 
-    @Override
-    public List<CourseDetailDTO> getCourseSchedule(Integer semester) {
-        Student student = getCurrentStudent();
-        String number = student.getNumber();
-        return studentCourseDetailService.studentCourseSchedule(number, semester);
-    }
-
+    @CheckElectEnabled
     @Override
     public List<CourseDetailDTO> electCourse(Long courseDetailId) {
         Student student = getCurrentStudent();
@@ -130,6 +133,7 @@ public class StudentServiceImpl extends ServiceImpl<StudentMapper, Student> impl
         return getCourseSchedule(studentSemester);
     }
 
+    @CheckElectEnabled
     @Override
     public List<CourseDetailDTO> dropCourse(Long courseDetailId) {
         Student student = getCurrentStudent();
@@ -163,6 +167,7 @@ public class StudentServiceImpl extends ServiceImpl<StudentMapper, Student> impl
         return getCourseSchedule(semester);
     }
 
+    @CheckElectEnabled
     @Override
     public IPage<CourseDropDTO> pageCourseDropRecord(Integer current, Integer size) {
         Student student = getCurrentStudent();

@@ -4,13 +4,10 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.hubu.aspirin.common.JsonWrapper;
 import com.hubu.aspirin.enums.CourseTypeEnum;
 import com.hubu.aspirin.model.dto.*;
-import com.hubu.aspirin.model.entity.Course;
-import com.hubu.aspirin.service.CourseDetailService;
 import com.hubu.aspirin.service.StudentService;
-import com.sun.jmx.snmp.agent.SnmpUserDataFactory;
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
-import org.apache.shiro.authz.annotation.RequiresRoles;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -37,6 +34,7 @@ public class StudentController {
     }
 
     @ApiOperation("分类查看选课表")
+    @ApiImplicitParam(name = "courseType", required = true, dataType = "string")
     @GetMapping("available-course-list")
     JsonWrapper<List<CourseDetailDTO>> availableCourseDetailList(Integer semester, CourseTypeEnum courseType) {
         return new JsonWrapper<>(studentService.availableCourseDetailList(semester, courseType));
