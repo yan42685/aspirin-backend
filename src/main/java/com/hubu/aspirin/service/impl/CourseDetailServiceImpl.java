@@ -75,7 +75,8 @@ public class CourseDetailServiceImpl extends ServiceImpl<CourseDetailMapper, Cou
 
     @Override
     public List<CourseDetailDTO> studentAvailableCourseList(String specialtyNumber, Integer semester, CourseTypeEnum courseType) {
-        return courseDetailMapper.listBySpecialtyNumberAndSemesterAndCourseType(specialtyNumber, semester, courseType.getValue());
+        Integer type = courseType == null ? null : courseType.getValue();
+        return courseDetailMapper.listBySpecialtyNumberAndSemesterAndCourseType(specialtyNumber, semester, type);
     }
 
     @Override

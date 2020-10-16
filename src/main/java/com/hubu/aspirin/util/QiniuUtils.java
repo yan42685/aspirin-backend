@@ -30,9 +30,7 @@ public class QiniuUtils {
      * 存储空间名
      */
     private static final String BUCKET_NAME = "hubu-aspirin";
-    /**
-     * 上传凭证有效期 10min
-     */
+    /** 上传凭证有效期 10min */
     private static final long EXPIRE_SECONDS = 600;
 
     private static Auth auth;
