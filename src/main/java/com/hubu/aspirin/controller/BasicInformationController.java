@@ -49,6 +49,12 @@ public class BasicInformationController {
         return new JsonWrapper<>(specialtyService.getListByFacultyNumber(facultyNumber));
     }
 
+    @ApiOperation(value = "获取专业所有入学年份")
+    @GetMapping("specialty/admission-years")
+    public JsonWrapper<List<Integer>> getAllAdmissionYearBySpecialtyNumber(String specialtyNumer) {
+        return new JsonWrapper<>(specialtyService.getAllAdmissionYear(specialtyNumer));
+    }
+
     @ApiOperation("获取所有教室信息")
     @GetMapping("classroom/list")
     public JsonWrapper<List<ClassroomDTO>> getClassroomList() {

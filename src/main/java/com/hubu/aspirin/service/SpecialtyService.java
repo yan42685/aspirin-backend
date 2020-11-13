@@ -21,4 +21,9 @@ public interface SpecialtyService extends IService<Specialty> {
      * 获取学院包含的专业
      */
     List<SpecialtyDTO> getListByFacultyNumber(String facultyNumber);
+
+    /**
+     * 获取专业所有入学年份
+     */
+    List<Integer> getAllAdmissionYear(String number);
 }
