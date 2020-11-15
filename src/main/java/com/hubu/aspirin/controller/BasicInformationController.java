@@ -64,7 +64,7 @@ public class BasicInformationController {
     }
 
     @ApiOperation("判断用户是否存在")
-    @GetMapping("user/is_existed")
+    @GetMapping("user/is-existed")
     public JsonWrapper<Boolean> isUserExisted(String number, RoleEnum role) {
         boolean isUserExisted = UserUtils.getByNumberAndRole(number, role) != null;
         return new JsonWrapper<>(isUserExisted);
