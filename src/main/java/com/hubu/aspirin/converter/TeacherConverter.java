@@ -6,16 +6,15 @@ import com.hubu.aspirin.model.dto.TeacherDTO;
 import com.hubu.aspirin.model.dto.TeacherManagementDTO;
 import com.hubu.aspirin.model.dto.TeacherModifiableDTO;
 import com.hubu.aspirin.model.entity.Teacher;
-import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
-import org.mapstruct.MappingTarget;
-import org.mapstruct.NullValuePropertyMappingStrategy;
+import com.hubu.aspirin.util.ConvertUtils;
+import org.mapstruct.*;
 import org.mapstruct.factory.Mappers;
 
 @Mapper(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
-public interface TeacherConverter  {
+public interface TeacherConverter {
     TeacherConverter INSTANCE = Mappers.getMapper(TeacherConverter.class);
 
+    @Mapping(target = "faculty", qualifiedByName = "facultyNumberToName", source = "facultyNumber")
     TeacherDTO entityToDto(Teacher teacher);
 
     Page<TeacherDTO> entityToDtoPage(IPage<Teacher> teachers);
@@ -25,4 +24,9 @@ public interface TeacherConverter  {
     void updateEntityFromManagementDto(TeacherManagementDTO teacherManagementDTO, @MappingTarget Teacher teacher);
 
     void updateEntityFromModifiableDto(TeacherModifiableDTO teacherModifiableDTO, @MappingTarget Teacher teacher);
+
+    @Named("facultyNumberToName")
+    default String facultyNameToNumber(String number) {
+        return ConvertUtils.facultyGetNameByNumber(number);
+    }
 }

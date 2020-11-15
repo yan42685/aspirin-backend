@@ -15,6 +15,10 @@ public class ConvertUtils {
         return facultyService.getNumberByName(name);
     }
 
+    public static String facultyGetNameByNumber(String number) {
+        return facultyService.getNameByNumber(number);
+    }
+
     public static String specialtyGetNumberByName(String name) {
         return specialtyService.getNumberByName(name);
     }

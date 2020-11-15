@@ -35,6 +35,7 @@ CREATE TABLE teacher
     `status`              tinyint      DEFAULT 0 COMMENT '用户账号状态',
     `role`                tinyint comment '角色',
     `number`              varchar(255) unique comment '教师编号',
+    `faculty_number`      varchar(255) comment '学院编号',
     PRIMARY KEY (`id`)
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4;

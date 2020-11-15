@@ -20,6 +20,7 @@ import com.hubu.aspirin.model.dto.*;
 import com.hubu.aspirin.model.entity.*;
 import com.hubu.aspirin.service.*;
 import com.hubu.aspirin.util.UserUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -59,10 +60,15 @@ public class AdministratorServiceImpl extends ServiceImpl<AdministratorMapper, A
     @Override
     public IPage<TeacherDTO> pageTeacher(Integer current, Integer size, String numberOrRealName) {
         Page<Teacher> page = new Page<>(current, size);
-        QueryWrapper<Teacher> queryWrapper = new QueryWrapper<Teacher>()
-                .like("number", numberOrRealName)
-                .or()
-                .like("real_name", numberOrRealName);
+        QueryWrapper<Teacher> queryWrapper = null;
+        if (StringUtils.isEmpty(numberOrRealName)) {
+            queryWrapper = new QueryWrapper<Teacher>();
+        } else {
+            queryWrapper = new QueryWrapper<Teacher>()
+                    .like("number", numberOrRealName)
+                    .or()
+                    .like("real_name", numberOrRealName);
+        }
         IPage<Teacher> teachers = teacherService.page(page, queryWrapper);
         return TeacherConverter.INSTANCE.entityToDtoPage(teachers);
     }
@@ -123,7 +129,7 @@ public class AdministratorServiceImpl extends ServiceImpl<AdministratorMapper, A
     }
 
     @Override
-    public StudentDTO addStudent( StudentManagementDTO dto) {
+    public StudentDTO addStudent(StudentManagementDTO dto) {
         String number = dto.getNumber();
         if (UserUtils.getByNumberAndRole(number, RoleEnum.STUDENT) != null) {
             throw new KnownException(ExceptionEnum.USERNAME_EXISTS);
@@ -222,7 +228,7 @@ public class AdministratorServiceImpl extends ServiceImpl<AdministratorMapper, A
     @Override
     public Boolean getApplicationSwitchStatus(ApplicationSwitchEnum switchEnum) {
         Boolean status = null;
-        switch (switchEnum){
+        switch (switchEnum) {
             case ELECT_SWITCH:
                 status = ApplicationSwtich.isElectEnabled();
                 break;

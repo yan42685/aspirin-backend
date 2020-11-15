@@ -13,6 +13,11 @@ public interface FacultyService extends IService<Faculty> {
     String getNumberByName(String name);
 
     /**
+     * 根据编号获取学院名
+     */
+    String getNameByNumber(String number);
+
+    /**
      * 获取所有学院
      */
     List<FacultyDTO> getList();

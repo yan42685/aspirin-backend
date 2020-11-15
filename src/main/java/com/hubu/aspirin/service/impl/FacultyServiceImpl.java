@@ -25,6 +25,13 @@ public class FacultyServiceImpl extends ServiceImpl<FacultyMapper, Faculty> impl
     }
 
     @Override
+    public String getNameByNumber(String number) {
+        QueryWrapper<Faculty> queryWrapper = new QueryWrapper<Faculty>().eq("number", number);
+        Faculty faculty = getOne(queryWrapper);
+        return faculty.getName();
+    }
+
+    @Override
     public List<FacultyDTO> getList() {
         return FacultyConverter.INSTANCE.entityToDtoList(list());
     }

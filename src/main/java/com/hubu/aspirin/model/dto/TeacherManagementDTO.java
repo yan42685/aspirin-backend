@@ -25,4 +25,7 @@ public class TeacherManagementDTO {
 
     @ApiModelProperty(value = "教师编号")
     private String number;
+
+    @ApiModelProperty(value = "学院编号")
+    private String facultyNumber;
 }

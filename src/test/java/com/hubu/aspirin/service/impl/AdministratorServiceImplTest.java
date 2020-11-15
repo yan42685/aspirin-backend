@@ -1,8 +1,5 @@
 package com.hubu.aspirin.service.impl;
 
-import com.hubu.aspirin.enums.GenderEnum;
-import com.hubu.aspirin.model.dto.BulletinDTO;
-import com.hubu.aspirin.model.dto.StudentManagementDTO;
 import com.hubu.aspirin.service.AdministratorService;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
