@@ -44,8 +44,7 @@ public class UnifiedExceptionHandler {
     /**
      * 处理已知异常
      */
-    // TODO: 为了方便前端写代码，暂时不返回400状态码
-//    @ResponseStatus(HttpStatus.BAD_REQUEST)  // 400状态码
+    @ResponseStatus(HttpStatus.BAD_REQUEST)  // 400状态码
     @ExceptionHandler(KnownException.class)
     public JsonWrapper<String> handleKnownException(KnownException e, HttpServletRequest request) {
         String stackTrack = Arrays.toString(e.getStackTrace());
