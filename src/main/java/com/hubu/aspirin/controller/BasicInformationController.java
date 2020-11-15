@@ -2,12 +2,14 @@ package com.hubu.aspirin.controller;
 
 
 import com.hubu.aspirin.common.JsonWrapper;
+import com.hubu.aspirin.enums.RoleEnum;
 import com.hubu.aspirin.model.dto.ClassroomDTO;
 import com.hubu.aspirin.model.dto.FacultyDTO;
 import com.hubu.aspirin.model.dto.SpecialtyDTO;
 import com.hubu.aspirin.service.ClassroomService;
 import com.hubu.aspirin.service.FacultyService;
 import com.hubu.aspirin.service.SpecialtyService;
+import com.hubu.aspirin.util.UserUtils;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -59,5 +61,12 @@ public class BasicInformationController {
     @GetMapping("classroom/list")
     public JsonWrapper<List<ClassroomDTO>> getClassroomList() {
         return new JsonWrapper<>(classroomService.getList());
+    }
+
+    @ApiOperation("判断用户是否存在")
+    @GetMapping("user/is_existed")
+    public JsonWrapper<Boolean> isUserExisted(String number, RoleEnum role) {
+        boolean isUserExisted = UserUtils.getByNumberAndRole(number, role) != null;
+        return new JsonWrapper<>(isUserExisted);
     }
 }
