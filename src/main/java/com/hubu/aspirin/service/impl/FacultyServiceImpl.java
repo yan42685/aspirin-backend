@@ -28,7 +28,7 @@ public class FacultyServiceImpl extends ServiceImpl<FacultyMapper, Faculty> impl
     public String getNameByNumber(String number) {
         QueryWrapper<Faculty> queryWrapper = new QueryWrapper<Faculty>().eq("number", number);
         Faculty faculty = getOne(queryWrapper);
-        return faculty.getName();
+        return faculty == null ? "" : faculty.getName();
     }
 
     @Override
