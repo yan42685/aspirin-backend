@@ -66,7 +66,7 @@ public class StudentServiceImpl extends ServiceImpl<StudentMapper, Student> impl
     @Override
     public IPage<StudentDTO> pageByQueryDto(Integer current, Integer size, StudentQueryDTO info) {
         Page<StudentDTO> page = new Page<>(current, size);
-        return studentMapper.page(page, info);
+        return studentMapper.fuzzyPage(page, info);
     }
 
     @Override

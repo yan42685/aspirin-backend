@@ -32,7 +32,7 @@
         where student.id = #{id};
     </select>
 
-    <select id="page" resultType="com.hubu.aspirin.model.dto.StudentDTO">
+    <select id="fuzzyPage" resultType="com.hubu.aspirin.model.dto.StudentDTO">
         <include refid="getDTO">
         </include>
         <where>

@@ -15,5 +15,5 @@ public interface StudentMapper extends BaseMapper<Student> {
     StudentDTO getDtoById(Long id);
 
     // NOTE: 如果只有一个参数，xml里可以直接写参数名, 否则涂药@Param注解
-    IPage<StudentDTO> page(Page<StudentDTO> page, @Param("info") StudentQueryDTO info);
+    IPage<StudentDTO> fuzzyPage(Page<StudentDTO> page, @Param("info") StudentQueryDTO info);
 }

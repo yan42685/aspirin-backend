@@ -3,12 +3,8 @@ package com.hubu.aspirin.controller;
 
 import com.hubu.aspirin.common.JsonWrapper;
 import com.hubu.aspirin.enums.RoleEnum;
-import com.hubu.aspirin.model.dto.ClassroomDTO;
-import com.hubu.aspirin.model.dto.FacultyDTO;
-import com.hubu.aspirin.model.dto.SpecialtyDTO;
-import com.hubu.aspirin.service.ClassroomService;
-import com.hubu.aspirin.service.FacultyService;
-import com.hubu.aspirin.service.SpecialtyService;
+import com.hubu.aspirin.model.dto.*;
+import com.hubu.aspirin.service.*;
 import com.hubu.aspirin.util.UserUtils;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -32,6 +28,10 @@ public class BasicInformationController {
     SpecialtyService specialtyService;
     @Autowired
     ClassroomService classroomService;
+    @Autowired
+    StudentService studentService;
+    @Autowired
+    TeacherService teacherService;
 
     @ApiOperation(value = "获取所有学院信息")
     @GetMapping("faculty-names")
@@ -68,5 +68,17 @@ public class BasicInformationController {
     public JsonWrapper<Boolean> isUserExisted(String number, RoleEnum role) {
         boolean isUserExisted = UserUtils.getByNumberAndRole(number, role) != null;
         return new JsonWrapper<>(isUserExisted);
+    }
+
+    @ApiOperation("根据学号获取学生信息")
+    @GetMapping("student")
+    public JsonWrapper<StudentDTO> getStudentByNumber(String number) {
+        return new JsonWrapper<>(studentService.getDtoByNumber(number));
+    }
+
+    @ApiOperation("根据工号获取教师信息")
+    @GetMapping("teacher")
+    public JsonWrapper<TeacherDTO> getTeacherByNumber(String number) {
+        return new JsonWrapper<>(teacherService.getDtoByNumber(number));
     }
 }
