@@ -169,7 +169,7 @@ public class AdministratorServiceImpl extends ServiceImpl<AdministratorMapper, A
 
     @Override
     public boolean deleteStudent(String number) {
-        User user = UserUtils.getByNumberAndRole(number, RoleEnum.TEACHER);
+        User user = UserUtils.getByNumberAndRole(number, RoleEnum.STUDENT);
         if (user == null) {
             throw new KnownException(ExceptionEnum.USER_NOT_EXISTS);
         }
