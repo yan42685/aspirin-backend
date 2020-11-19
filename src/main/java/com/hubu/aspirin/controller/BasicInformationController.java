@@ -2,6 +2,7 @@ package com.hubu.aspirin.controller;
 
 
 import com.hubu.aspirin.common.JsonWrapper;
+import com.hubu.aspirin.enums.CourseTypeEnum;
 import com.hubu.aspirin.enums.RoleEnum;
 import com.hubu.aspirin.model.dto.*;
 import com.hubu.aspirin.service.*;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -80,5 +82,11 @@ public class BasicInformationController {
     @GetMapping("teacher")
     public JsonWrapper<TeacherDTO> getTeacherByNumber(String number) {
         return new JsonWrapper<>(teacherService.getDtoByNumber(number));
+    }
+
+    @ApiOperation("获取所有课程类型")
+    @GetMapping("course-type/list")
+    public JsonWrapper<List<CourseTypeEnum>> getAllCourseType() {
+        return new JsonWrapper<>(Arrays.asList(CourseTypeEnum.values()));
     }
 }
