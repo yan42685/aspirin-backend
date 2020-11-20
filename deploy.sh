@@ -49,7 +49,6 @@ health_check() {
 }
 start_application() {
     echo "starting java process"
-
     ls
     nohup java -jar ${JAR_NAME} > ${JAVA_OUT} 2>&1 &
     echo "started java process"
