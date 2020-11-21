@@ -28,6 +28,7 @@
         <qiniu-java-sdk.version>[7.3.0, 7.3.99]</qiniu-java-sdk.version>
         <!--       运行 mvn typescript-generator:generate 生成ts文件 -->
         <!--        NOTE: 这个生成TS的插件的Spring的版本要求很苛刻，2.25.695版本的生成器基本只能用 2.3.4.RELEASE, 更高的版本可能有依赖的bug-->
+        <!--        NOTE: 第一次运行可能会报错，找不到input class, 再运行一两次就好了-->
         <typescript-generator-maven-plugin.version>2.25.695</typescript-generator-maven-plugin.version>
         <typescript-generator-spring.version>2.25.695</typescript-generator-spring.version>
 
@@ -172,8 +173,18 @@
                     <classPatterns>
                         <pattern>com.hubu.aspirin.model.dto.**</pattern>
                         <pattern>com.hubu.aspirin.enums.**</pattern>
+                        <pattern>com.hubu.aspirin.controller.**</pattern>
                     </classPatterns>
-                    <scanSpringApplication>true</scanSpringApplication>
+                    <!--                    可调整项-->
+                    <!--   是否开启接口生成接口，类生成类                 -->
+                    <!--                    <mapClasses>asClasses</mapClasses>-->
+                    <!--                    类生成类的pattern -->
+                    <!--                    <mapClassesAsClassesPatterns>-->
+                    <!--                        <pattern></pattern>-->
+                    <!--                    </mapClassesAsClassesPatterns>-->
+                    <!--                    <generateConstructors>true</generateConstructors>-->
+
+                    <noFileComment>true</noFileComment>
                     <generateSpringApplicationInterface>true</generateSpringApplicationInterface>
                     <generateSpringApplicationClient>true</generateSpringApplicationClient>
                     <outputKind>module</outputKind>
@@ -182,9 +193,9 @@
                     <outputFileType>implementationFile</outputFileType>
                     <!--                    Java Enum转换为 TS的 Enum 而不是Union-->
                     <mapEnum>asEnum</mapEnum>
-                    <extensions>
-                        <extension>cz.habarta.typescript.generator.ext.AxiosClientExtension</extension>
-                    </extensions>
+                    <!--                    <extensions>-->
+                    <!--                        <extension>cz.habarta.typescript.generator.ext.AxiosClientExtension</extension>-->
+                    <!--                    </extensions>-->
                 </configuration>
                 <dependencies>
                     <dependency>
