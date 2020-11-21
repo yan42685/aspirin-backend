@@ -28,7 +28,7 @@ public class TestController {
     @ApiOperation("翻转字符串")
     @ApiImplicitParam(name = "str", value = "原始字符串", paramType = "query", dataType = "string")
     @GetMapping("reverse")
-    JsonWrapper<String> reverse(@NotBlank(message = "输入字符串不能为空") String str) {
+    public JsonWrapper<String> reverse(@NotBlank(message = "输入字符串不能为空") String str) {
         return new JsonWrapper<>(new StringBuilder(str).reverse().toString());
     }
 
@@ -38,13 +38,13 @@ public class TestController {
             @ApiImplicitParam(name = "y", value = "被加数", dataType = "int")
     })
     @GetMapping("add")
-    JsonWrapper<Integer> add(int x, int y) {
+    public JsonWrapper<Integer> add(int x, int y) {
         return new JsonWrapper<>(x + y);
     }
 
     @ApiOperation("生成密码")
     @GetMapping("password")
-    JsonWrapper<String> reverse(String username, String rawPassword) {
+    public JsonWrapper<String> reverse(String username, String rawPassword) {
         return new JsonWrapper<>(UserUtils.generatePassword(username, rawPassword));
     }
 }

@@ -5,10 +5,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/api")
-public class TestController2 {
-    @GetMapping("bc")
-    String testString(Integer a) {
-        return a.toString();
+@RequestMapping("api")
+public class BasincController {
+    @GetMapping(value = "/logs/{class}")
+    public String getString(Integer integer) {
+        return integer.toString();
     }
 }
