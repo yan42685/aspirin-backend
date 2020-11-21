@@ -1,5 +1,6 @@
 package com.hubu.aspirin.enums;
 
+import com.fasterxml.jackson.annotation.JsonValue;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
@@ -46,6 +47,7 @@ public enum ExceptionEnum {
     FUNCTION_DISABLED(-21, "该功能暂未开启");
 
 
+    @JsonValue
     private int errorCode;
     private String errorMsg;
 
