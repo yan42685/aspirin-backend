@@ -47,7 +47,7 @@ public enum ExceptionEnum {
     FUNCTION_DISABLED(-21, "该功能暂未开启");
 
 
-    @JsonValue
+    @JsonValue // typescript-generator根据此注解生成TS Enum的值，如果没有此注解就用枚举的name
     private int errorCode;
     private String errorMsg;
 

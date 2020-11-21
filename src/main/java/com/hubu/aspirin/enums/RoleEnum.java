@@ -2,7 +2,6 @@ package com.hubu.aspirin.enums;
 
 import com.baomidou.mybatisplus.annotation.EnumValue;
 import com.baomidou.mybatisplus.core.enums.IEnum;
-import com.fasterxml.jackson.annotation.JsonValue;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
@@ -22,6 +21,6 @@ public enum RoleEnum implements IEnum<Integer> {
 
     @EnumValue
     private Integer value;
-    @JsonValue
+//    @JsonValue 注释掉 让生成TS的代码用TEACHER这样的字符串
     private String description;
 }
