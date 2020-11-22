@@ -7,12 +7,18 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.mvc.method.RequestMappingInfo;
+import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping;
 
 import javax.validation.constraints.NotBlank;
+import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 /**
  * 文档示例
@@ -25,6 +31,9 @@ import javax.validation.constraints.NotBlank;
 @RestController
 @Validated
 public class TestController {
+    @Autowired
+    private RequestMappingHandlerMapping requestMappingHandlerMapping;
+
     @ApiOperation("翻转字符串")
     @ApiImplicitParam(name = "str", value = "原始字符串", paramType = "query", dataType = "string")
     @GetMapping("reverse")
@@ -46,5 +55,13 @@ public class TestController {
     @GetMapping("password")
     public JsonWrapper<String> reverse(String username, String rawPassword) {
         return new JsonWrapper<>(UserUtils.generatePassword(username, rawPassword));
+    }
+
+    @ApiOperation("api列表")
+    @GetMapping("apiList")
+    public JsonWrapper<List<String>> getRouterList() {
+        Set<RequestMappingInfo> set = requestMappingHandlerMapping.getHandlerMethods().keySet();
+        List<String> routerList = set.stream().map(RequestMappingInfo::toString).collect(Collectors.toList());
+        return new JsonWrapper<>(routerList);
     }
 }
