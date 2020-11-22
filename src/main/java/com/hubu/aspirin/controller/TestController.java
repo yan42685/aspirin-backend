@@ -12,6 +12,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.mvc.condition.PatternsRequestCondition;
 import org.springframework.web.servlet.mvc.method.RequestMappingInfo;
 import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping;
 
@@ -57,11 +58,25 @@ public class TestController {
         return new JsonWrapper<>(UserUtils.generatePassword(username, rawPassword));
     }
 
-    @ApiOperation("api列表")
-    @GetMapping("apiList")
-    public JsonWrapper<List<String>> getRouterList() {
+    @ApiOperation("api详情列表")
+    @GetMapping("apiDetailList")
+    public JsonWrapper<List<String>> getRouterDetailList() {
         Set<RequestMappingInfo> set = requestMappingHandlerMapping.getHandlerMethods().keySet();
-        List<String> routerList = set.stream().map(RequestMappingInfo::toString).collect(Collectors.toList());
-        return new JsonWrapper<>(routerList);
+        List<String> routerDetailList = set.stream().map(RequestMappingInfo::toString).collect(Collectors.toList());
+        return new JsonWrapper<>(routerDetailList);
+    }
+
+    @ApiOperation("api地址列表")
+    @GetMapping("apiUrlList")
+    public JsonWrapper<List<String>> getRouterUrlList() {
+        Set<RequestMappingInfo> set = requestMappingHandlerMapping.getHandlerMethods().keySet();
+        List<String> routerUrlList = set.stream()
+                .map(RequestMappingInfo::getPatternsCondition)
+                .map(PatternsRequestCondition::getPatterns)
+                .map(Set::toString)
+                // 去掉中括号
+                .map(str -> str.substring(1, str.length() - 2))
+                .collect(Collectors.toList());
+        return new JsonWrapper<>(routerUrlList);
     }
 }
