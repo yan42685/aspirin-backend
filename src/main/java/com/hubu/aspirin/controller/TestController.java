@@ -75,7 +75,7 @@ public class TestController {
                 .map(PatternsRequestCondition::getPatterns)
                 .map(Set::toString)
                 // 去掉中括号
-                .map(str -> str.substring(1, str.length() - 2))
+                .map(str -> str.substring(1, str.length() - 1))
                 .collect(Collectors.toList());
         return new JsonWrapper<>(routerUrlList);
     }
