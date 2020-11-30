@@ -3,6 +3,7 @@ package com.hubu.aspirin.controller;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.hubu.aspirin.common.JsonWrapper;
 import com.hubu.aspirin.enums.ApplicationSwitchEnum;
+import com.hubu.aspirin.enums.RoleEnum;
 import com.hubu.aspirin.model.dto.*;
 import com.hubu.aspirin.service.AdministratorService;
 import io.swagger.annotations.Api;
@@ -125,5 +126,11 @@ public class AdministratorController {
     @GetMapping("app-switch")
     JsonWrapper<Boolean> getApplicationSwitchStatus(ApplicationSwitchEnum switchEnum) {
         return new JsonWrapper<>(administratorService.getApplicationSwitchStatus(switchEnum));
+    }
+
+    @ApiOperation("设置用户密码")
+    @PutMapping("information/student/password")
+    JsonWrapper<Boolean> setUserPassword(RoleEnum role, String number, String rawPassword) {
+        return new JsonWrapper<>(administratorService.setUserPassword(role, number, rawPassword));
     }
 }

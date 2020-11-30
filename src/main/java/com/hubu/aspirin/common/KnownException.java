@@ -19,4 +19,12 @@ public class KnownException extends RuntimeException {
         super(exception.getErrorMsg());
         this.errorCode = exception.getErrorCode();
     }
+
+    /**
+     * 自定义 message
+     */
+    public KnownException(String message) {
+        super(message);
+        this.errorCode = -9999;
+    }
 }

@@ -1,6 +1,7 @@
 package com.hubu.aspirin.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
@@ -239,6 +240,26 @@ public class AdministratorServiceImpl extends ServiceImpl<AdministratorMapper, A
                 break;
         }
         return status;
+    }
+
+    @Override
+    public boolean setUserPassword(RoleEnum role, String number, String rawPassword) {
+        if (role == RoleEnum.ADMINISTRATOR) {
+            throw new KnownException("不能修改其他管理员的密码");
+        }
+        User user = UserUtils.getByNumberAndRole(number, role);
+        String password = UserUtils.generatePassword(user.getUsername(), rawPassword);
+        switch (role) {
+            case STUDENT:
+                studentService.update(new LambdaUpdateWrapper<Student>().eq(Student::getNumber, number).set(Student::getPassword, password));
+                break;
+            case TEACHER:
+                teacherService.update(new LambdaUpdateWrapper<Teacher>().eq(Teacher::getNumber, number).set(Teacher::getPassword, password));
+                break;
+            default:
+                break;
+        }
+        return true;
     }
 
 

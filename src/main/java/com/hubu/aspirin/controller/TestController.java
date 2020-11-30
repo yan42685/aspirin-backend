@@ -17,6 +17,7 @@ import org.springframework.web.servlet.mvc.method.RequestMappingInfo;
 import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping;
 
 import javax.validation.constraints.NotBlank;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -62,7 +63,22 @@ public class TestController {
     @GetMapping("apiDetailList")
     public JsonWrapper<List<String>> getRouterDetailList() {
         Set<RequestMappingInfo> set = requestMappingHandlerMapping.getHandlerMethods().keySet();
-        List<String> routerDetailList = set.stream().map(RequestMappingInfo::toString).collect(Collectors.toList());
+
+        List<String> routerDetailList = new ArrayList<>();
+        requestMappingHandlerMapping.getHandlerMethods().forEach((key, value) -> {
+            String methodName = value.getMethod().getName();
+//            String urls= key.getPatternsCondition().getPatterns().toString();
+//            urls = urls.substring(1, urls.length()-1);
+            String info = key.toString();
+            info = info.substring(1, info.length() - 1); // 去掉中括号
+            routerDetailList.add(methodName + ' ' + info);
+        });
+//        for (Map.Entry<RequestMappingInfo, HandlerMethod> requestMappingInfoHandlerMethodEntry : requestMappingHandlerMapping.getHandlerMethods().entrySet()) {
+//            routerDetailList.add(requestMappingInfoHandlerMethodEntry.getValue().getMethod().getName()) ;
+//        }
+//        System.out.println(routerDetailList);
+//
+//        List<String> routerDetailList = set.stream().map(RequestMappingInfo::toString).collect(Collectors.toList());
         return new JsonWrapper<>(routerDetailList);
     }
 
@@ -70,6 +86,7 @@ public class TestController {
     @GetMapping("apiUrlList")
     public JsonWrapper<List<String>> getRouterUrlList() {
         Set<RequestMappingInfo> set = requestMappingHandlerMapping.getHandlerMethods().keySet();
+
         List<String> routerUrlList = set.stream()
                 .map(RequestMappingInfo::getPatternsCondition)
                 .map(PatternsRequestCondition::getPatterns)
