@@ -88,7 +88,8 @@ public class UnifiedExceptionHandler {
     /**
      * 处理Shiro的未认证异常
      */
-    @ResponseStatus(HttpStatus.UNAUTHORIZED)  // 401状态码
+    // NOTE: 返回401， 403会导致前端axios无法获取response (axios源码是这么写的)
+//    @ResponseStatus(HttpStatus.UNAUTHORIZED)  // 401状态码
     @ExceptionHandler(AuthenticationException.class)
     public JsonWrapper<String> handleUnAuthenticationException(Exception e, HttpServletRequest request) {
         int errorCode = ExceptionEnum.WRONG_CREDENTIALS.getErrorCode();
@@ -101,7 +102,8 @@ public class UnifiedExceptionHandler {
     /**
      * 处理Shiro的未授权异常
      */
-    @ResponseStatus(HttpStatus.UNAUTHORIZED)  // 401状态码
+    // NOTE: 返回401， 403会导致前端axios无法获取response (axios源码是这么写的)
+//    @ResponseStatus(HttpStatus.UNAUTHORIZED)  // 401状态码
     @ExceptionHandler(AuthorizationException.class)
     public JsonWrapper<String> handleUnAuthorizationException(Exception e, HttpServletRequest request) {
         int errorCode = ExceptionEnum.NO_PERMISSION.getErrorCode();
