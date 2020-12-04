@@ -18,7 +18,7 @@ public interface CourseService extends IService<Course> {
     /**
      * 添加课程
      */
-    CourseDTO createOne(CourseModifiableDTO courseModifiableDTO);
+    CourseDTO createOne(CourseModifiableDTO courseModifiableDTO, MultipartFile image);
 
     /**
      * 修改课程

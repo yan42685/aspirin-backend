@@ -37,12 +37,16 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
     }
 
     @Override
-    public CourseDTO createOne(CourseModifiableDTO courseModifiableDTO) {
+    public CourseDTO createOne(CourseModifiableDTO courseModifiableDTO, MultipartFile image) {
         Course course = getByNumber(courseModifiableDTO.getNumber());
         if (course != null) {
             throw new KnownException(ExceptionEnum.NUMBER_EXISTS);
         }
         course = CourseConverter.INSTANCE.modifiableDtoToEntity(courseModifiableDTO);
+
+        String newIconUrl = upLoadCourseIcon(course.getNumber(), image);
+        course.setIconUrl(newIconUrl);
+
         save(course);
         Course newCourse = getByNumber(course.getNumber());
         return CourseConverter.INSTANCE.entityToDto(newCourse);
@@ -76,8 +80,6 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
         if (course == null) {
             throw new KnownException(ExceptionEnum.NUMBER_NOT_EXIST);
         }
-        String fileName = file.getOriginalFilename();
-        String uploadKey = "course/" + number + "/icon/" + fileName;
 
         String defaultIconUrl = AspirinConstant.DEFAULT_COURSE_ICON_URL.getValue();
         String oldIconUrl = course.getIconUrl();
@@ -86,19 +88,25 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
             String oldUploadKey = QiniuUtils.getKeyFromUrl(oldIconUrl);
             QiniuUtils.deleteFile(oldUploadKey);
         }
-
-        String newIconUrl;
-        newIconUrl = QiniuUtils.uploadFile(file, uploadKey);
+        String newIconUrl = upLoadCourseIcon(number, file);
         course.setIconUrl(newIconUrl);
         updateById(course);
         return newIconUrl;
     }
 
 
-
     private Course getByNumber(String number) {
         QueryWrapper<Course> queryWrapper = new QueryWrapper<Course>()
                 .eq("number", number);
         return getOne(queryWrapper);
+    }
+
+    /**
+     * @return java.lang.String 上传后的url
+     */
+    private String upLoadCourseIcon(String courseNumber, MultipartFile image) {
+        String fileName = image.getOriginalFilename();
+        String uploadKey = "course/" + courseNumber + "/icon/" + fileName;
+        return QiniuUtils.uploadFile(image, uploadKey);
     }
 }

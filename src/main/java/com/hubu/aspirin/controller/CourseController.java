@@ -35,8 +35,8 @@ public class CourseController {
 
     @ApiOperation("创建课程")
     @PostMapping
-    JsonWrapper<CourseDTO> createOne(CourseModifiableDTO courseModifiableDTO) {
-        return new JsonWrapper<>(courseService.createOne(courseModifiableDTO));
+    JsonWrapper<CourseDTO> createOne(CourseModifiableDTO courseModifiableDTO, MultipartFile image) {
+        return new JsonWrapper<>(courseService.createOne(courseModifiableDTO, image));
     }
 
     @ApiOperation("修改课程")
