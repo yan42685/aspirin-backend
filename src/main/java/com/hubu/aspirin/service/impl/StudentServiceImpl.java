@@ -89,12 +89,11 @@ public class StudentServiceImpl extends ServiceImpl<StudentMapper, Student> impl
     public List<CourseDetailDTO> electCourse(Long courseDetailId) {
         Student student = getCurrentStudent();
         String studentNumber = student.getNumber();
-        String courseNumber = courseDetailService.getCourseNumberById(courseDetailId);
         Integer studentSemester = student.getSemester();
 
         LambdaQueryWrapper<Grade> queryWrapper = new LambdaQueryWrapper<Grade>()
                 .eq(Grade::getStudentNumber, studentNumber)
-                .eq(Grade::getCourseNumber, courseNumber);
+                .eq(Grade::getCourseDetailId, courseDetailId);
         Grade gradeRecord = gradeService.getOne(queryWrapper);
         // 检查是否已选该课程
         if (gradeRecord != null) {
@@ -109,7 +108,7 @@ public class StudentServiceImpl extends ServiceImpl<StudentMapper, Student> impl
         // 检查时间是否没有冲突
         Integer dayOfTheWeek = courseDetailDTO.getDayOfTheWeek();
         Integer schedulingTime = courseDetailDTO.getSchedulingTime();
-        CourseDetailDTO sameTimeElective = studentCourseDetailMapper.OneByStudentNumberAndDayOfTheWeekAndSchedulingTime(studentNumber, dayOfTheWeek, schedulingTime);
+        CourseDetailDTO sameTimeElective = studentCourseDetailMapper.OneByStudentNumberAndDayOfTheWeekAndSchedulingTime(studentNumber, dayOfTheWeek, schedulingTime, ElectiveStatusEnum.CHOSEN.getValue());
         if (sameTimeElective != null) {
             throw new KnownException(ExceptionEnum.STUDENT_NOT_AVAILABLE);
         }
@@ -124,7 +123,7 @@ public class StudentServiceImpl extends ServiceImpl<StudentMapper, Student> impl
         // 添加空成绩记录
         Grade grade = new Grade()
                 .setStudentNumber(studentNumber)
-                .setCourseNumber(courseNumber);
+                .setCourseDetailId(courseDetailId);
         gradeService.save(grade);
         return getCourseSchedule(studentSemester);
     }
@@ -157,7 +156,7 @@ public class StudentServiceImpl extends ServiceImpl<StudentMapper, Student> impl
         String courseNumber = courseDetailService.getCourseNumberById(courseDetailId);
         LambdaQueryWrapper<Grade> lambdaQueryWrapper = new LambdaQueryWrapper<Grade>()
                 .eq(Grade::getStudentNumber, student.getNumber())
-                .eq(Grade::getCourseNumber, courseNumber);
+                .eq(Grade::getCourseDetailId, courseDetailId);
         gradeService.remove(lambdaQueryWrapper);
 
         return getCourseSchedule(semester);

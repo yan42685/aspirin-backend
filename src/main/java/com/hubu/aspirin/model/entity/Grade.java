@@ -1,13 +1,13 @@
 package com.hubu.aspirin.model.entity;
 
-import java.math.BigDecimal;
-import java.time.LocalDateTime;
-import java.io.Serializable;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
+
+import java.io.Serializable;
+import java.time.LocalDateTime;
 
 @Data
 @EqualsAndHashCode(callSuper = false)
@@ -29,8 +29,8 @@ public class Grade implements Serializable {
     @ApiModelProperty(value = "学生编号")
     private String studentNumber;
 
-    @ApiModelProperty(value = "课程编号")
-    private String courseNumber;
+    @ApiModelProperty(value = "课程详情id")
+    private Long courseDetailId;
 
     @ApiModelProperty(value = "平时分")
     private Float regularScores;

@@ -1,12 +1,11 @@
 package com.hubu.aspirin.mapper;
 
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.hubu.aspirin.model.dto.CourseDetailDTO;
 import com.hubu.aspirin.model.dto.CourseDropDTO;
-import com.hubu.aspirin.model.entity.CourseDetail;
 import com.hubu.aspirin.model.entity.StudentCourseDetail;
-import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
@@ -23,5 +22,6 @@ public interface StudentCourseDetailMapper extends BaseMapper<StudentCourseDetai
 
     CourseDetailDTO OneByStudentNumberAndDayOfTheWeekAndSchedulingTime(@Param("studentNumber") String studentNumber,
                                                                        @Param("dayOfTheWeek") Integer dayOfTheWeek,
-                                                                       @Param("schedulingTime") Integer schedulingTime);
+                                                                       @Param("schedulingTime") Integer schedulingTime,
+                                                                       @Param("chosen") Integer chosen);
 }

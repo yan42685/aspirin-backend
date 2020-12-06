@@ -68,6 +68,6 @@
     <select id="getDtoById" resultType="com.hubu.aspirin.model.dto.CourseDetailDTO">
         <include refid="getCourseDetailDTO">
         </include>
-        where courseDetailId = #{id}
+        where course_detail.id = #{id}
     </select>
 </mapper>

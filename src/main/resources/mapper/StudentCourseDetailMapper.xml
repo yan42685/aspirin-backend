@@ -72,5 +72,6 @@
         where student.number = #{studentNumber}
         and course_detail.day_of_the_week = #{dayOfTheWeek}
         and course_detail.scheduling_time = #{schedulingTime}
+        and student_course_detail.status = 0
     </select>
 </mapper>
