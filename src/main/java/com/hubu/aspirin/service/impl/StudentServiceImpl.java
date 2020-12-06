@@ -135,10 +135,10 @@ public class StudentServiceImpl extends ServiceImpl<StudentMapper, Student> impl
         String number = student.getNumber();
         Integer semester = student.getSemester();
 
-        QueryWrapper<StudentCourseDetail> queryWrapper = new QueryWrapper<StudentCourseDetail>()
-                .eq("course_detail_id", courseDetailId)
-                .eq("student_number", number)
-                .eq("status", ElectiveStatusEnum.CHOSEN);
+        LambdaQueryWrapper<StudentCourseDetail> queryWrapper = new LambdaQueryWrapper<StudentCourseDetail>()
+                .eq(StudentCourseDetail::getCourseDetailId, courseDetailId)
+                .eq(StudentCourseDetail::getStudentNumber, number)
+                .eq(StudentCourseDetail::getStatus, ElectiveStatusEnum.CHOSEN);
         StudentCourseDetail previous = studentCourseDetailService.getOne(queryWrapper);
         if (previous == null) {
             throw new KnownException(ExceptionEnum.DROP_COURSE_NOT_FOUND);
