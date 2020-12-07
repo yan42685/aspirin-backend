@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.hubu.aspirin.mapper.GradeMapper">
     <sql id="getGradeDto">
-        select teacher.real_name                                    as teacherName,
+        select distinct teacher.real_name                                    as teacherName,
                course_detail.course_number,
                course.name                                          as courseName,
                course.type,

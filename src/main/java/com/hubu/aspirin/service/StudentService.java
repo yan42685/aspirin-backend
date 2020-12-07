@@ -51,6 +51,7 @@ public interface StudentService extends IService<Student> {
      */
     List<ElectiveDTO> dropCourse(Long courseDetailId);
 
+
     /**
      * 查看退课记录
      */
@@ -61,4 +62,6 @@ public interface StudentService extends IService<Student> {
      */
     IPage<GradeDTO> pageGrade(Integer current, Integer size, Integer semester);
 
+//    /** 查看所有成绩 */
+//    List<List<GradeDTO>>
 }
