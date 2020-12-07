@@ -34,8 +34,8 @@ public class StudentController {
 
     @ApiOperation("分类查看选课表")
     @GetMapping("available-course-list")
-    JsonWrapper<List<ElectiveDTO>> availableCourseDetailList(Integer semester, CourseTypeEnum courseType) {
-        return new JsonWrapper<>(studentService.availableCourseDetailList(semester, courseType));
+    JsonWrapper<List<ElectiveDTO>> availableElectiveList(Integer semester, CourseTypeEnum courseType) {
+        return new JsonWrapper<>(studentService.availableElectiveList(semester, courseType));
     }
 
     @ApiOperation(value = "获取课程表")
@@ -46,13 +46,13 @@ public class StudentController {
 
     @ApiOperation(value = "选课", notes = "返回课程表")
     @PostMapping("elective")
-    JsonWrapper<List<CourseDetailDTO>> electCourse(Long courseDetailId) {
+    JsonWrapper<List<ElectiveDTO>> electCourse(Long courseDetailId) {
         return new JsonWrapper<>(studentService.electCourse(courseDetailId));
     }
 
     @ApiOperation("退课")
     @DeleteMapping("elective")
-    JsonWrapper<List<CourseDetailDTO>> dropCourse(Long courseDetailId) {
+    JsonWrapper<List<ElectiveDTO>> dropCourse(Long courseDetailId) {
         return new JsonWrapper<>(studentService.dropCourse(courseDetailId));
     }
 

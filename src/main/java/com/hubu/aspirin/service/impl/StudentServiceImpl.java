@@ -80,7 +80,7 @@ public class StudentServiceImpl extends ServiceImpl<StudentMapper, Student> impl
 
     @CheckElectSwitch
     @Override
-    public List<ElectiveDTO> availableCourseDetailList(Integer semester, CourseTypeEnum courseType) {
+    public List<ElectiveDTO> availableElectiveList(Integer semester, CourseTypeEnum courseType) {
         Student student = getCurrentStudent();
         String specialtyNumber = student.getSpecialtyNumber();
         List<CourseDetailDTO> courseDetailDTOs = courseDetailService.studentAvailableCourseList(specialtyNumber, semester, courseType);
@@ -110,7 +110,7 @@ public class StudentServiceImpl extends ServiceImpl<StudentMapper, Student> impl
 
     @CheckElectSwitch
     @Override
-    public List<CourseDetailDTO> electCourse(Long courseDetailId) {
+    public List<ElectiveDTO> electCourse(Long courseDetailId) {
         Student student = getCurrentStudent();
         String studentNumber = student.getNumber();
         Integer studentSemester = student.getSemester();
@@ -149,12 +149,13 @@ public class StudentServiceImpl extends ServiceImpl<StudentMapper, Student> impl
                 .setStudentNumber(studentNumber)
                 .setCourseDetailId(courseDetailId);
         gradeService.save(grade);
-        return getCourseSchedule(studentSemester);
+
+        return availableElectiveList(student.getSemester(), courseDetailDTO.getType());
     }
 
     @CheckElectSwitch
     @Override
-    public List<CourseDetailDTO> dropCourse(Long courseDetailId) {
+    public List<ElectiveDTO> dropCourse(Long courseDetailId) {
         Student student = getCurrentStudent();
         String number = student.getNumber();
         Integer semester = student.getSemester();
@@ -182,7 +183,8 @@ public class StudentServiceImpl extends ServiceImpl<StudentMapper, Student> impl
                 .eq(Grade::getCourseDetailId, courseDetailId);
         gradeService.remove(lambdaQueryWrapper);
 
-        return getCourseSchedule(semester);
+        CourseTypeEnum courseType = courseDetailService.getDtoById(courseDetailId).getType();
+        return availableElectiveList(semester, courseType);
     }
 
     @CheckElectSwitch
@@ -206,5 +208,6 @@ public class StudentServiceImpl extends ServiceImpl<StudentMapper, Student> impl
         QueryWrapper<Student> queryWrapper = new QueryWrapper<Student>().eq("username", username);
         return getOne(queryWrapper);
     }
+
 
 }
