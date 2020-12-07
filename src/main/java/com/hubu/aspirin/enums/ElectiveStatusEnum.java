@@ -11,7 +11,8 @@ import lombok.Getter;
 @Getter
 public enum ElectiveStatusEnum {
     CHOSEN(0, "已选择"),
-    DROPPED(1, "已退课");
+    DROPPED(1, "已退课"),
+    UNCHOSEN(2, "未选择");
 
     @EnumValue // 标记数据库存的值
     private Integer value;

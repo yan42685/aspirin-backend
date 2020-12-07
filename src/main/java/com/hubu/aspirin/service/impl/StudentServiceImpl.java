@@ -7,6 +7,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.hubu.aspirin.common.KnownException;
 import com.hubu.aspirin.common.annotation.CheckElectSwitch;
+import com.hubu.aspirin.converter.CourseDetailConverter;
 import com.hubu.aspirin.converter.StudentConverter;
 import com.hubu.aspirin.enums.CourseTypeEnum;
 import com.hubu.aspirin.enums.ElectiveStatusEnum;
@@ -27,6 +28,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class StudentServiceImpl extends ServiceImpl<StudentMapper, Student> implements StudentService {
@@ -78,10 +80,32 @@ public class StudentServiceImpl extends ServiceImpl<StudentMapper, Student> impl
 
     @CheckElectSwitch
     @Override
-    public List<CourseDetailDTO> availableCourseDetailList(Integer semester, CourseTypeEnum courseType) {
+    public List<ElectiveDTO> availableCourseDetailList(Integer semester, CourseTypeEnum courseType) {
         Student student = getCurrentStudent();
         String specialtyNumber = student.getSpecialtyNumber();
-        return courseDetailService.studentAvailableCourseList(specialtyNumber, semester, courseType);
+        List<CourseDetailDTO> courseDetailDTOS = courseDetailService.studentAvailableCourseList(specialtyNumber, semester, courseType);
+        List<ElectiveDTO> electiveDTOS = CourseDetailConverter.INSTANCE.courseDetailDTOList2ElectiveDtos(courseDetailDTOS);
+
+        LambdaQueryWrapper<StudentCourseDetail> chosenQueryWrapper = new LambdaQueryWrapper<StudentCourseDetail>()
+                .eq(StudentCourseDetail::getStudentNumber, student.getNumber())
+                .eq(StudentCourseDetail::getStatus, ElectiveStatusEnum.CHOSEN);
+        LambdaQueryWrapper<StudentCourseDetail> droppedQueryWrapper = new LambdaQueryWrapper<StudentCourseDetail>()
+                .eq(StudentCourseDetail::getStudentNumber, student.getNumber())
+                .eq(StudentCourseDetail::getStatus, ElectiveStatusEnum.DROPPED);
+        List<Long> chosenCourseDetailIds = studentCourseDetailService.list(chosenQueryWrapper).stream().map(StudentCourseDetail::getCourseDetailId).collect(Collectors.toList());
+        List<Long> droppedCourseDetailIds = studentCourseDetailService.list(droppedQueryWrapper).stream().map(StudentCourseDetail::getCourseDetailId).collect(Collectors.toList());
+
+        electiveDTOS.forEach(dto -> {
+            Long courseDetailId = dto.getId();
+            if (chosenCourseDetailIds.contains(courseDetailId)) {
+                dto.setStatus(ElectiveStatusEnum.CHOSEN);
+            } else if (droppedCourseDetailIds.contains(courseDetailId)) {
+                dto.setStatus(ElectiveStatusEnum.DROPPED);
+            } else {
+                dto.setStatus(ElectiveStatusEnum.UNCHOSEN);
+            }
+        });
+        return electiveDTOS;
     }
 
     @CheckElectSwitch

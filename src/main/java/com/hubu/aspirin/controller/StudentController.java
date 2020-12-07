@@ -34,7 +34,7 @@ public class StudentController {
 
     @ApiOperation("分类查看选课表")
     @GetMapping("available-course-list")
-    JsonWrapper<List<CourseDetailDTO>> availableCourseDetailList(Integer semester, CourseTypeEnum courseType) {
+    JsonWrapper<List<ElectiveDTO>> availableCourseDetailList(Integer semester, CourseTypeEnum courseType) {
         return new JsonWrapper<>(studentService.availableCourseDetailList(semester, courseType));
     }
 

@@ -34,7 +34,7 @@ public interface StudentService extends IService<Student> {
     /**
      * 分类查看可选课程
      */
-    List<CourseDetailDTO> availableCourseDetailList(Integer semester, CourseTypeEnum courseType);
+    List<ElectiveDTO> availableCourseDetailList(Integer semester, CourseTypeEnum courseType);
 
     /**
      * 获取课程表
