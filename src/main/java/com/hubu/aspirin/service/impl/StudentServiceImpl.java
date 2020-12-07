@@ -83,8 +83,8 @@ public class StudentServiceImpl extends ServiceImpl<StudentMapper, Student> impl
     public List<ElectiveDTO> availableCourseDetailList(Integer semester, CourseTypeEnum courseType) {
         Student student = getCurrentStudent();
         String specialtyNumber = student.getSpecialtyNumber();
-        List<CourseDetailDTO> courseDetailDTOS = courseDetailService.studentAvailableCourseList(specialtyNumber, semester, courseType);
-        List<ElectiveDTO> electiveDTOS = CourseDetailConverter.INSTANCE.courseDetailDTOList2ElectiveDtos(courseDetailDTOS);
+        List<CourseDetailDTO> courseDetailDTOs = courseDetailService.studentAvailableCourseList(specialtyNumber, semester, courseType);
+        List<ElectiveDTO> electiveDTOs = CourseDetailConverter.INSTANCE.courseDetailDTOList2ElectiveDtos(courseDetailDTOs);
 
         LambdaQueryWrapper<StudentCourseDetail> chosenQueryWrapper = new LambdaQueryWrapper<StudentCourseDetail>()
                 .eq(StudentCourseDetail::getStudentNumber, student.getNumber())
@@ -95,7 +95,7 @@ public class StudentServiceImpl extends ServiceImpl<StudentMapper, Student> impl
         List<Long> chosenCourseDetailIds = studentCourseDetailService.list(chosenQueryWrapper).stream().map(StudentCourseDetail::getCourseDetailId).collect(Collectors.toList());
         List<Long> droppedCourseDetailIds = studentCourseDetailService.list(droppedQueryWrapper).stream().map(StudentCourseDetail::getCourseDetailId).collect(Collectors.toList());
 
-        electiveDTOS.forEach(dto -> {
+        electiveDTOs.forEach(dto -> {
             Long courseDetailId = dto.getId();
             if (chosenCourseDetailIds.contains(courseDetailId)) {
                 dto.setStatus(ElectiveStatusEnum.CHOSEN);
@@ -105,7 +105,7 @@ public class StudentServiceImpl extends ServiceImpl<StudentMapper, Student> impl
                 dto.setStatus(ElectiveStatusEnum.UNCHOSEN);
             }
         });
-        return electiveDTOS;
+        return electiveDTOs;
     }
 
     @CheckElectSwitch
