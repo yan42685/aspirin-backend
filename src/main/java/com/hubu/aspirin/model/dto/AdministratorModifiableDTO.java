@@ -26,9 +26,6 @@ public class AdministratorModifiableDTO {
     @ApiModelProperty(value = "昵称")
     private String nickname;
 
-    @ApiModelProperty(value = "头像URL")
-    private String avatarUrl;
-
     @ApiModelProperty(value = "工号")
     private String number;
 

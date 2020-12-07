@@ -27,6 +27,7 @@
         where student.number = #{studentNumber}
         and course_detail.semester = #{courseSemester}
         and student_course_detail.status = #{chosen}
+        and grade.submitted = 1
     </select>
 
     <sql id="getMarkOutputDTO">

@@ -1,6 +1,7 @@
 package com.hubu.aspirin.service.impl;
 
 import com.hubu.aspirin.service.AdministratorService;
+import com.hubu.aspirin.service.StudentService;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +16,8 @@ class AdministratorServiceImplTest {
 
     @Autowired
     AdministratorService administratorService;
+    @Autowired
+    StudentService studentService;
 
     @Test
     void pageStudentByNumberOrRealName() {
@@ -22,6 +25,7 @@ class AdministratorServiceImplTest {
 
     @Test
     void updateStudent() {
+
     }
 }
 
