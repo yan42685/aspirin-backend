@@ -37,7 +37,7 @@ public class UnifiedExceptionHandler {
         String errorMessage = ExceptionEnum.UNKNOWN_EXCEPTION.getErrorMsg();
         String stackTrack = Arrays.toString(e.getStackTrace());
         log.error("url: {} | exceptionClass: {} | msg: {}", request.getRequestURL(), e.getClass(), stackTrack);
-        return new JsonWrapper<>(errorCode, errorMessage + stackTrack);
+        return new JsonWrapper<>(errorCode, errorMessage);
     }
 
     /**
