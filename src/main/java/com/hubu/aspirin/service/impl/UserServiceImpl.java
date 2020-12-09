@@ -20,6 +20,7 @@ import com.hubu.aspirin.service.StudentService;
 import com.hubu.aspirin.service.TeacherService;
 import com.hubu.aspirin.service.UserService;
 import com.hubu.aspirin.util.QiniuUtils;
+import com.hubu.aspirin.util.ServletUtils;
 import com.hubu.aspirin.util.UserUtils;
 import com.hubu.aspirin.util.VerificationCodeUtils;
 import org.apache.shiro.SecurityUtils;
@@ -44,9 +45,9 @@ public class UserServiceImpl implements UserService {
     public UserDTO login(LoginTokenDTO dto) {
         // TODO: 上线后开放验证码检查
         if (!CustomConfig.isDebug) {
-            RoleEnum role = UserUtils.getCurrentRole();
+            String role = ServletUtils.getHeader("role");
             // 对管理员检查验证码
-            if (RoleEnum.ADMINISTRATOR.equals(role)) {
+            if ("ADMINISTRATOR".equalsIgnoreCase(role)) {
                 VerificationCodeUtils.checkCode();
             }
         }
