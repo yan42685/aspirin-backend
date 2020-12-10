@@ -2,11 +2,10 @@ package com.hubu.aspirin.service;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.hubu.aspirin.model.dto.MarkInputDTO;
-import com.hubu.aspirin.model.dto.MarkOutputDTO;
-import com.hubu.aspirin.model.dto.TeacherDTO;
-import com.hubu.aspirin.model.dto.TeacherModifiableDTO;
+import com.hubu.aspirin.model.dto.*;
 import com.hubu.aspirin.model.entity.Teacher;
+
+import java.util.List;
 
 public interface TeacherService extends IService<Teacher> {
     /**
@@ -23,6 +22,11 @@ public interface TeacherService extends IService<Teacher> {
      * 修改个人信息
      */
     TeacherDTO updateInformation(TeacherModifiableDTO dto);
+
+    /**
+     * 获取所教课程
+     */
+    List<TeacherCourseDTO> getTeachesCourseDtoList();
 
     /**
      * 打分页面

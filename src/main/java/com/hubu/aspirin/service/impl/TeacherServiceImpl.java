@@ -10,12 +10,10 @@ import com.hubu.aspirin.common.annotation.CheckMarkSwitch;
 import com.hubu.aspirin.converter.TeacherConverter;
 import com.hubu.aspirin.enums.ExceptionEnum;
 import com.hubu.aspirin.enums.RoleEnum;
+import com.hubu.aspirin.mapper.CourseDetailMapper;
 import com.hubu.aspirin.mapper.GradeMapper;
 import com.hubu.aspirin.mapper.TeacherMapper;
-import com.hubu.aspirin.model.dto.MarkInputDTO;
-import com.hubu.aspirin.model.dto.MarkOutputDTO;
-import com.hubu.aspirin.model.dto.TeacherDTO;
-import com.hubu.aspirin.model.dto.TeacherModifiableDTO;
+import com.hubu.aspirin.model.dto.*;
 import com.hubu.aspirin.model.entity.Grade;
 import com.hubu.aspirin.model.entity.Teacher;
 import com.hubu.aspirin.model.entity.User;
@@ -26,12 +24,16 @@ import org.apache.shiro.SecurityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class TeacherServiceImpl extends ServiceImpl<TeacherMapper, Teacher> implements TeacherService {
     @Autowired
     GradeMapper gradeMapper;
     @Autowired
     GradeService gradeService;
+    @Autowired
+    CourseDetailMapper courseDetailMapper;
 
     @Override
     public TeacherDTO getDtoByNumber(String number) {
@@ -57,6 +59,12 @@ public class TeacherServiceImpl extends ServiceImpl<TeacherMapper, Teacher> impl
         TeacherConverter.INSTANCE.updateEntityFromModifiableDto(dto, currentTeacher);
         updateById(currentTeacher);
         return getDtoByNumber(currentTeacher.getNumber());
+    }
+
+    @Override
+    public List<TeacherCourseDTO> getTeachesCourseDtoList() {
+        String teacherNumber = getCurrentTeacher().getNumber();
+        return courseDetailMapper.listTeacherCourseDtoByTeacherNumber(teacherNumber);
     }
 
     @CheckMarkSwitch

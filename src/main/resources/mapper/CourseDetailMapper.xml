@@ -70,4 +70,21 @@
         </include>
         where course_detail.id = #{id}
     </select>
+
+    <select id="listTeacherCourseDtoByTeacherNumber" resultType="com.hubu.aspirin.model.dto.TeacherCourseDTO">
+        select specialty.name   as specialtyName,
+               course_detail.id as courseDetailId,
+               course_detail.course_number,
+               course.name      as courseName,
+               course.type,
+               course.period,
+               course.credit,
+               course_detail.semester
+        from course_detail
+                     left join course on course.number = course_detail.course_number
+                     left join specialty_course on course.number = specialty_course.course_number
+                     left join specialty on specialty_course.specialty_number = specialty.number
+
+        where course_detail.teacher_number = #{teacherNumber}
+    </select>
 </mapper>

@@ -2,15 +2,14 @@ package com.hubu.aspirin.controller;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.hubu.aspirin.common.JsonWrapper;
-import com.hubu.aspirin.model.dto.MarkInputDTO;
-import com.hubu.aspirin.model.dto.MarkOutputDTO;
-import com.hubu.aspirin.model.dto.TeacherDTO;
-import com.hubu.aspirin.model.dto.TeacherModifiableDTO;
+import com.hubu.aspirin.model.dto.*;
 import com.hubu.aspirin.service.TeacherService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @Api(tags = "教师")
 //@RequiresRoles("teacher")
@@ -32,6 +31,13 @@ public class TeacherController {
     JsonWrapper<TeacherDTO> updateInformation(TeacherModifiableDTO dto) {
         return new JsonWrapper<>(teacherService.updateInformation(dto));
     }
+
+    @ApiOperation("授课表")
+    @GetMapping("teaching-courses")
+    JsonWrapper<List<TeacherCourseDTO>> getTeachesCourseDtoList() {
+        return new JsonWrapper<>(teacherService.getTeachesCourseDtoList());
+    }
+
 
     @ApiOperation("打分页面")
     @GetMapping("mark-page")
