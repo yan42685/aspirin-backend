@@ -28,6 +28,7 @@
         where student.number = #{studentNumber}
           and student.semester = #{semester}
           and student_course_detail.status = #{dropped}
+        order by student_course_detail.create_time desc
     </select>
 
     <sql id="getCourseDetailDtoByStudentNumber">
