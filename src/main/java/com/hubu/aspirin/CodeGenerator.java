@@ -18,15 +18,20 @@ import java.util.Scanner;
  * @author alex
  */
 public class CodeGenerator {
+    /**
+     * 一般只有下面几个字段需要自定义
+     */
+    private static final String URL = "jdbc:mysql://localhost:3306/aspirin" + "?useUnicode=true&serverTimezone=GMT%2B8&useSSL=false&characterEncoding=utf8";
+    private static final String USERNAME = "root";
+    private static final String PASSWORD = "root";
+    private static final String BASE_PACKAGE = "com.example.movie";
 
     /**
      * 读取控制台内容
      */
     public static String scanner(String tip) {
         Scanner scanner = new Scanner(System.in);
-        StringBuilder help = new StringBuilder();
-        help.append("请输入" + tip + "：");
-        System.out.println(help.toString());
+        System.out.println("请输入" + tip + "：");
         if (scanner.hasNext()) {
             String ipt = scanner.next();
             if (StringUtils.isNotEmpty(ipt)) {
@@ -56,17 +61,17 @@ public class CodeGenerator {
 
         // 数据源配置
         DataSourceConfig dsc = new DataSourceConfig();
-        dsc.setUrl("jdbc:mysql://localhost:3306/aspirin?useUnicode=true&serverTimezone=GMT%2B8&useSSL=false&characterEncoding=utf8");
+        dsc.setUrl(URL);
         // dsc.setSchemaName("public");
         dsc.setDriverName("com.mysql.cj.jdbc.Driver");
-        dsc.setUsername("root");
-        dsc.setPassword("root");
+        dsc.setUsername(USERNAME);
+        dsc.setPassword(PASSWORD);
         mpg.setDataSource(dsc);
 
         // 包配置
         PackageConfig pc = new PackageConfig();
         pc.setModuleName(scanner("模块名"));
-        pc.setParent("com.example.demo");
+        pc.setParent(BASE_PACKAGE);
         mpg.setPackageInfo(pc);
 
         // 自定义配置
