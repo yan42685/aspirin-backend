@@ -1,7 +1,7 @@
 package com.hubu.aspirin.controller;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.hubu.aspirin.common.JsonWrapper;
+import com.hubu.aspirin.core.Result;
 import com.hubu.aspirin.enums.CourseTypeEnum;
 import com.hubu.aspirin.model.dto.*;
 import com.hubu.aspirin.service.StudentService;
@@ -22,49 +22,49 @@ public class StudentController {
 
     @ApiOperation("获取个人信息")
     @GetMapping("information")
-    JsonWrapper<StudentDTO> getInformation() {
-        return new JsonWrapper<>(studentService.getInformation());
+    Result<StudentDTO> getInformation() {
+        return new Result<>(studentService.getInformation());
     }
 
     @ApiOperation("修改个人信息")
     @PutMapping("information")
-    JsonWrapper<StudentDTO> updateInformation(StudentModifiableDTO dto) {
-        return new JsonWrapper<>(studentService.updateInformation(dto));
+    Result<StudentDTO> updateInformation(StudentModifiableDTO dto) {
+        return new Result<>(studentService.updateInformation(dto));
     }
 
     @ApiOperation("分类查看选课表")
     @GetMapping("available-course-list")
-    JsonWrapper<List<ElectiveDTO>> availableElectiveList(Integer semester, CourseTypeEnum courseType) {
-        return new JsonWrapper<>(studentService.availableElectiveList(semester, courseType));
+    Result<List<ElectiveDTO>> availableElectiveList(Integer semester, CourseTypeEnum courseType) {
+        return new Result<>(studentService.availableElectiveList(semester, courseType));
     }
 
     @ApiOperation(value = "获取课程表")
     @GetMapping("course-schedule")
-    JsonWrapper<List<CourseDetailDTO>> getCourseSchedule(Integer semester) {
-        return new JsonWrapper<>(studentService.getCourseSchedule(semester));
+    Result<List<CourseDetailDTO>> getCourseSchedule(Integer semester) {
+        return new Result<>(studentService.getCourseSchedule(semester));
     }
 
     @ApiOperation(value = "选课", notes = "返回课程表")
     @PostMapping("elective")
-    JsonWrapper<List<ElectiveDTO>> electCourse(Long courseDetailId) {
-        return new JsonWrapper<>(studentService.electCourse(courseDetailId));
+    Result<List<ElectiveDTO>> electCourse(Long courseDetailId) {
+        return new Result<>(studentService.electCourse(courseDetailId));
     }
 
     @ApiOperation("退课")
     @DeleteMapping("elective")
-    JsonWrapper<List<ElectiveDTO>> dropCourse(Long courseDetailId) {
-        return new JsonWrapper<>(studentService.dropCourse(courseDetailId));
+    Result<List<ElectiveDTO>> dropCourse(Long courseDetailId) {
+        return new Result<>(studentService.dropCourse(courseDetailId));
     }
 
     @ApiOperation("查看退课记录")
     @GetMapping("course-drop-record")
-    JsonWrapper<IPage<CourseDropDTO>> pageCourseDropRecord(Integer current, Integer size) {
-        return new JsonWrapper<>(studentService.pageCourseDropRecord(current, size));
+    Result<IPage<CourseDropDTO>> pageCourseDropRecord(Integer current, Integer size) {
+        return new Result<>(studentService.pageCourseDropRecord(current, size));
     }
 
     @ApiOperation("查看成绩")
     @GetMapping("grade")
-    JsonWrapper<IPage<GradeDTO>> pageGrade(Integer current, Integer size, Integer semester) {
-        return new JsonWrapper<>(studentService.pageGrade(current, size, semester));
+    Result<IPage<GradeDTO>> pageGrade(Integer current, Integer size, Integer semester) {
+        return new Result<>(studentService.pageGrade(current, size, semester));
     }
 }

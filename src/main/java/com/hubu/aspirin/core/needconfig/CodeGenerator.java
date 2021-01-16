@@ -1,4 +1,4 @@
-package com.hubu.aspirin;
+package com.hubu.aspirin.core.needconfig;
 
 
 import com.baomidou.mybatisplus.core.exceptions.MybatisPlusException;

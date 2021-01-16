@@ -1,4 +1,4 @@
-package com.hubu.aspirin.util;
+package com.hubu.aspirin.core.util;
 
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;

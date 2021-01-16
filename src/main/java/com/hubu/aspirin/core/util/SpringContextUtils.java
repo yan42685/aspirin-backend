@@ -1,4 +1,4 @@
-package com.hubu.aspirin.util;
+package com.hubu.aspirin.core.util;
 
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;

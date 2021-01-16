@@ -1,6 +1,7 @@
 package com.hubu.aspirin.util;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.hubu.aspirin.core.util.SpringContextUtils;
 import com.hubu.aspirin.model.entity.Administrator;
 import com.hubu.aspirin.service.AdministratorService;
 import com.hubu.aspirin.service.FacultyService;

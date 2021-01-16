@@ -1,4 +1,4 @@
-package com.hubu.aspirin.config;
+package com.hubu.aspirin.core.needconfig;
 
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringBootConfiguration;

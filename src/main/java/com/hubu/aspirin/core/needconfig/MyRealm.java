@@ -1,7 +1,6 @@
-package com.hubu.aspirin.config;
+package com.hubu.aspirin.core.needconfig;
 
-import com.hubu.aspirin.common.KnownException;
-import com.hubu.aspirin.enums.ExceptionEnum;
+import com.hubu.aspirin.core.KnownException;
 import com.hubu.aspirin.enums.RoleEnum;
 import com.hubu.aspirin.model.entity.LoginToken;
 import com.hubu.aspirin.model.entity.User;

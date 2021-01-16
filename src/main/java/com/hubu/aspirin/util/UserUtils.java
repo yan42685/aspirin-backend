@@ -1,9 +1,10 @@
 package com.hubu.aspirin.util;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.hubu.aspirin.common.KnownException;
-import com.hubu.aspirin.config.ShiroConfig;
-import com.hubu.aspirin.enums.ExceptionEnum;
+import com.hubu.aspirin.core.KnownException;
+import com.hubu.aspirin.core.needconfig.ExceptionEnum;
+import com.hubu.aspirin.core.needconfig.ShiroConfig;
+import com.hubu.aspirin.core.util.SpringContextUtils;
 import com.hubu.aspirin.enums.RoleEnum;
 import com.hubu.aspirin.model.entity.Administrator;
 import com.hubu.aspirin.model.entity.Student;

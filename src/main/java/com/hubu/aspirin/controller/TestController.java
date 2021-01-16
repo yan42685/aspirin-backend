@@ -1,7 +1,7 @@
 package com.hubu.aspirin.controller;
 
 import com.github.xiaoymin.knife4j.annotations.ApiSupport;
-import com.hubu.aspirin.common.JsonWrapper;
+import com.hubu.aspirin.core.Result;
 import com.hubu.aspirin.util.UserUtils;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
@@ -39,8 +39,8 @@ public class TestController {
     @ApiOperation("翻转字符串")
     @ApiImplicitParam(name = "str", value = "原始字符串", paramType = "query", dataType = "string")
     @GetMapping("reverse")
-    public JsonWrapper<String> reverse(@NotBlank(message = "输入字符串不能为空") String str) {
-        return new JsonWrapper<>(new StringBuilder(str).reverse().toString());
+    public Result<String> reverse(@NotBlank(message = "输入字符串不能为空") String str) {
+        return new Result<>(new StringBuilder(str).reverse().toString());
     }
 
     @ApiOperation(value = "加法运算", notes = "两个整数相加")
@@ -49,19 +49,19 @@ public class TestController {
             @ApiImplicitParam(name = "y", value = "被加数", dataType = "int")
     })
     @GetMapping("add")
-    public JsonWrapper<Integer> add(int x, int y) {
-        return new JsonWrapper<>(x + y);
+    public Result<Integer> add(int x, int y) {
+        return new Result<>(x + y);
     }
 
     @ApiOperation("生成密码")
     @GetMapping("password")
-    public JsonWrapper<String> reverse(String username, String rawPassword) {
-        return new JsonWrapper<>(UserUtils.generatePassword(username, rawPassword));
+    public Result<String> reverse(String username, String rawPassword) {
+        return new Result<>(UserUtils.generatePassword(username, rawPassword));
     }
 
     @ApiOperation("api详情列表")
     @GetMapping("apiDetailList")
-    public JsonWrapper<List<String>> getRouterDetailList() {
+    public Result<List<String>> getRouterDetailList() {
         Set<RequestMappingInfo> set = requestMappingHandlerMapping.getHandlerMethods().keySet();
 
         List<String> routerDetailList = new ArrayList<>();
@@ -79,12 +79,12 @@ public class TestController {
 //        System.out.println(routerDetailList);
 //
 //        List<String> routerDetailList = set.stream().map(RequestMappingInfo::toString).collect(Collectors.toList());
-        return new JsonWrapper<>(routerDetailList);
+        return new Result<>(routerDetailList);
     }
 
     @ApiOperation("api地址列表")
     @GetMapping("apiUrlList")
-    public JsonWrapper<List<String>> getRouterUrlList() {
+    public Result<List<String>> getRouterUrlList() {
         Set<RequestMappingInfo> set = requestMappingHandlerMapping.getHandlerMethods().keySet();
 
         List<String> routerUrlList = set.stream()
@@ -94,6 +94,6 @@ public class TestController {
                 // 去掉中括号
                 .map(str -> str.substring(1, str.length() - 1))
                 .collect(Collectors.toList());
-        return new JsonWrapper<>(routerUrlList);
+        return new Result<>(routerUrlList);
     }
 }

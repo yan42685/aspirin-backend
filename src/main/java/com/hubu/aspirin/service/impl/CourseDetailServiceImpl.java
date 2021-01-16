@@ -2,10 +2,10 @@ package com.hubu.aspirin.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.hubu.aspirin.common.KnownException;
 import com.hubu.aspirin.converter.CourseDetailConverter;
+import com.hubu.aspirin.core.KnownException;
+import com.hubu.aspirin.core.needconfig.ExceptionEnum;
 import com.hubu.aspirin.enums.CourseTypeEnum;
-import com.hubu.aspirin.enums.ExceptionEnum;
 import com.hubu.aspirin.mapper.CourseDetailMapper;
 import com.hubu.aspirin.model.dto.CourseAssignDTO;
 import com.hubu.aspirin.model.dto.CourseDetailDTO;

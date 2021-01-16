@@ -1,7 +1,7 @@
 package com.hubu.aspirin.controller;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.hubu.aspirin.common.JsonWrapper;
+import com.hubu.aspirin.core.Result;
 import com.hubu.aspirin.model.dto.*;
 import com.hubu.aspirin.service.TeacherService;
 import io.swagger.annotations.Api;
@@ -22,45 +22,45 @@ public class TeacherController {
 
     @ApiOperation("获取自身个人信息")
     @GetMapping("information")
-    JsonWrapper<TeacherDTO> getInformation() {
-        return new JsonWrapper<>(teacherService.getInformation());
+    Result<TeacherDTO> getInformation() {
+        return new Result<>(teacherService.getInformation());
     }
 
     @ApiOperation("修改个人信息")
     @PutMapping("Information")
-    JsonWrapper<TeacherDTO> updateInformation(TeacherModifiableDTO dto) {
-        return new JsonWrapper<>(teacherService.updateInformation(dto));
+    Result<TeacherDTO> updateInformation(TeacherModifiableDTO dto) {
+        return new Result<>(teacherService.updateInformation(dto));
     }
 
     @ApiOperation("授课表")
     @GetMapping("teaching-courses")
-    JsonWrapper<List<TeacherCourseDTO>> getTeachesCourseDtoList() {
-        return new JsonWrapper<>(teacherService.getTeachesCourseDtoList());
+    Result<List<TeacherCourseDTO>> getTeachesCourseDtoList() {
+        return new Result<>(teacherService.getTeachesCourseDtoList());
     }
 
 
     @ApiOperation("打分页面")
     @GetMapping("mark-page")
-    JsonWrapper<IPage<MarkOutputDTO>> getMarkStudentPage(Integer current, Integer size, Long courseDetailId) {
-        return new JsonWrapper<>(teacherService.getMarkStudentPage(current, size, courseDetailId));
+    Result<IPage<MarkOutputDTO>> getMarkStudentPage(Integer current, Integer size, Long courseDetailId) {
+        return new Result<>(teacherService.getMarkStudentPage(current, size, courseDetailId));
     }
 
     @ApiOperation("打分")
     @PostMapping("mark")
-    JsonWrapper<Boolean> markCourseList(MarkInputDTO input) {
-        return new JsonWrapper<>(teacherService.markCourse(input));
+    Result<Boolean> markCourseList(MarkInputDTO input) {
+        return new Result<>(teacherService.markCourse(input));
     }
 
     @ApiOperation("修改打分")
     @PutMapping("mark")
-    JsonWrapper<Boolean> updateMarkCourseList(MarkInputDTO input) {
-        return new JsonWrapper<>(teacherService.updateMarkCourse(input));
+    Result<Boolean> updateMarkCourseList(MarkInputDTO input) {
+        return new Result<>(teacherService.updateMarkCourse(input));
     }
 
     @ApiOperation("提交打分")
     @PutMapping("submit-mark")
-    JsonWrapper<Boolean> submitMarkList(Long gradeId) {
-        return new JsonWrapper<>(teacherService.submitMark(gradeId));
+    Result<Boolean> submitMarkList(Long gradeId) {
+        return new Result<>(teacherService.submitMark(gradeId));
     }
 
 }

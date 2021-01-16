@@ -1,5 +1,6 @@
-package com.hubu.aspirin.config;
+package com.hubu.aspirin.core.needconfig;
 
+import com.hubu.aspirin.core.basicconfig.ShiroFormAuthenticationFilter;
 import org.apache.shiro.authc.credential.HashedCredentialsMatcher;
 import org.apache.shiro.codec.Base64;
 import org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor;

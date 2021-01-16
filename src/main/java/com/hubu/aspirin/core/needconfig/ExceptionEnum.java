@@ -1,4 +1,4 @@
-package com.hubu.aspirin.enums;
+package com.hubu.aspirin.core.needconfig;
 
 import com.fasterxml.jackson.annotation.JsonValue;
 import lombok.AllArgsConstructor;

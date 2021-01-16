@@ -1,10 +1,10 @@
 package com.hubu.aspirin.controller;
 
-import com.hubu.aspirin.common.JsonWrapper;
+import com.hubu.aspirin.core.Result;
+import com.hubu.aspirin.core.util.VerificationCodeUtils;
 import com.hubu.aspirin.model.dto.LoginTokenDTO;
 import com.hubu.aspirin.model.dto.UserDTO;
 import com.hubu.aspirin.service.UserService;
-import com.hubu.aspirin.util.VerificationCodeUtils;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
@@ -24,22 +24,22 @@ public class AccountController {
 
     @ApiOperation(value = "用户登录", notes = "不能用于管理员登录")
     @GetMapping("user-login")
-    public JsonWrapper<UserDTO> userLogin(LoginTokenDTO token) {
-        return new JsonWrapper<>(userService.login(token));
+    public Result<UserDTO> userLogin(LoginTokenDTO token) {
+        return new Result<>(userService.login(token));
     }
 
     @ApiOperation(value = "管理员登录", notes = "verificationCode参数需要在header里")
     @ApiImplicitParam(name = "verificationCode", paramType = "header", value = "验证码", dataType = "string")
     @GetMapping("admin-login")
-    public JsonWrapper<UserDTO> adminLogin(LoginTokenDTO token) {
-        return new JsonWrapper<>(userService.login(token));
+    public Result<UserDTO> adminLogin(LoginTokenDTO token) {
+        return new Result<>(userService.login(token));
     }
 
     @RequiresUser
     @ApiOperation(value = "登出")
     @GetMapping("logout")
-    public JsonWrapper<Boolean> logout() {
-        return new JsonWrapper<>(userService.logout());
+    public Result<Boolean> logout() {
+        return new Result<>(userService.logout());
     }
 
 

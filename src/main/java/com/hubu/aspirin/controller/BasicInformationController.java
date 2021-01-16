@@ -1,7 +1,7 @@
 package com.hubu.aspirin.controller;
 
 
-import com.hubu.aspirin.common.JsonWrapper;
+import com.hubu.aspirin.core.Result;
 import com.hubu.aspirin.enums.CourseTypeEnum;
 import com.hubu.aspirin.enums.RoleEnum;
 import com.hubu.aspirin.model.dto.*;
@@ -37,56 +37,56 @@ public class BasicInformationController {
 
     @ApiOperation(value = "获取所有学院信息")
     @GetMapping("faculty-names")
-    public JsonWrapper<List<FacultyDTO>> getAllFaculty() {
-        return new JsonWrapper<>(facultyService.getList());
+    public Result<List<FacultyDTO>> getAllFaculty() {
+        return new Result<>(facultyService.getList());
     }
 
     @ApiOperation(value = "获取所有专业信息")
     @GetMapping("specialty-names")
-    public JsonWrapper<List<SpecialtyDTO>> getAllSpecialty() {
-        return new JsonWrapper<>(specialtyService.getList());
+    public Result<List<SpecialtyDTO>> getAllSpecialty() {
+        return new Result<>(specialtyService.getList());
     }
 
     @ApiOperation(value = "获取学院包含的专业")
     @GetMapping("faculty/specialty-names")
-    public JsonWrapper<List<SpecialtyDTO>> getAllSpecialtyByFacultyNumber(String facultyNumber) {
-        return new JsonWrapper<>(specialtyService.getListByFacultyNumber(facultyNumber));
+    public Result<List<SpecialtyDTO>> getAllSpecialtyByFacultyNumber(String facultyNumber) {
+        return new Result<>(specialtyService.getListByFacultyNumber(facultyNumber));
     }
 
     @ApiOperation(value = "获取专业所有入学年份")
     @GetMapping("specialty/admission-years")
-    public JsonWrapper<List<Integer>> getAllAdmissionYearBySpecialtyNumber(String specialtyNumer) {
-        return new JsonWrapper<>(specialtyService.getAllAdmissionYear(specialtyNumer));
+    public Result<List<Integer>> getAllAdmissionYearBySpecialtyNumber(String specialtyNumer) {
+        return new Result<>(specialtyService.getAllAdmissionYear(specialtyNumer));
     }
 
     @ApiOperation("获取所有教室信息")
     @GetMapping("classroom/list")
-    public JsonWrapper<List<ClassroomDTO>> getClassroomList() {
-        return new JsonWrapper<>(classroomService.getList());
+    public Result<List<ClassroomDTO>> getClassroomList() {
+        return new Result<>(classroomService.getList());
     }
 
     @ApiOperation("判断用户是否存在")
     @GetMapping("user/is-existed")
-    public JsonWrapper<Boolean> isUserExisted(String number, RoleEnum role) {
+    public Result<Boolean> isUserExisted(String number, RoleEnum role) {
         boolean isUserExisted = UserUtils.getByNumberAndRole(number, role) != null;
-        return new JsonWrapper<>(isUserExisted);
+        return new Result<>(isUserExisted);
     }
 
     @ApiOperation("根据学号获取学生信息")
     @GetMapping("student")
-    public JsonWrapper<StudentDTO> getStudentByNumber(String number) {
-        return new JsonWrapper<>(studentService.getDtoByNumber(number));
+    public Result<StudentDTO> getStudentByNumber(String number) {
+        return new Result<>(studentService.getDtoByNumber(number));
     }
 
     @ApiOperation("根据工号获取教师信息")
     @GetMapping("teacher")
-    public JsonWrapper<TeacherDTO> getTeacherByNumber(String number) {
-        return new JsonWrapper<>(teacherService.getDtoByNumber(number));
+    public Result<TeacherDTO> getTeacherByNumber(String number) {
+        return new Result<>(teacherService.getDtoByNumber(number));
     }
 
     @ApiOperation("获取所有课程类型")
     @GetMapping("course-type/list")
-    public JsonWrapper<List<CourseTypeEnum>> getAllCourseType() {
-        return new JsonWrapper<>(Arrays.asList(CourseTypeEnum.values()));
+    public Result<List<CourseTypeEnum>> getAllCourseType() {
+        return new Result<>(Arrays.asList(CourseTypeEnum.values()));
     }
 }

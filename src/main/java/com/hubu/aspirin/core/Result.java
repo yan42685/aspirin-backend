@@ -1,4 +1,4 @@
-package com.hubu.aspirin.common;
+package com.hubu.aspirin.core;
 
 
 import lombok.Data;
@@ -8,7 +8,7 @@ import lombok.Data;
  */
 
 @Data
-public class JsonWrapper<T> {
+public class Result<T> {
 
     private static final long serialVersionUID = 1L;
     private static final int SUCCESS_CODE = 0;
@@ -31,17 +31,17 @@ public class JsonWrapper<T> {
      */
     private T data;
 
-    private JsonWrapper(int code, String message, T data) {
+    private Result(int code, String message, T data) {
         this.code = code;
         this.message = message;
         this.data = data;
     }
 
-    public JsonWrapper(int code, String message) {
+    public Result(int code, String message) {
         this(code, message, null);
     }
 
-    public JsonWrapper(T data) {
+    public Result(T data) {
         this(SUCCESS_CODE, SUCCESS_MESSAGE, data);
     }
 

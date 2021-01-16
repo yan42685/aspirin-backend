@@ -1,7 +1,7 @@
-package com.hubu.aspirin.util;
+package com.hubu.aspirin.core.util;
 
-import com.hubu.aspirin.common.KnownException;
-import com.hubu.aspirin.enums.ExceptionEnum;
+import com.hubu.aspirin.core.KnownException;
+import com.hubu.aspirin.core.needconfig.ExceptionEnum;
 import org.apache.commons.lang3.StringUtils;
 
 import javax.imageio.ImageIO;
@@ -78,7 +78,9 @@ public class VerificationCodeUtils {
         return randomStr;
     }
 
-    // 生成随机图片
+    /**
+     * response写入验证码图片
+     */
     public static void getRandomCodeImage() {
         HttpServletRequest request = ServletUtils.getRequest();
         HttpServletResponse response = ServletUtils.getResponse();
@@ -114,6 +116,9 @@ public class VerificationCodeUtils {
         }
     }
 
+    /**
+     * 检查验证码
+     */
     public static void checkCode() {
         String verificationCode = ServletUtils.getHeader(HEADER_NAME);
         if (verificationCode == null) {

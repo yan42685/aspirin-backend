@@ -1,6 +1,7 @@
 package com.hubu.aspirin.common;
 
-import com.hubu.aspirin.enums.ExceptionEnum;
+import com.hubu.aspirin.core.KnownException;
+import com.hubu.aspirin.core.needconfig.ExceptionEnum;
 import lombok.Getter;
 
 /**

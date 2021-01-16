@@ -1,7 +1,7 @@
 package com.hubu.aspirin.controller;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.hubu.aspirin.common.JsonWrapper;
+import com.hubu.aspirin.core.Result;
 import com.hubu.aspirin.model.dto.BulletinDTO;
 import com.hubu.aspirin.service.UserService;
 import io.swagger.annotations.Api;
@@ -22,19 +22,19 @@ public class UserController {
 
     @ApiOperation(value = "查询公告")
     @GetMapping("bulletin-page-query")
-    public JsonWrapper<IPage<BulletinDTO>> queryBulletinDto(Integer current, Integer size, String titleOrContent) {
-        return new JsonWrapper<>(userService.pageBulletin(current, size, titleOrContent));
+    public Result<IPage<BulletinDTO>> queryBulletinDto(Integer current, Integer size, String titleOrContent) {
+        return new Result<>(userService.pageBulletin(current, size, titleOrContent));
     }
 
     @ApiOperation("修改头像")
     @PutMapping("avatar")
-    public JsonWrapper<String> updateAvatar(MultipartFile multipartFile) {
-        return new JsonWrapper<>(userService.updateAvatar(multipartFile));
+    public Result<String> updateAvatar(MultipartFile multipartFile) {
+        return new Result<>(userService.updateAvatar(multipartFile));
     }
 
     @ApiOperation(value = "修改密码")
     @PutMapping("password")
-    public JsonWrapper<Boolean> modifyPassword(String oldPassword, String newPassword) {
-        return new JsonWrapper<>(userService.modifyPassword(oldPassword, newPassword));
+    public Result<Boolean> modifyPassword(String oldPassword, String newPassword) {
+        return new Result<>(userService.modifyPassword(oldPassword, newPassword));
     }
 }

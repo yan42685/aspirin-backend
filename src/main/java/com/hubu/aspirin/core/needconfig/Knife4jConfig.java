@@ -1,4 +1,4 @@
-package com.hubu.aspirin.config;
+package com.hubu.aspirin.core.needconfig;
 
 import com.github.xiaoymin.knife4j.spring.annotations.EnableKnife4j;
 import org.springframework.boot.SpringBootConfiguration;

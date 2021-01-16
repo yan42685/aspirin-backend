@@ -1,4 +1,4 @@
-package com.hubu.aspirin.config;
+package com.hubu.aspirin.core.basicconfig;
 
 import com.baomidou.mybatisplus.extension.plugins.PaginationInterceptor;
 import org.springframework.boot.SpringBootConfiguration;

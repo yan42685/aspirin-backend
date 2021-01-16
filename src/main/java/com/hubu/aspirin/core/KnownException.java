@@ -1,10 +1,12 @@
-package com.hubu.aspirin.common;
-import com.hubu.aspirin.enums.ExceptionEnum;
+package com.hubu.aspirin.core;
+
+import com.hubu.aspirin.core.needconfig.ExceptionEnum;
 import lombok.Getter;
 
 
 /**
  * 已知异常
+ *
  * @author alex
  */
 @Getter

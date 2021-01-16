@@ -1,7 +1,7 @@
-package com.hubu.aspirin.util;
+package com.hubu.aspirin.core.util;
 
-import com.hubu.aspirin.common.KnownException;
-import com.hubu.aspirin.enums.ExceptionEnum;
+import com.hubu.aspirin.core.KnownException;
+import com.hubu.aspirin.core.needconfig.ExceptionEnum;
 import com.qiniu.common.QiniuException;
 import com.qiniu.http.Response;
 import com.qiniu.storage.BucketManager;

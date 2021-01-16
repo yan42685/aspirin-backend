@@ -1,8 +1,8 @@
-package com.hubu.aspirin.config;
+package com.hubu.aspirin.core.basicconfig;
 
 import cn.hutool.json.JSONUtil;
-import com.hubu.aspirin.common.JsonWrapper;
-import com.hubu.aspirin.enums.ExceptionEnum;
+import com.hubu.aspirin.core.Result;
+import com.hubu.aspirin.core.needconfig.ExceptionEnum;
 import org.apache.shiro.web.filter.authc.FormAuthenticationFilter;
 
 import javax.servlet.ServletRequest;
@@ -23,8 +23,8 @@ public class ShiroFormAuthenticationFilter extends FormAuthenticationFilter {
         PrintWriter out = httpResponse.getWriter();
         int errorCode = ExceptionEnum.NOT_LOGIN.getErrorCode();
         String errorMsg = ExceptionEnum.NOT_LOGIN.getErrorMsg();
-        JsonWrapper<String> jsonWrapper = new JsonWrapper<>(errorCode, errorMsg);
-        String json = JSONUtil.parseObj(jsonWrapper, false).toString();
+        Result<String> result = new Result<>(errorCode, errorMsg);
+        String json = JSONUtil.parseObj(result, false).toString();
         out.write(json);
         out.flush();
         out.close();
