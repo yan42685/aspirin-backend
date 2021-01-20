@@ -1,6 +1,7 @@
 package com.hubu.aspirin.core.needconfig;
 
 
+import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.core.exceptions.MybatisPlusException;
 import com.baomidou.mybatisplus.core.toolkit.StringPool;
 import com.baomidou.mybatisplus.core.toolkit.StringUtils;
@@ -54,6 +55,8 @@ public class CodeGenerator {
         gc.setSwagger2(true);
         // 不要覆盖同名文件
         gc.setFileOverride(false);
+        // 主键自增
+        gc.setIdType(IdType.AUTO);
         // 自定义文件名 %s是数据库列名
         gc.setServiceName("%sService");
         gc.setServiceImplName("%sServiceImpl");
@@ -123,9 +126,13 @@ public class CodeGenerator {
         templateConfig.setXml(null);
         mpg.setTemplate(templateConfig);
 
-        // 策略配置
+        //////////// 策略配置 /////////////
         StrategyConfig strategy = new StrategyConfig();
+        // 表名
         strategy.setNaming(NamingStrategy.underline_to_camel);
+        // 根据模块名判断设置表前缀, 暂时不知道有啥用
+//        strategy.setTablePrefix(pc.getModuleName() + "_");
+        // 字段命名
         strategy.setColumnNaming(NamingStrategy.underline_to_camel);
         // strategy.setSuperEntityClass("com.baomidou.ant.common.BaseEntity");
         strategy.setEntityLombokModel(true);
