@@ -1,7 +1,6 @@
 package com.hubu.aspirin.core.needconfig;
 
 
-import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.core.exceptions.MybatisPlusException;
 import com.baomidou.mybatisplus.core.toolkit.StringPool;
 import com.baomidou.mybatisplus.core.toolkit.StringUtils;
@@ -56,7 +55,7 @@ public class CodeGenerator {
         // 不要覆盖同名文件
         gc.setFileOverride(false);
         // 主键自增
-        gc.setIdType(IdType.AUTO);
+//        gc.setIdType(IdType.AUTO);
         // 自定义文件名 %s是数据库列名
         gc.setServiceName("%sService");
         gc.setServiceImplName("%sServiceImpl");
@@ -141,9 +140,9 @@ public class CodeGenerator {
         // 公共父类
         // strategy.setSuperControllerClass("com.baomidou.ant.common.BaseController");
         // 写于父类中的公共字段
-
-        strategy.setSuperEntityColumns("id");
-        strategy.setInclude(scanner("表名，多个英文逗号分割").split(","));
+        // strategy.setSuperEntityColumns("id");
+        // 只生成特定表的代码
+        // strategy.setInclude(scanner("表名，多个英文逗号分割").split(","));
         strategy.setControllerMappingHyphenStyle(true);
         strategy.setTablePrefix(pc.getModuleName() + "_");
         mpg.setStrategy(strategy);
