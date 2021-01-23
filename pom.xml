@@ -23,6 +23,7 @@
         <knife4j-spring-boot-starter.version>2.0.5</knife4j-spring-boot-starter.version>
         <hutool-all.version>5.3.0</hutool-all.version>
         <shiro-spring.version>1.4.0</shiro-spring.version>
+        <lombok.version>1.18.10</lombok.version>
         <org.mapstruct.version>1.4.1.Final</org.mapstruct.version>
         <qiniu-java-sdk.version>[7.3.0, 7.3.99]</qiniu-java-sdk.version>
         <!--       运行 mvn compile typescript-generator:generate 生成ts文件 -->
@@ -162,7 +163,7 @@
                         <path>
                             <groupId>org.projectlombok</groupId>
                             <artifactId>lombok</artifactId>
-                            <version>1.18.10</version>
+                            <version>${lombok.version}</version>
                         </path>
                     </annotationProcessorPaths>
                 </configuration>
