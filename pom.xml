@@ -15,6 +15,10 @@
     <description>nothing</description>
 
     <properties>
+<!--        typescript代码生成器的指定package位置-->
+        <ts-generator-dto-path-pattern>com.hubu.aspirin.model.dto.**</ts-generator-dto-path-pattern>
+        <ts-generator-enum-path-pattern>com.hubu.aspirin.enums.**</ts-generator-enum-path-pattern>
+
         <java.version>1.8</java.version>
         <mybatis-spring-boot-starter.version>2.1.2</mybatis-spring-boot-starter.version>
         <mybatis-plus-boot-starter.version>3.2.0</mybatis-plus-boot-starter.version>
@@ -26,7 +30,7 @@
         <lombok.version>1.18.10</lombok.version>
         <org.mapstruct.version>1.4.1.Final</org.mapstruct.version>
         <qiniu-java-sdk.version>[7.3.0, 7.3.99]</qiniu-java-sdk.version>
-        <!--       运行 mvn compile typescript-generator:generate 生成ts文件 -->
+        <!--       用法： mvn compile typescript-generator:generate 生成ts文件 -->
         <!--        NOTE: Controller中只有public方法的参数才能被生成    -->
         <!--        NOTE: 这个生成TS的插件的Spring的版本要求很苛刻，2.25.695版本的生成器基本只能用 2.3.4.RELEASE, 更高的版本可能有依赖的bug-->
         <typescript-generator-maven-plugin.version>2.25.695</typescript-generator-maven-plugin.version>
@@ -48,6 +52,7 @@
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
         <!--        可以自定义注解-->
+        <!--        在配置类上添加注解@SpringbootConfiguration 和 @ConfigurationProperties和前缀prefix,  并给属性添加getter, setter就可以自动补全了-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-configuration-processor</artifactId>
@@ -66,11 +71,6 @@
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
             <scope>runtime</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-configuration-processor</artifactId>
-            <optional>true</optional>
         </dependency>
         <dependency>
             <groupId>org.projectlombok</groupId>
@@ -146,12 +146,24 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+                <!--                让@ConfigurationProperties生效-->
+                <configuration>
+                    <excludes>
+                        <exclude>
+                            <groupId>org.springframework.boot</groupId>
+                            <artifactId>spring-boot-configuration-processor</artifactId>
+                        </exclude>
+                    </excludes>
+                </configuration>
             </plugin>
+
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.5.1</version>
                 <configuration>
+                    <!-- If using AspectJ, make sure annotation processor runs only once     让@ConfigurationProperties生效-->
+                    <proc>none</proc>
                     <source>1.8</source>
                     <target>1.8</target>
                     <annotationProcessorPaths>
@@ -168,6 +180,7 @@
                     </annotationProcessorPaths>
                 </configuration>
             </plugin>
+
             <plugin>
                 <groupId>cz.habarta.typescript-generator</groupId>
                 <artifactId>typescript-generator-maven-plugin</artifactId>
@@ -184,9 +197,9 @@
                 <configuration>
                     <jsonLibrary>jackson2</jsonLibrary>
                     <classPatterns>
-                        <pattern>com.hubu.aspirin.model.dto.**</pattern>
-                        <pattern>com.hubu.aspirin.enums.**</pattern>
-                        <pattern>com.hubu.aspirin.controller.**</pattern>
+                        <pattern>${ts-generator-dto-path-pattern}</pattern>
+                        <pattern>${ts-generator-enum-path-pattern}</pattern>
+                        <!--                        <pattern>com.hubu.aspirin.controller.**</pattern>-->
                     </classPatterns>
                     <!--                    可调整项-->
                     <!--   是否开启接口生成接口，类生成类                 -->
@@ -196,7 +209,6 @@
                     <!--                        <pattern></pattern>-->
                     <!--                    </mapClassesAsClassesPatterns>-->
                     <!--                    <generateConstructors>true</generateConstructors>-->
-
                     <noFileComment>true</noFileComment>
                     <generateSpringApplicationInterface>true</generateSpringApplicationInterface>
                     <outputKind>module</outputKind>
