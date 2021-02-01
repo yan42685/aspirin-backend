@@ -28,3 +28,18 @@ mybatis-plus:
 
 # knife4j中自定义文档的位置 (文件名只能以.md结尾)
 knife4j.markdowns: classpath:/markdown/*
+
+# actuator 配置
+management:
+  endpoint:
+    health:
+      show-details: always
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+        exclude: "env,beans"
+info: # 自定义 actuator info字段
+  app-name: aspirin
+  author: alex
+  email: xxxxx@gmail.com
