@@ -33,8 +33,8 @@ public class UnifiedExceptionHandler {
     public Result<String> handleUnknownException(Exception e, HttpServletRequest request) {
         int errorCode = ExceptionEnum.UNKNOWN_EXCEPTION.getErrorCode();
         String errorMessage = ExceptionEnum.UNKNOWN_EXCEPTION.getErrorMsg();
-        String stackTrack = Arrays.toString(e.getStackTrace());
-        log.error("url: {} | exceptionClass: {} | msg: {}", request.getRequestURL(), e.getClass(), stackTrack);
+        String stackTrace = Arrays.toString(e.getStackTrace());
+        log.error("url: {} | exceptionClass: {} | msg: {}", request.getRequestURL(), e.getClass(), stackTrace);
         return new Result<>(errorCode, errorMessage);
     }
 
@@ -43,8 +43,8 @@ public class UnifiedExceptionHandler {
      */
     @ExceptionHandler(KnownException.class)
     public Result<String> handleKnownException(KnownException e, HttpServletRequest request) {
-        String stackTrack = Arrays.toString(e.getStackTrace());
-        log.error("url: {}    msg: {}", request.getRequestURL(), e.getMessage() + stackTrack);
+        String stackTrace = Arrays.toString(e.getStackTrace());
+        log.error("url: {}    msg: {}", request.getRequestURL(), e.getMessage() + stackTrace);
         return new Result<>(e.getErrorCode(), e.getMessage());
     }
 
@@ -85,8 +85,8 @@ public class UnifiedExceptionHandler {
     public Result<String> handleUnAuthenticationException(Exception e, HttpServletRequest request) {
         int errorCode = ExceptionEnum.WRONG_CREDENTIALS.getErrorCode();
         String errorMessage = ExceptionEnum.WRONG_CREDENTIALS.getErrorMsg();
-        String stackTrack = Arrays.toString(e.getStackTrace());
-        log.error("url: {}    msg: {}", request.getRequestURL(), stackTrack);
+        String stackTrace = Arrays.toString(e.getStackTrace());
+        log.error("url: {}    msg: {}", request.getRequestURL(), stackTrace);
         return new Result<>(errorCode, errorMessage);
     }
 
@@ -97,8 +97,8 @@ public class UnifiedExceptionHandler {
     public Result<String> handleUnAuthorizationException(Exception e, HttpServletRequest request) {
         int errorCode = ExceptionEnum.NO_PERMISSION.getErrorCode();
         String errorMessage = ExceptionEnum.NO_PERMISSION.getErrorMsg();
-        String stackTrack = Arrays.toString(e.getStackTrace());
-        log.error("url: {}    msg: {}", request.getRequestURL(), stackTrack);
+        String stackTrace = Arrays.toString(e.getStackTrace());
+        log.error("url: {}    msg: {}", request.getRequestURL(), stackTrace);
         return new Result<>(errorCode, errorMessage);
     }
 }
