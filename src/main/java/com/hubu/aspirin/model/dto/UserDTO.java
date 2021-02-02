@@ -1,8 +1,7 @@
 package com.hubu.aspirin.model.dto;
 
 import com.hubu.aspirin.common.AspirinConstant;
-import com.hubu.aspirin.enums.GenderEnum;
-import com.hubu.aspirin.enums.RoleEnum;
+import com.hubu.aspirin.model.enums.GenderEnum;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 

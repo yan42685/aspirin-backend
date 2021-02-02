@@ -2,10 +2,10 @@ package com.hubu.aspirin.service;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.hubu.aspirin.enums.CourseTypeEnum;
 import com.hubu.aspirin.model.dto.CourseDTO;
 import com.hubu.aspirin.model.dto.CourseModifiableDTO;
 import com.hubu.aspirin.model.entity.Course;
+import com.hubu.aspirin.model.enums.CourseTypeEnum;
 import org.springframework.web.multipart.MultipartFile;
 
 public interface CourseService extends IService<Course> {

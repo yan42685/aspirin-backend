@@ -1,6 +1,6 @@
 package com.hubu.aspirin.model.dto;
 
-import com.hubu.aspirin.enums.ApplicationSwitchEnum;
+import com.hubu.aspirin.model.enums.ApplicationSwitchEnum;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;

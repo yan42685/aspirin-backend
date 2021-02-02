@@ -1,9 +1,9 @@
 package com.hubu.aspirin.core.needconfig;
 
 import com.hubu.aspirin.core.KnownException;
-import com.hubu.aspirin.enums.RoleEnum;
 import com.hubu.aspirin.model.entity.LoginToken;
 import com.hubu.aspirin.model.entity.User;
+import com.hubu.aspirin.model.enums.RoleEnum;
 import com.hubu.aspirin.util.EnumUtils;
 import com.hubu.aspirin.util.UserUtils;
 import org.apache.shiro.authc.*;

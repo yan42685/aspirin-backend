@@ -1,4 +1,4 @@
-package com.hubu.aspirin.enums;
+package com.hubu.aspirin.model.enums;
 
 import com.baomidou.mybatisplus.annotation.EnumValue;
 import com.baomidou.mybatisplus.core.enums.IEnum;

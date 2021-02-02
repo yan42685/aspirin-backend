@@ -2,9 +2,9 @@ package com.hubu.aspirin.controller;
 
 
 import com.hubu.aspirin.core.Result;
-import com.hubu.aspirin.enums.CourseTypeEnum;
-import com.hubu.aspirin.enums.RoleEnum;
 import com.hubu.aspirin.model.dto.*;
+import com.hubu.aspirin.model.enums.CourseTypeEnum;
+import com.hubu.aspirin.model.enums.RoleEnum;
 import com.hubu.aspirin.service.*;
 import com.hubu.aspirin.util.UserUtils;
 import io.swagger.annotations.Api;

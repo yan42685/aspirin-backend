@@ -3,11 +3,11 @@ package com.hubu.aspirin.controller;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.hubu.aspirin.core.Result;
-import com.hubu.aspirin.enums.CourseTypeEnum;
 import com.hubu.aspirin.model.dto.CourseAssignDTO;
 import com.hubu.aspirin.model.dto.CourseDTO;
 import com.hubu.aspirin.model.dto.CourseDetailDTO;
 import com.hubu.aspirin.model.dto.CourseModifiableDTO;
+import com.hubu.aspirin.model.enums.CourseTypeEnum;
 import com.hubu.aspirin.service.CourseDetailService;
 import com.hubu.aspirin.service.CourseService;
 import io.swagger.annotations.Api;

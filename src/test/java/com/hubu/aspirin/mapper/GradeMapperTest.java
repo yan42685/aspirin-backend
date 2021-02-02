@@ -1,15 +1,12 @@
 package com.hubu.aspirin.mapper;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.hubu.aspirin.enums.ElectiveStatusEnum;
 import com.hubu.aspirin.model.dto.GradeDTO;
-import com.sun.org.apache.xerces.internal.xni.grammars.Grammar;
+import com.hubu.aspirin.model.enums.ElectiveStatusEnum;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 class GradeMapperTest {

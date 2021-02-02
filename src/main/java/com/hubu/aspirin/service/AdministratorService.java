@@ -2,10 +2,10 @@ package com.hubu.aspirin.service;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.hubu.aspirin.enums.ApplicationSwitchEnum;
-import com.hubu.aspirin.enums.RoleEnum;
 import com.hubu.aspirin.model.dto.*;
 import com.hubu.aspirin.model.entity.Administrator;
+import com.hubu.aspirin.model.enums.ApplicationSwitchEnum;
+import com.hubu.aspirin.model.enums.RoleEnum;
 
 public interface AdministratorService extends IService<Administrator> {
     /**

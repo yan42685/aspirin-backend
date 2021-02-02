@@ -1,8 +1,6 @@
 package com.hubu.aspirin.model.dto;
 
-import com.hubu.aspirin.common.AspirinConstant;
-import com.hubu.aspirin.enums.CourseTypeEnum;
-import com.hubu.aspirin.enums.ElectiveStatusEnum;
+import com.hubu.aspirin.model.enums.CourseTypeEnum;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;

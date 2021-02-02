@@ -1,14 +1,10 @@
 package com.hubu.aspirin.controller;
 
-import com.hubu.aspirin.enums.ApplicationSwitchEnum;
-import com.hubu.aspirin.model.dto.ApplicationSwitchDTO;
 import com.hubu.aspirin.service.AdministratorService;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 class AdministratorControllerTest {

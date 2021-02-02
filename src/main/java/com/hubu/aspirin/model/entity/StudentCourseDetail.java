@@ -1,22 +1,22 @@
 package com.hubu.aspirin.model.entity;
 
-import java.time.LocalDateTime;
-import java.io.Serializable;
-
-import com.hubu.aspirin.enums.ElectiveStatusEnum;
+import com.hubu.aspirin.model.enums.ElectiveStatusEnum;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
 
+import java.io.Serializable;
+import java.time.LocalDateTime;
+
 @Data
 @EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
-@ApiModel(value="StudentCourseDetail对象", description="")
+@ApiModel(value = "StudentCourseDetail对象", description = "")
 public class StudentCourseDetail implements Serializable {
 
-    private static final long serialVersionUID=1L;
+    private static final long serialVersionUID = 1L;
 
     @ApiModelProperty(value = "主键")
     private Long id;

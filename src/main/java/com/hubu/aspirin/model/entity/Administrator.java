@@ -1,14 +1,13 @@
 package com.hubu.aspirin.model.entity;
 
-import java.time.LocalDateTime;
-import java.io.Serializable;
-
-import com.hubu.aspirin.enums.RoleEnum;
+import com.hubu.aspirin.model.enums.RoleEnum;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
+
+import java.io.Serializable;
 
 @Data
 @EqualsAndHashCode(callSuper = false)

@@ -2,8 +2,8 @@ package com.hubu.aspirin.controller;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.hubu.aspirin.core.Result;
-import com.hubu.aspirin.enums.CourseTypeEnum;
 import com.hubu.aspirin.model.dto.*;
+import com.hubu.aspirin.model.enums.CourseTypeEnum;
 import com.hubu.aspirin.service.StudentService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;

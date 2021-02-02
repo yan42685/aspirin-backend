@@ -2,9 +2,9 @@ package com.hubu.aspirin.controller;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.hubu.aspirin.core.Result;
-import com.hubu.aspirin.enums.ApplicationSwitchEnum;
-import com.hubu.aspirin.enums.RoleEnum;
 import com.hubu.aspirin.model.dto.*;
+import com.hubu.aspirin.model.enums.ApplicationSwitchEnum;
+import com.hubu.aspirin.model.enums.RoleEnum;
 import com.hubu.aspirin.service.AdministratorService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;

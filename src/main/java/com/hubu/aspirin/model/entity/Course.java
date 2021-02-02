@@ -1,23 +1,23 @@
 package com.hubu.aspirin.model.entity;
 
-import java.time.LocalDateTime;
-import java.io.Serializable;
-
 import com.hubu.aspirin.common.AspirinConstant;
-import com.hubu.aspirin.enums.CourseTypeEnum;
+import com.hubu.aspirin.model.enums.CourseTypeEnum;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
 
+import java.io.Serializable;
+import java.time.LocalDateTime;
+
 @Data
 @EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
-@ApiModel(value="Course对象", description="")
+@ApiModel(value = "Course对象", description = "")
 public class Course implements Serializable {
 
-    private static final long serialVersionUID=1L;
+    private static final long serialVersionUID = 1L;
 
     @ApiModelProperty(value = "主键")
     private Long id;

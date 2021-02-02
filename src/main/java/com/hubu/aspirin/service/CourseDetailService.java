@@ -1,10 +1,10 @@
 package com.hubu.aspirin.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.hubu.aspirin.enums.CourseTypeEnum;
 import com.hubu.aspirin.model.dto.CourseAssignDTO;
 import com.hubu.aspirin.model.dto.CourseDetailDTO;
 import com.hubu.aspirin.model.entity.CourseDetail;
+import com.hubu.aspirin.model.enums.CourseTypeEnum;
 
 import java.util.List;
 

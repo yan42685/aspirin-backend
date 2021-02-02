@@ -1,6 +1,6 @@
 package com.hubu.aspirin.model.dto;
 
-import com.hubu.aspirin.enums.RoleEnum;
+import com.hubu.aspirin.model.enums.RoleEnum;
 import io.swagger.annotations.ApiModel;
 import lombok.Data;
 

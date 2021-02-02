@@ -1,7 +1,6 @@
 package com.hubu.aspirin.model.dto;
 
-import com.baomidou.mybatisplus.annotation.TableField;
-import com.hubu.aspirin.enums.CourseTypeEnum;
+import com.hubu.aspirin.model.enums.CourseTypeEnum;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
