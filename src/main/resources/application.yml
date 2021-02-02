@@ -1,9 +1,12 @@
+# 所有环境通用配置
 spring:
   datasource:
     url: jdbc:mysql://www.alexyan.cn:3306/aspirin?useUnicode=true&characterEncoding=utf8&serverTimezone=GMT%2B8&useSSL=false&allowPublicKeyRetrieval=true
     driver-class-name: com.mysql.cj.jdbc.Driver
     username: root
     password: xyyj1982
+  profiles:
+    active: dev
 
 server:
   port: 8090
@@ -43,3 +46,18 @@ info: # 自定义 actuator info字段
   app-name: aspirin
   author: alex
   email: xxxxx@gmail.com
+
+
+--- # 标识文档开始
+# profile = x 的专用配置
+spring:
+  profiles: dev  # 定义该片段配置的环境名
+
+info.app-name: aspirin-dev
+
+---
+# profile = y 的专用配置
+spring:
+  profiles: prod
+
+info.app-name: aspirin-prod
