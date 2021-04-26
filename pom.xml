@@ -166,8 +166,6 @@
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.5.1</version>
                 <configuration>
-                    <!-- If using AspectJ, make sure annotation processor runs only once     让@ConfigurationProperties生效-->
-                    <proc>none</proc>
                     <source>1.8</source>
                     <target>1.8</target>
                     <annotationProcessorPaths>
