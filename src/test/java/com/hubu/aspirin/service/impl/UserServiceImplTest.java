@@ -1,11 +1,6 @@
 package com.hubu.aspirin.service.impl;
 
-import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.hubu.aspirin.converter.BulletinConverter;
 import com.hubu.aspirin.mapper.BulletinMapper;
-import com.hubu.aspirin.model.dto.BulletinDTO;
-import com.hubu.aspirin.model.entity.Bulletin;
 import com.hubu.aspirin.service.AdministratorService;
 import com.hubu.aspirin.service.BulletinService;
 import com.hubu.aspirin.service.GradeService;
@@ -33,11 +28,6 @@ class UserServiceImplTest {
     UserService userService;
     @Autowired
     BulletinMapper bulletinMapper;
-
-    @Test
-    void simpleRegister() {
-        Assertions.assertEquals(3, 3);
-    }
 
     @Test
     void getBulletinPage() {

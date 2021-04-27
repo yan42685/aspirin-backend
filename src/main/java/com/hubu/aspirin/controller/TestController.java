@@ -10,6 +10,7 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.mvc.condition.PatternsRequestCondition;
@@ -95,5 +96,11 @@ public class TestController {
                 .map(str -> str.substring(1, str.length() - 1))
                 .collect(Collectors.toList());
         return new Result<>(routerUrlList);
+    }
+
+    @ApiOperation("假装注册")
+    @PostMapping("fakeRegister")
+    public Result<Void> testRegister(String username, String password, String email, String nickname) {
+        return new Result<>(null);
     }
 }
