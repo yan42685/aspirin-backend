@@ -24,7 +24,7 @@ public class CodeGenerator {
     private static final String URL = "jdbc:mysql://localhost:3306/aspirin" + "?useUnicode=true&serverTimezone=GMT%2B8&useSSL=false&characterEncoding=utf8";
     private static final String USERNAME = "root";
     private static final String PASSWORD = "root";
-    private static final String BASE_PACKAGE = "com.example.movie";
+    private static final String BASE_PACKAGE = "com.example.generated";
 
     /**
      * 读取控制台内容
@@ -72,7 +72,7 @@ public class CodeGenerator {
 
         // 包配置
         PackageConfig pc = new PackageConfig();
-        pc.setModuleName(scanner("模块名"));
+//        pc.setModuleName(scanner("模块名"));
         pc.setParent(BASE_PACKAGE);
         mpg.setPackageInfo(pc);
 
